@@ -85,7 +85,7 @@ namespace ParkingLotApplication.Controllers
 
             catch (Exception e)
             {
-                return this.NotFound(new { Status = false, Message = e.Message });
+                //return this.NotFound(new { Status = false, Message = e.Message });
             }
         }
     }
