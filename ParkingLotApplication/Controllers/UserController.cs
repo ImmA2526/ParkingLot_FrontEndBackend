@@ -20,6 +20,12 @@ namespace ParkingLotApplication.Controllers
             this.business = business;
         }
 
+        /// <summary>
+        /// Register User .
+        /// </summary>
+        /// <param name="user">The user.</param>
+        /// <returns></returns>
+        
         [HttpPost]
         [Route("api/addUser")]
         public IActionResult AddUser([FromBody] UserModel user)
@@ -42,6 +48,12 @@ namespace ParkingLotApplication.Controllers
             }
         }
 
+        /// <summary>
+        /// Login the user.
+        /// </summary>
+        /// <param name="login">The login.</param>
+        /// <returns></returns>
+        
         [HttpPost]
         [Route("api/loginUser")]
         public IActionResult LoginUser([FromBody] LoginModel login)
@@ -63,6 +75,12 @@ namespace ParkingLotApplication.Controllers
                 return this.NotFound(new { Status = false, Message = e.Message });
             }
         }
+
+        /// <summary>
+        /// Forgot password.
+        /// </summary>
+        /// <param name="forgot">The forgot.</param>
+        /// <returns></returns>
 
         [HttpGet]
         [Route("api/forgotPassword")]
@@ -87,6 +105,13 @@ namespace ParkingLotApplication.Controllers
                 return this.NotFound(new { Status = false, Message = e.Message });
             }
         }
+
+        /// <summary>
+        /// Reset password.
+        /// </summary>
+        /// <param name="oldPassword">The old password.</param>
+        /// <param name="newPassword">The new password.</param>
+        /// <returns></returns>
 
         [HttpPut]
         [Route("api/resetPassword/{oldPassword}/{newPassword}")]

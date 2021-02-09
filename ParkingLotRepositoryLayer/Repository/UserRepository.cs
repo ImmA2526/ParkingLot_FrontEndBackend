@@ -37,6 +37,12 @@ namespace ParkingLotRepositoryLayer.Repository
         }
 
 
+        /// <summary>
+        /// Users login.
+        /// </summary>
+        /// <param name="login">The login.</param>
+        /// <returns></returns>
+
         public LoginModel UserLogin(LoginModel login)
         {
             var result = parkingContext.UserTable.Where<UserModel>(x => x.Email == login.Email && x.Password == login.Password).FirstOrDefault();
@@ -46,6 +52,12 @@ namespace ParkingLotRepositoryLayer.Repository
             }
             return null;
         }
+
+        /// <summary>
+        /// Forgot password.
+        /// </summary>
+        /// <param name="forgot">The forgot.</param>
+        /// <returns></returns>
 
         public string ForgotUserPassword(ForgotModel forgot)
         {
@@ -79,6 +91,13 @@ namespace ParkingLotRepositoryLayer.Repository
             }
         }
 
+        /// <summary>
+        /// Reset password.
+        /// </summary>
+        /// <param name="oldPassword">The old password.</param>
+        /// <param name="newPassword">The new password.</param>
+        /// <returns></returns>
+        
         public string ResetUserPassword(string oldPassword, string newPassword)
         {
             var resetPwd = parkingContext.UserTable.FirstOrDefault(password => password.Password == oldPassword);
