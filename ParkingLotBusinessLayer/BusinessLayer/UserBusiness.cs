@@ -31,5 +31,12 @@ namespace ParkingLotBusinessLayer
             var result = repository.ForgotUserPassword(forgot);
             return result;
         }
+
+        public string ResetUserPassword(string oldPassword, string newPassword)
+        {
+            var result = repository.ResetUserPassword(oldPassword, newPassword);
+            return result;
+        }
+
     }
 }

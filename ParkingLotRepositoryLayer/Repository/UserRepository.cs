@@ -1,4 +1,5 @@
-﻿using ParkingLotModelLayer;
+﻿using Microsoft.EntityFrameworkCore;
+using ParkingLotModelLayer;
 using ParkingLotRepositoryLayer.IRepository;
 using System;
 using System.Collections.Generic;
@@ -21,20 +22,19 @@ namespace ParkingLotRepositoryLayer.Repository
         {
             //try
             //{
-                parkingContext.UserTable.Add(model);
-                var result = parkingContext.SaveChanges();
-                if (result > 0)
-                {
-                    return model;
-                }
-                return null;
+            parkingContext.UserTable.Add(model);
+            var result = parkingContext.SaveChanges();
+            if (result > 0)
+            {
+                return model;
+            }
+            return null;
             //}
             //catch (Exception e)
             //{
             //    return this.(new { Status = false, Message = e.Message });
             //}
         }
-
 
 
         public LoginModel UserLogin(LoginModel login)
@@ -49,7 +49,7 @@ namespace ParkingLotRepositoryLayer.Repository
 
         public string ForgotUserPassword(ForgotModel forgot)
         {
-            string subject = "Password Link";
+            string subject = "Your Password is";
             string body;
             var result = parkingContext.UserTable.FirstOrDefault(e => e.Email == forgot.Email);
             if (result != null)
@@ -77,7 +77,23 @@ namespace ParkingLotRepositoryLayer.Repository
                 smtp.Send(mailMessage);
                 return "Success";
             }
-
         }
+
+        public string ResetUserPassword(string oldPassword, string newPassword)
+        {
+            var resetPwd = parkingContext.UserTable.FirstOrDefault(password => password.Password == oldPassword);
+            if (resetPwd != null)
+            {
+                resetPwd.Password = newPassword;
+                parkingContext.Entry(resetPwd).State = EntityState.Modified;
+                parkingContext.SaveChanges();
+                return "SUCCESS";
+            }
+            else
+            {
+                return "NOT_FOUND";
+            }
+        }
+
     }
 }

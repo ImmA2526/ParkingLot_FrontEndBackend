@@ -27,7 +27,7 @@ namespace ParkingLotApplication.Controllers
             try
             {
                 var result = this.business.UserRegistration(user);
-                if (result!=null)
+                if (result != null)
                 {
                     return this.Ok(new { success = true, Message = "Data Added successfully", Data = result });
                 }
@@ -65,12 +65,11 @@ namespace ParkingLotApplication.Controllers
         }
 
         [HttpGet]
-        [Route("api/forgotUser")]
+        [Route("api/forgotPassword")]
         public IActionResult ForgotPassword(ForgotModel forgot)
         {
             try
             {
-
                 var result = this.business.ForgotUserPassword(forgot);
 
                 if (result != null)
@@ -85,7 +84,29 @@ namespace ParkingLotApplication.Controllers
 
             catch (Exception e)
             {
-                //return this.NotFound(new { Status = false, Message = e.Message });
+                return this.NotFound(new { Status = false, Message = e.Message });
+            }
+        }
+
+        [HttpPut]
+        [Route("api/resetPassword/{oldPassword}/{newPassword}")]
+        public IActionResult ResetPassword(string oldPassword, string newPassword)
+        {
+            try
+            {
+                var result = this.business.ResetUserPassword(oldPassword, newPassword);
+                if (result != null)
+                {
+                    return this.Ok(new { success = true, Message = "Password Reset Succesfully", Data = result });
+                }
+                else
+                {
+                    return this.BadRequest(new { success = false, Message = "Error Ehile Reseting Password" });
+                }
+            }
+            catch (Exception e)
+            {
+                return this.NotFound(new { Status = false, Message = e.Message });
             }
         }
     }
