@@ -32,9 +32,9 @@ namespace ParkingLotBusinessLayer
             return result;
         }
 
-        public string ResetUserPassword(string oldPassword, string newPassword)
+        public string ResetUserPassword(LoginModel reset)
         {
-            var result = repository.ResetUserPassword(oldPassword, newPassword);
+            var result = repository.ResetUserPassword(reset);
             return result;
         }
 

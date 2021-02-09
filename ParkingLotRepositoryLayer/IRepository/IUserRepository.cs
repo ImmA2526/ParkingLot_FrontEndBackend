@@ -13,6 +13,6 @@ namespace ParkingLotRepositoryLayer.IRepository
 
         string ForgotUserPassword(ForgotModel forgot);
 
-        string ResetUserPassword(string oldPassword, string newPassword);
+        string ResetUserPassword(LoginModel reset);
     }
 }

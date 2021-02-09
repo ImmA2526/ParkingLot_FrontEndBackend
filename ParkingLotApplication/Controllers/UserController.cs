@@ -114,12 +114,12 @@ namespace ParkingLotApplication.Controllers
         /// <returns></returns>
 
         [HttpPut]
-        [Route("api/resetPassword/{oldPassword}/{newPassword}")]
-        public IActionResult ResetPassword(string oldPassword, string newPassword)
+        [Route("api/resetPassword")]
+        public IActionResult ResetPassword(LoginModel reset)
         {
             try
             {
-                var result = this.business.ResetUserPassword(oldPassword, newPassword);
+                var result = this.business.ResetUserPassword(reset);
                 if (result != null)
                 {
                     return this.Ok(new { success = true, Message = "Password Reset Succesfully", Data = result });
