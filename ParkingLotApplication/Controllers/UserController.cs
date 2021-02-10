@@ -29,6 +29,30 @@ namespace ParkingLotApplication.Controllers
         }
 
         /// <summary>
+        /// Genrates the JWT token.
+        /// </summary>
+        /// <param name="Role">The role.</param>
+        /// <param name="Email">The email.</param>
+        /// <returns></returns>
+        private string GenrateJWTToken(string Role, string Email)
+        {
+            var secretkey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Key"]));
+            var signinCredentials = new SigningCredentials(secretkey, SecurityAlgorithms.HmacSha256);
+            var claims = new List<Claim>
+            {
+                new Claim(ClaimTypes.Role, Role),
+                new Claim("Email",Email)
+            };
+            var tokenOptionOne = new JwtSecurityToken(
+                claims: claims,
+                expires: DateTime.Now.AddMinutes(15),
+                signingCredentials: signinCredentials
+                );
+            string token = new JwtSecurityTokenHandler().WriteToken(tokenOptionOne);
+            return token;
+        }
+
+        /// <summary>
         /// Register User .
         /// </summary>
         /// <param name="user">The user.</param>
@@ -141,30 +165,6 @@ namespace ParkingLotApplication.Controllers
             {
                 return this.NotFound(new { Status = false, Message = e.Message });
             }
-        }
-
-        /// <summary>
-        /// Genrates the JWT token.
-        /// </summary>
-        /// <param name="Role">The role.</param>
-        /// <param name="Email">The email.</param>
-        /// <returns></returns>
-        private string GenrateJWTToken(string Role, string Email)
-        {
-            var secretkey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Key"]));
-            var signinCredentials = new SigningCredentials(secretkey, SecurityAlgorithms.HmacSha256);
-            var claims = new List<Claim>
-            {
-                new Claim(ClaimTypes.Role, Role),
-                new Claim("Email",Email)
-            };
-            var tokenOptionOne = new JwtSecurityToken(
-                claims: claims,
-                expires: DateTime.Now.AddMinutes(15),
-                signingCredentials: signinCredentials
-                );
-            string token = new JwtSecurityTokenHandler().WriteToken(tokenOptionOne);
-            return token;
-        }
+        } 
     }
 }
