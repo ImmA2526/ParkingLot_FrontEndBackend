@@ -133,7 +133,8 @@ namespace ParkingLotRepositoryLayer.Repository
                 var result = parkingContext.UserTable.FirstOrDefault(e => e.Email == forgot.Email);
                 if (result != null)
                 {
-                    body = result.Password;
+                    string decode = Decryptdata(result.Password);
+                    body = decode;
                 }
                 else
                 {
@@ -187,6 +188,36 @@ namespace ParkingLotRepositoryLayer.Repository
                 {
                     return "NOT_FOUND";
                 }
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+        }
+
+        /// <summary>
+        /// Parking the Vehical.
+        /// </summary>
+        /// <param name="IsEmpty">if set to <c>true</c> [is empty].</param>
+        /// <returns></returns>
+
+        public string Parking(int id)
+        {
+            try
+            {
+                var result = parkingContext.ParkingTable.Where(x => x.ParkingId==id).FirstOrDefault();
+                if (result!=null)
+                {
+                    if (result.IsEmpty==true)
+                    {
+                        return "EmptySlot";
+                    }
+                    else
+                    {
+                        return "NotEmpty";
+                    }
+                }
+                return "NotFound" ;
             }
             catch (Exception e)
             {

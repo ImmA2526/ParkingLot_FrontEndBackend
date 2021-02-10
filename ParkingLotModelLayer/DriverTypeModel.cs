@@ -12,10 +12,8 @@ namespace ParkingLotModelLayer
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int DriverTypeID { get; set; }
 
-        [Required]
         public string DriverType { get; set; }
 
-        [Required]
         public int Charges { get; set; }
     }
 }

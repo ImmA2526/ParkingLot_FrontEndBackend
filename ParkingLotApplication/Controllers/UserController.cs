@@ -72,7 +72,7 @@ namespace ParkingLotApplication.Controllers
                 if (result != null)
                 {
                     var token = GenrateJWTToken(result.Role, result.Email);
-                    return this.Ok(new { success = true, Message = "Login Successfully", Data=token });
+                    return this.Ok(new { success = true, Message = "Login Successfully", Data = token });
                 }
                 else
                 {
@@ -93,7 +93,7 @@ namespace ParkingLotApplication.Controllers
         [AllowAnonymous]
         [HttpGet]
         [Route("forgotPassword")]
-        public IActionResult ForgotPassword([FromBody]ForgotModel forgot)
+        public IActionResult ForgotPassword([FromQuery] ForgotModel forgot)
         {
             try
             {
@@ -143,16 +143,21 @@ namespace ParkingLotApplication.Controllers
             }
         }
 
+        /// <summary>
+        /// Genrates the JWT token.
+        /// </summary>
+        /// <param name="Role">The role.</param>
+        /// <param name="Email">The email.</param>
+        /// <returns></returns>
         private string GenrateJWTToken(string Role, string Email)
         {
             var secretkey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Key"]));
             var signinCredentials = new SigningCredentials(secretkey, SecurityAlgorithms.HmacSha256);
-
             var claims = new List<Claim>
-                        {
-                            new Claim(ClaimTypes.Role, Role),
-                            new Claim("Email",Email)
-                        };
+            {
+                new Claim(ClaimTypes.Role, Role),
+                new Claim("Email",Email)
+            };
             var tokenOptionOne = new JwtSecurityToken(
                 claims: claims,
                 expires: DateTime.Now.AddMinutes(15),

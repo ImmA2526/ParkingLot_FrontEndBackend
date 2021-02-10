@@ -10,8 +10,6 @@ namespace ParkingLotModelLayer
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-
-        [Required]
         public int ParkTypeID { get; set; }
 
         [Required]
