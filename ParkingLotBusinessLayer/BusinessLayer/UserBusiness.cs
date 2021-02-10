@@ -38,5 +38,11 @@ namespace ParkingLotBusinessLayer
             return result;
         }
 
+        public ParkingModel ParkingVehical(ParkingModel park)
+        {
+            var result = repository.ParkingVehical(park);
+            return result;
+        }
+
     }
 }

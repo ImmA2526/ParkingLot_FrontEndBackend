@@ -102,8 +102,7 @@ namespace ParkingLotRepositoryLayer.Repository
             {
                 var result = parkingContext.UserTable.Where<UserModel>(x => x.Email == login.Email).FirstOrDefault();
                 if (result != null)
-                {
-
+                { 
                     string decryptPass = Decryptdata(result.Password);
                     if (login.Password == decryptPass)
                     {
@@ -201,33 +200,48 @@ namespace ParkingLotRepositoryLayer.Repository
         /// <param name="IsEmpty">if set to <c>true</c> [is empty].</param>
         /// <returns></returns>
 
-        public string Parking(int id)
+        public ParkingModel ParkingVehical(ParkingModel park)
         {
             try
             {
-                var result = parkingContext.ParkingTable.Where(x => x.ParkingId==id).FirstOrDefault();
-                if (result!=null)
+                parkingContext.ParkingTable.Add(park);
+                var result = parkingContext.SaveChanges();
+                if (result > 0)
                 {
-                    if (result.IsEmpty==true)
-                    {
-                        return "EmptySlot";
-                    }
-                    else
-                    {
-                        return "NotEmpty";
-                    }
+                    return park;
                 }
-                return "NotFound" ;
+                return null;
             }
             catch (Exception e)
             {
-                throw new Exception(e.Message);
+                throw new Exception("Error While Adding" + e.Message);
             }
         }
 
-        public void SearchVehical()
-        {
-            
-        }
+
+
+        //public string ParkingVehical(ParkingModel park)
+        //{
+        //    try
+        //    {
+        //        var result = parkingContext.ParkingTable.Where(x => x.ParkingId==park.ParkingId).FirstOrDefault();
+        //        if (result!=null)
+        //        {
+        //            if (result.IsEmpty==true)
+        //            {
+        //                return "EmptySlot";
+        //            }
+        //            else
+        //            {
+        //                return "NotEmpty";
+        //            }
+        //        }
+        //        return "NotFound" ;
+        //    }
+        //    catch (Exception e)
+        //    {
+        //        throw new Exception(e.Message);
+        //    }
+        //}
     }
 }

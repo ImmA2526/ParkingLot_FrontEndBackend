@@ -14,5 +14,7 @@ namespace ParkingLotBusinessLayer.IBusinessLayer
         string ForgotUserPassword(ForgotModel forgot);
 
         string ResetUserPassword(LoginModel reset);
+
+        ParkingModel ParkingVehical(ParkingModel park);
     }
 }

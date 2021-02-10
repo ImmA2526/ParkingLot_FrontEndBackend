@@ -14,5 +14,7 @@ namespace ParkingLotRepositoryLayer.IRepository
         string ForgotUserPassword(ForgotModel forgot);
 
         string ResetUserPassword(LoginModel reset);
+
+        ParkingModel ParkingVehical(ParkingModel park);
     }
 }

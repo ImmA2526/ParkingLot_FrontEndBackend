@@ -165,6 +165,35 @@ namespace ParkingLotApplication.Controllers
             {
                 return this.NotFound(new { Status = false, Message = e.Message });
             }
-        } 
+        }
+
+        /// <summary>
+        /// Park Vehical
+        /// </summary>
+        /// <param name="park"></param>
+        /// <returns></returns>
+        
+        [HttpPost]
+        [Route("parkVehical")]
+        public IActionResult ParkVehical([FromBody]ParkingModel park)
+        {
+            try
+            {
+                var result = this.business.ParkingVehical(park);
+                if (result != null)
+                {
+                    return this.Ok(new { success = true, Message = "Vehical Park Successfully", Data = result });
+                }
+                else
+                {
+                    return this.BadRequest(new { success = false, Message = "Error While Parking" });
+                }
+
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+        }
     }
 }
