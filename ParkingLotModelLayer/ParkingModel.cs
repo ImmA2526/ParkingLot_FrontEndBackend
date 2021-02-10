@@ -34,12 +34,18 @@ namespace ParkingLotModelLayer
         [ForeignKey("ParkingTypeModel")]
         public string ParkingType { get; set; }
 
+        public ParkingTypeModel ParkingTypeModel { get; set; }
+
         [Required]
         [ForeignKey("VehicalTypeModel")]
         public string VehicalType { get; set; }
+        public VehicalTypeModel VehicalTypeModel { get; set; }
+
 
         [Required]
         [ForeignKey("DriverTypeModel")]
         public string DriverType { get; set; }
+
+        public DriverTypeModel DriverTypeModel { get; set; }
     }
 }

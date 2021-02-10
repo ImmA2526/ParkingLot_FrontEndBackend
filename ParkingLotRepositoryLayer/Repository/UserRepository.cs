@@ -134,7 +134,6 @@ namespace ParkingLotRepositoryLayer.Repository
                 if (result != null)
                 {
                     body = result.Password;
-                    //return true;        
                 }
                 else
                 {

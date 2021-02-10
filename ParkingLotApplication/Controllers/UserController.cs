@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using ParkingLotBusinessLayer.IBusinessLayer;
@@ -89,10 +90,10 @@ namespace ParkingLotApplication.Controllers
         /// </summary>
         /// <param name="forgot">The forgot.</param>
         /// <returns></returns>
-
+        [AllowAnonymous]
         [HttpGet]
         [Route("forgotPassword")]
-        public IActionResult ForgotPassword(ForgotModel forgot)
+        public IActionResult ForgotPassword([FromBody]ForgotModel forgot)
         {
             try
             {
