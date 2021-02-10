@@ -1,17 +1,22 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Tokens;
 using ParkingLotModelLayer;
 using ParkingLotRepositoryLayer.IRepository;
 using System;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Net;
 using System.Net.Mail;
+using System.Security.Claims;
 using System.Text;
 
 namespace ParkingLotRepositoryLayer.Repository
 {
     public class UserRepository : IUserRepository
     {
+        public IConfiguration Configuration { get; }
         private readonly ParkingContext parkingContext;
         public UserRepository(ParkingContext parkingContext)
         {
@@ -85,14 +90,13 @@ namespace ParkingLotRepositoryLayer.Repository
             }
         }
 
-
         /// <summary>
         /// Users login.
         /// </summary>
         /// <param name="login">The login.</param>
         /// <returns></returns>
 
-        public LoginModel UserLogin(LoginModel login)
+        public UserModel UserLogin(LoginModel login)
         {
             try
             {
@@ -103,14 +107,14 @@ namespace ParkingLotRepositoryLayer.Repository
                     string decryptPass = Decryptdata(result.Password);
                     if (login.Password == decryptPass)
                     {
-                        return login;
+                        return result;
                     }
                 }
                 return null;
             }
             catch (Exception e)
             {
-                throw new Exception("Error in Encrypting" + e.Message);
+                throw new Exception("Error while Decrypting" + e.Message);
             }
         }
 
@@ -170,7 +174,7 @@ namespace ParkingLotRepositoryLayer.Repository
         {
             try
             {
-                var resetPwd = parkingContext.UserTable.FirstOrDefault(password => password.Email ==reset.Email);
+                var resetPwd = parkingContext.UserTable.FirstOrDefault(password => password.Email == reset.Email);
                 string newPassword = reset.Password;
                 string encodePass = PasswordEncryption(newPassword);
                 if (resetPwd != null)

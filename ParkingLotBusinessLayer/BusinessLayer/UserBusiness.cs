@@ -20,7 +20,7 @@ namespace ParkingLotBusinessLayer
             return result;
         }
 
-        public LoginModel UserLogin(LoginModel login)
+        public UserModel UserLogin(LoginModel login)
         {
             var result = repository.UserLogin(login);
             return result;

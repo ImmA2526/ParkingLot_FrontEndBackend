@@ -9,7 +9,7 @@ namespace ParkingLotBusinessLayer.IBusinessLayer
     {
         UserModel UserRegistration(UserModel model);
 
-        LoginModel UserLogin(LoginModel login);
+        UserModel UserLogin(LoginModel login);
 
         string ForgotUserPassword(ForgotModel forgot);
 

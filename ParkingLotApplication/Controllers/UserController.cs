@@ -1,23 +1,30 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Tokens;
 using ParkingLotBusinessLayer.IBusinessLayer;
 using ParkingLotModelLayer;
 using ParkingLotRepositoryLayer.IRepository;
 using System;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
+using System.Security.Claims;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace ParkingLotApplication.Controllers
 {
+    [Route("api/[controller]")]
     [ApiController]
 
     public class UserController : Controller
     {
         private readonly IUserBusiness business;
-
-        public UserController(IUserBusiness business)
+        private readonly IConfiguration configuration;
+        public UserController(IUserBusiness business, IConfiguration configuration)
         {
             this.business = business;
+            this.configuration = configuration;
         }
 
         /// <summary>
@@ -25,10 +32,10 @@ namespace ParkingLotApplication.Controllers
         /// </summary>
         /// <param name="user">The user.</param>
         /// <returns></returns>
-        
+
         [HttpPost]
-        [Route("api/addUser")]
-        public IActionResult AddUser([FromBody] UserModel user)
+        [Route("addUser")]
+        public IActionResult RegisterUser([FromBody] UserModel user)
         {
             try
             {
@@ -53,9 +60,9 @@ namespace ParkingLotApplication.Controllers
         /// </summary>
         /// <param name="login">The login.</param>
         /// <returns></returns>
-        
+
         [HttpPost]
-        [Route("api/loginUser")]
+        [Route("loginUser")]
         public IActionResult LoginUser([FromBody] LoginModel login)
         {
             try
@@ -63,7 +70,8 @@ namespace ParkingLotApplication.Controllers
                 var result = this.business.UserLogin(login);
                 if (result != null)
                 {
-                    return this.Ok(new { success = true, Message = "Login Successfully", Data = result });
+                    var token = GenrateJWTToken(result.Role, result.Email);
+                    return this.Ok(new { success = true, Message = "Login Successfully", Data=token });
                 }
                 else
                 {
@@ -83,7 +91,7 @@ namespace ParkingLotApplication.Controllers
         /// <returns></returns>
 
         [HttpGet]
-        [Route("api/forgotPassword")]
+        [Route("forgotPassword")]
         public IActionResult ForgotPassword(ForgotModel forgot)
         {
             try
@@ -109,12 +117,11 @@ namespace ParkingLotApplication.Controllers
         /// <summary>
         /// Reset password.
         /// </summary>
-        /// <param name="oldPassword">The old password.</param>
-        /// <param name="newPassword">The new password.</param>
+        /// <param name="reset">The reset.</param>
         /// <returns></returns>
 
         [HttpPut]
-        [Route("api/resetPassword")]
+        [Route("resetPassword")]
         public IActionResult ResetPassword(LoginModel reset)
         {
             try
@@ -133,6 +140,25 @@ namespace ParkingLotApplication.Controllers
             {
                 return this.NotFound(new { Status = false, Message = e.Message });
             }
+        }
+
+        private string GenrateJWTToken(string Role, string Email)
+        {
+            var secretkey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Key"]));
+            var signinCredentials = new SigningCredentials(secretkey, SecurityAlgorithms.HmacSha256);
+
+            var claims = new List<Claim>
+                        {
+                            new Claim(ClaimTypes.Role, Role),
+                            new Claim("Email",Email)
+                        };
+            var tokenOptionOne = new JwtSecurityToken(
+                claims: claims,
+                expires: DateTime.Now.AddMinutes(15),
+                signingCredentials: signinCredentials
+                );
+            string token = new JwtSecurityTokenHandler().WriteToken(tokenOptionOne);
+            return token;
         }
     }
 }
