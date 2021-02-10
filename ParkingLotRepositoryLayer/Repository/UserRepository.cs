@@ -224,5 +224,10 @@ namespace ParkingLotRepositoryLayer.Repository
                 throw new Exception(e.Message);
             }
         }
+
+        public void SearchVehical()
+        {
+            
+        }
     }
 }
