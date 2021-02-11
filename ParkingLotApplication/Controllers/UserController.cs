@@ -158,7 +158,7 @@ namespace ParkingLotApplication.Controllers
                 }
                 else
                 {
-                    return this.BadRequest(new { success = false, Message = "Error Ehile Reseting Password" });
+                    return this.BadRequest(new { success = false, Message = "Error While Reseting Password" });
                 }
             }
             catch (Exception e)
@@ -175,7 +175,7 @@ namespace ParkingLotApplication.Controllers
         
         [HttpPost]
         [Route("parkVehical")]
-        public IActionResult ParkVehical([FromBody]ParkingModel park)
+        public IActionResult ParkVehical([FromBody] ParkingModel park)
         {
             try
             {
@@ -192,7 +192,7 @@ namespace ParkingLotApplication.Controllers
             }
             catch (Exception e)
             {
-                throw new Exception(e.Message);
+                return this.NotFound(new { Status = false, Message = e.Message });
             }
         }
     }

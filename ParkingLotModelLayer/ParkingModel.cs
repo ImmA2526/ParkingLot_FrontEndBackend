@@ -19,33 +19,28 @@ namespace ParkingLotModelLayer
         public int SlotNo { get; set; }
 
         [Required]
-        public bool IsEmpty { get; set; }
+        public bool IsEmpty { get; set; } 
 
         [Required]
         public int EntryTime { get; set; }
 
-        [Required]
+        
         public int ExitTime { get; set; }
 
         [Required]
         public int Charges { get; set; }
 
         [Required]
+        [ForeignKey("ParkingTypeModel")]
         public int ParkTypeID { get; set; }
         
-        [ForeignKey("ParkTypeID")]
-        public ParkingTypeModel ParkingTypeModel { get; set; }
-
         [Required]
+        [ForeignKey("VehicalTypeModel")]
         public int VehicleTypeID { get; set; }
 
-        [ForeignKey("VehicleTypeID")]
-        public VehicalTypeModel VehicalTypeModel { get; set; }
-
         [Required]
+        [ForeignKey("DriverTypeModel")]
         public int DriverTypeID { get; set; }
         
-        [ForeignKey("DriverTypeID")]
-        public DriverTypeModel DriverTypeModel { get; set; }
     }
 }
