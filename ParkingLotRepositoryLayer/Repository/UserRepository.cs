@@ -225,7 +225,8 @@ namespace ParkingLotRepositoryLayer.Repository
         /// <param name="park">The park.</param>
         /// <returns></returns>
         /// <exception cref="Exception">Error While Adding Owner Data</exception>
-        public DriverTypeModel OwnerParkingVehical(DriverTypeModel park)
+        
+        public DriverTypeModel OwnerVehicalParking(DriverTypeModel park)
         {
             try
             {
@@ -240,6 +241,31 @@ namespace ParkingLotRepositoryLayer.Repository
             catch (Exception e)
             {
                 throw new Exception("Error While Adding Owner Data"+e.Message);
+            }
+        }
+
+        /// <summary>
+        /// Adding Vehical in Database
+        /// </summary>
+        /// <param name="park">The park.</param>
+        /// <returns></returns>
+        /// <exception cref="Exception">Error While Adding Driver Data" + e.Message</exception>
+        
+        public VehicalTypeModel VehicalTypes(VehicalTypeModel vehical)
+        {
+            try
+            {
+                parkingContext.VehicalTable.Add(vehical);
+                var result = parkingContext.SaveChanges();
+                if (result > 0)
+                {
+                    return vehical;
+                }
+                return null;
+            }
+            catch (Exception e)
+            {
+                throw new Exception("Error While Adding Vehical Data" + e.Message);
             }
         }
 

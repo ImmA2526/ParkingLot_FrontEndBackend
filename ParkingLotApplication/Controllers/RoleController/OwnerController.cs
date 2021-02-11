@@ -32,7 +32,7 @@ namespace ParkingLotApplication.Controllers
         {
             try
             {
-                var result = this.business.OwnerParkingVehical(park);
+                var result = this.business.OwnerVehicalParking(park);
                 if (result != null)
                 {
                     return this.Ok(new { success = true, Message = "Data Added Succesfully", Data = result });

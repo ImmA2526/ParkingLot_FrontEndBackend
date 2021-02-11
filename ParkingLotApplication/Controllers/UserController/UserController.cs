@@ -195,5 +195,34 @@ namespace ParkingLotApplication.Controllers
                 return this.NotFound(new { Status = false, Message = e.Message });
             }
         }
+
+        /// <summary>
+        /// Adding Type of Vehical.
+        /// </summary>
+        /// <param name="vehical">The vehical.</param>
+        /// <returns></returns>
+
+        [HttpPost]
+        [Route("vehicaltype")]
+        public IActionResult VehicalType([FromBody] VehicalTypeModel vehical)
+        {
+            try
+            {
+                var result = this.business.VehicalTypes(vehical);
+                if (result != null)
+                {
+                    return this.Ok(new { success = true, Message = "Vehical Type Added Sucesfully", Data = result });
+                }
+                else
+                {
+                    return this.BadRequest(new { success = false, Message = "Error While Adding" });
+                }
+
+            }
+            catch (Exception e)
+            {
+                return this.NotFound(new { Status = false, Message = e.Message });
+            }
+        }
     }
 }

@@ -17,11 +17,12 @@ namespace ParkingLotBusinessLayer.IBusinessLayer
 
         ParkingModel ParkingVehical(ParkingModel park);
 
-        DriverTypeModel OwnerParkingVehical(DriverTypeModel park);
+        DriverTypeModel OwnerVehicalParking(DriverTypeModel park);
 
-        //DriverTypeModel DriverParking(DriverTypeModel park);
+        VehicalTypeModel VehicalTypes(VehicalTypeModel vehical);
 
         //DriverTypeModel PolicemanParking(DriverTypeModel park);
+        //DriverTypeModel DriverVehicalParking(DriverTypeModel park);
 
         //DriverTypeModel SecurityParking(DriverTypeModel park);
     }
