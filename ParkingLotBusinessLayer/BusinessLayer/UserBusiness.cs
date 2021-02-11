@@ -44,5 +44,11 @@ namespace ParkingLotBusinessLayer
             return result;
         }
 
+        public DriverTypeModel OwnerParkingVehical(DriverTypeModel park)
+        {
+            var result = repository.OwnerParkingVehical(park);
+            return result;
+        }
+
     }
 }

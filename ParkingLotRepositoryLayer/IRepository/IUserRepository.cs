@@ -16,5 +16,13 @@ namespace ParkingLotRepositoryLayer.IRepository
         string ResetUserPassword(LoginModel reset);
 
         ParkingModel ParkingVehical(ParkingModel park);
+
+        DriverTypeModel OwnerParkingVehical(DriverTypeModel park);
+
+        //DriverTypeModel DriverParking(DriverTypeModel park);
+
+        //DriverTypeModel PolicemanParking(DriverTypeModel park);
+
+        //DriverTypeModel SecurityParking(DriverTypeModel park);
     }
 }
