@@ -19,7 +19,7 @@ namespace ParkingLotModelLayer
         public int SlotNo { get; set; }
 
         [Required]
-        public bool IsEmpty { get; set; } 
+        public bool IsEmpty { get; set; } = false;
 
         [Required]
         public int EntryTime { get; set; }

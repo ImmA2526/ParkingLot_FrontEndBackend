@@ -9,7 +9,7 @@ namespace ParkingLotApplication.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class DriverController : ControllerBase
+    public class SecurityController : ControllerBase
     {
     }
 }

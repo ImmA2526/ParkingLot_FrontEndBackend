@@ -9,7 +9,7 @@ namespace ParkingLotApplication.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ValuesController1 : ControllerBase
+    public class PolicemanController : ControllerBase
     {
     }
 }

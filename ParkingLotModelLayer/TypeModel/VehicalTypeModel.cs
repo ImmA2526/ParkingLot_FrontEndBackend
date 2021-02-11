@@ -16,7 +16,5 @@ namespace ParkingLotModelLayer
         public string VehicalType { get; set; }
 
         public int Charges { get; set; }
-
-        public int VehicalNo {get;set;}
     }
 }
