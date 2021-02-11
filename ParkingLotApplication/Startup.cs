@@ -76,7 +76,7 @@ namespace ParkingLotApplication
                     IssuerSigningKey = new SymmetricSecurityKey(key),
                     ValidateIssuer = false,
                     ValidateAudience = false,
-                    //ClockSkew = TimeSpan.Zero//
+                    //ClockSkew = TimeSpan.Zero
                 };
             });
         }
