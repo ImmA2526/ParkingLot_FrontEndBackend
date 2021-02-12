@@ -9,8 +9,8 @@ using ParkingLotRepositoryLayer;
 namespace ParkingLotRepositoryLayer.Migrations
 {
     [DbContext(typeof(ParkingContext))]
-    [Migration("20210210113633_Update_VehialModel")]
-    partial class Update_VehialModel
+    [Migration("20210212055312_UpdatedTableName")]
+    partial class UpdatedTableName
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -32,7 +32,7 @@ namespace ParkingLotRepositoryLayer.Migrations
 
                     b.HasKey("DriverTypeID");
 
-                    b.ToTable("DriverTable");
+                    b.ToTable("DriverTypeTable");
                 });
 
             modelBuilder.Entity("ParkingLotModelLayer.ParkingModel", b =>
@@ -60,12 +60,6 @@ namespace ParkingLotRepositoryLayer.Migrations
                     b.Property<int>("VehicleTypeID");
 
                     b.HasKey("ParkingId");
-
-                    b.HasIndex("DriverTypeID");
-
-                    b.HasIndex("ParkTypeID");
-
-                    b.HasIndex("VehicleTypeID");
 
                     b.ToTable("ParkingTable");
                 });
@@ -119,31 +113,11 @@ namespace ParkingLotRepositoryLayer.Migrations
 
                     b.Property<int>("Charges");
 
-                    b.Property<int>("VehicalNo");
-
                     b.Property<string>("VehicalType");
 
                     b.HasKey("VehicleTypeID");
 
-                    b.ToTable("VehicalTable");
-                });
-
-            modelBuilder.Entity("ParkingLotModelLayer.ParkingModel", b =>
-                {
-                    b.HasOne("ParkingLotModelLayer.DriverTypeModel", "DriverTypeModel")
-                        .WithMany()
-                        .HasForeignKey("DriverTypeID")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("ParkingLotModelLayer.ParkingTypeModel", "ParkingTypeModel")
-                        .WithMany()
-                        .HasForeignKey("ParkTypeID")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("ParkingLotModelLayer.VehicalTypeModel", "VehicalTypeModel")
-                        .WithMany()
-                        .HasForeignKey("VehicleTypeID")
-                        .OnDelete(DeleteBehavior.Cascade);
+                    b.ToTable("VehicalTypeTable");
                 });
 #pragma warning restore 612, 618
         }

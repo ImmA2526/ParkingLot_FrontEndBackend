@@ -11,6 +11,7 @@ using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using ParkingLotBusinessLayer;
 using ParkingLotBusinessLayer.IBusinessLayer;
+using ParkingLotBusinessLayer.IParkingBusinessLayer;
 using ParkingLotRepositoryLayer;
 using ParkingLotRepositoryLayer.IRepository;
 using ParkingLotRepositoryLayer.Repository;
@@ -41,6 +42,8 @@ namespace ParkingLotApplication
             //Adding Business Interface 
             services.AddTransient<IUserRepository, UserRepository>();
             services.AddTransient<IUserBusiness, UserBusiness>();
+            services.AddTransient<IParkingRepository, ParkingRepository>();
+            services.AddTransient<IParkingBusiness, ParkingBusiness>();
 
             services.AddSwaggerGen(c =>
             {

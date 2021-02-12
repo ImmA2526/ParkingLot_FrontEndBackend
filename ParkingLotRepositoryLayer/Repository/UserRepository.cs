@@ -102,7 +102,7 @@ namespace ParkingLotRepositoryLayer.Repository
             {
                 var result = parkingContext.UserTable.Where<UserModel>(x => x.Email == login.Email).FirstOrDefault();
                 if (result != null)
-                { 
+                {
                     string decryptPass = Decryptdata(result.Password);
                     if (login.Password == decryptPass)
                     {
@@ -148,7 +148,7 @@ namespace ParkingLotRepositoryLayer.Repository
                     SmtpClient smtp = new SmtpClient();
                     smtp.Host = "smtp.gmail.com";
                     smtp.EnableSsl = true;
-                    NetworkCredential NetworkCred = new NetworkCredential("imraninfo.1996@gmail.com", "9175833272*");
+                    NetworkCredential NetworkCred = new NetworkCredential("imraninfo.1996@gmail.com", "9175833272");
                     smtp.UseDefaultCredentials = true;
                     smtp.Credentials = NetworkCred;
                     smtp.Port = 587;
@@ -194,68 +194,19 @@ namespace ParkingLotRepositoryLayer.Repository
             }
         }
 
+        //Types Of Data Being Added //
         /// <summary>
-        /// Parking the Vehical.
+        /// Vehicals the types.
         /// </summary>
-        /// <param name="IsEmpty">if set to <c>true</c> [is empty].</param>
+        /// <param name="vehical">The vehical.</param>
         /// <returns></returns>
+        /// <exception cref="Exception">Error While Adding" + e.Message</exception>
 
-        public ParkingModel ParkingVehical(ParkingModel park)
-        {
-            try
-            {
-                parkingContext.ParkingTable.Add(park);
-                var result = parkingContext.SaveChanges();
-                if (result > 0)
-                {
-                    return park;
-                }
-                return null;
-            }
-            catch (Exception e)
-            {
-                throw new Exception("Error While Adding" + e.Message);
-            }
-        }
-
-
-        /// <summary>
-        /// Owners the parking vehical.
-        /// </summary>
-        /// <param name="park">The park.</param>
-        /// <returns></returns>
-        /// <exception cref="Exception">Error While Adding Owner Data</exception>
-        
-        public DriverTypeModel OwnerVehicalParking(DriverTypeModel park)
-        {
-            try
-            {
-                parkingContext.DriverTable.Add(park);
-                var result = parkingContext.SaveChanges();
-                if (result > 0)
-                {
-                    return park;
-                }
-                return null;
-            }
-            catch (Exception e)
-            {
-                throw new Exception("Error While Adding Owner Data"+e.Message);
-            }
-        }
-
-        /// <summary>
-        /// Adding Vehical in Database
-        /// </summary>
-        /// <param name="park">The park.</param>
-        /// <returns></returns>
-        /// <exception cref="Exception">Error While Adding Driver Data" + e.Message</exception>
-        
         public VehicalTypeModel VehicalTypes(VehicalTypeModel vehical)
         {
             try
             {
-                parkingContext.VehicalTable.Add(vehical);
+                parkingContext.VehicalTypeTable.Add(vehical);
                 var result = parkingContext.SaveChanges();
                 if (result > 0)
                 {
@@ -265,32 +216,57 @@ namespace ParkingLotRepositoryLayer.Repository
             }
             catch (Exception e)
             {
-                throw new Exception("Error While Adding Vehical Data" + e.Message);
+                throw new Exception("Error While Adding" + e.Message);
             }
         }
 
-        //public string ParkingVehical(ParkingModel park)
-        //{
-        //    try
-        //    {
-        //        var result = parkingContext.ParkingTable.Where(x => x.ParkingId==park.ParkingId).FirstOrDefault();
-        //        if (result!=null)
-        //        {
-        //            if (result.IsEmpty==true)
-        //            {
-        //                return "EmptySlot";
-        //            }
-        //            else
-        //            {
-        //                return "NotEmpty";
-        //            }
-        //        }
-        //        return "NotFound" ;
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        throw new Exception(e.Message);
-        //    }
-        //}
+        /// <summary>
+        /// Drivers the types.
+        /// </summary>
+        /// <param name="driver">The driver.</param>
+        /// <returns></returns>
+        /// <exception cref="Exception">Error While Adding Driver Data" + e.Message</exception>
+
+        public DriverTypeModel DriverTypes(DriverTypeModel driver)
+        {
+            try
+            {
+                parkingContext.DriverTypeTable.Add(driver);
+                var result = parkingContext.SaveChanges();
+                if (result > 0)
+                {
+                    return driver;
+                }
+                return null;
+            }
+            catch (Exception e)
+            {
+                throw new Exception("Error While Adding Driver Data" + e.Message);
+            }
+        }
+
+        /// <summary>
+        /// Parking types.
+        /// </summary>
+        /// <param name="parking">The parking.</param>
+        /// <returns></returns>
+        /// <exception cref="Exception">Error While Adding Parking Data" + e.Message</exception>
+        public ParkingTypeModel ParkingTypes(ParkingTypeModel parking)
+        {
+            try
+            {
+                parkingContext.ParkingTypeTable.Add(parking);
+                var result = parkingContext.SaveChanges();
+                if (result > 0)
+                {
+                    return parking;
+                }
+                return null;
+            }
+            catch (Exception e)
+            {
+                throw new Exception("Error While Adding Parking Data" + e.Message);
+            }
+        }
     }
 }

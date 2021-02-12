@@ -59,7 +59,7 @@ namespace ParkingLotApplication.Controllers
         /// <returns></returns>
 
         [HttpPost]
-        [Route("addUser")]
+        [Route("registerUser")]
         public IActionResult RegisterUser([FromBody] UserModel user)
         {
             try
@@ -167,43 +167,15 @@ namespace ParkingLotApplication.Controllers
             }
         }
 
-        /// <summary>
-        /// Park Vehical
-        /// </summary>
-        /// <param name="park"></param>
-        /// <returns></returns>
-        
-        [HttpPost]
-        [Route("parkVehical")]
-        public IActionResult ParkVehical([FromBody] ParkingModel park)
-        {
-            try
-            {
-                var result = this.business.ParkingVehical(park);
-                if (result != null)
-                {
-                    return this.Ok(new { success = true, Message = "Vehical Park Successfully", Data = result });
-                }
-                else
-                {
-                    return this.BadRequest(new { success = false, Message = "Error While Parking" });
-                }
-
-            }
-            catch (Exception e)
-            {
-                return this.NotFound(new { Status = false, Message = e.Message });
-            }
-        }
-
-        /// <summary>
-        /// Adding Type of Vehical.
-        /// </summary>
-        /// <param name="vehical">The vehical.</param>
-        /// <returns></returns>
+        //Types Of Data Being Added //
+        ///// <summary>
+        ///// Adding Type of Vehical.
+        ///// </summary>
+        ///// <param name="vehical">The vehical.</param>
+        ///// <returns></returns>
 
         [HttpPost]
-        [Route("vehicaltype")]
+        [Route("vehicalType")]
         public IActionResult VehicalType([FromBody] VehicalTypeModel vehical)
         {
             try
@@ -211,17 +183,75 @@ namespace ParkingLotApplication.Controllers
                 var result = this.business.VehicalTypes(vehical);
                 if (result != null)
                 {
-                    return this.Ok(new { success = true, Message = "Vehical Type Added Sucesfully", Data = result });
+                    return this.Ok(new { success = true, message = "vehical type added sucesfully", data = result });
                 }
                 else
                 {
-                    return this.BadRequest(new { success = false, Message = "Error While Adding" });
+                    return this.BadRequest(new { success = false, message = "error while adding" });
                 }
 
             }
             catch (Exception e)
             {
-                return this.NotFound(new { Status = false, Message = e.Message });
+                return this.NotFound(new { status = false, message = e.Message });
+            }
+        }
+
+        ///// <summary>
+        ///// Adding Type of Driver.
+        ///// </summary>
+        ///// <param name="vehical">The vehical.</param>
+        ///// <returns></returns>
+
+        [HttpPost]
+        [Route("driverType")]
+        public IActionResult DriverType([FromBody] DriverTypeModel driver)
+        {
+            try
+            {
+                var result = this.business.DriverTypes(driver);
+                if (result != null)
+                {
+                    return this.Ok(new { success = true, message = "Driver Type added sucesfully", data = result });
+                }
+                else
+                {
+                    return this.BadRequest(new { success = false, message = "Error While Adding Driver" });
+                }
+
+            }
+            catch (Exception e)
+            {
+                return this.NotFound(new { status = false, message = e.Message });
+            }
+        }
+
+        ///// <summary>
+        ///// Adding Type of Parking.
+        ///// </summary>
+        ///// <param name="vehical">The vehical.</param>
+        ///// <returns></returns>
+
+        [HttpPost]
+        [Route("parkingType")]
+        public IActionResult ParkingType([FromBody] ParkingTypeModel parking)
+        {
+            try
+            {
+                var result = this.business.ParkingTypes(parking);
+                if (result != null)
+                {
+                    return this.Ok(new { success = true, message = "Parking Data Added sucesfully", data = result });
+                }
+                else
+                {
+                    return this.BadRequest(new { success = false, message = "Error while Adding Parking Data" });
+                }
+
+            }
+            catch (Exception e)
+            {
+                return this.NotFound(new { status = false, message = e.Message });
             }
         }
     }

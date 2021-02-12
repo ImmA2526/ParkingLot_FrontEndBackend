@@ -15,15 +15,11 @@ namespace ParkingLotBusinessLayer.IBusinessLayer
 
         string ResetUserPassword(LoginModel reset);
 
-        ParkingModel ParkingVehical(ParkingModel park);
-
-        DriverTypeModel OwnerVehicalParking(DriverTypeModel park);
-
         VehicalTypeModel VehicalTypes(VehicalTypeModel vehical);
 
-        //DriverTypeModel PolicemanParking(DriverTypeModel park);
-        //DriverTypeModel DriverVehicalParking(DriverTypeModel park);
+        DriverTypeModel DriverTypes(DriverTypeModel driver);
+        
+        ParkingTypeModel ParkingTypes(ParkingTypeModel parking);
 
-        //DriverTypeModel SecurityParking(DriverTypeModel park);
     }
 }

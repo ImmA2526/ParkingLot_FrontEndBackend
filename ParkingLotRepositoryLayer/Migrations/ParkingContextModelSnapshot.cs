@@ -30,7 +30,7 @@ namespace ParkingLotRepositoryLayer.Migrations
 
                     b.HasKey("DriverTypeID");
 
-                    b.ToTable("DriverTable");
+                    b.ToTable("DriverTypeTable");
                 });
 
             modelBuilder.Entity("ParkingLotModelLayer.ParkingModel", b =>
@@ -115,7 +115,7 @@ namespace ParkingLotRepositoryLayer.Migrations
 
                     b.HasKey("VehicleTypeID");
 
-                    b.ToTable("VehicalTable");
+                    b.ToTable("VehicalTypeTable");
                 });
 #pragma warning restore 612, 618
         }
