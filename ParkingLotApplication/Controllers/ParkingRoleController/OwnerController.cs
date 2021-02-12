@@ -26,7 +26,7 @@ namespace ParkingLotApplication.Controllers
         /// </summary>
         /// <param name="park">The park.</param>
         /// <returns></returns>
-        //Parking Name  
+        
         [HttpPost]
         [Route("ownerVehicalPark")]
         public IActionResult OwnerParkVehical([FromBody] ParkingModel park)
@@ -41,6 +41,35 @@ namespace ParkingLotApplication.Controllers
                 else
                 {
                     return this.BadRequest(new { sucess = false, Message = "There is not Empty Slot" });
+                }
+            }
+            catch (Exception e)
+            {
+                return this.NotFound(new { status = false, Message = e.Message });
+            }
+        }
+
+        /// <summary>
+        /// Unpark Vehical if the entry is true.
+        /// </summary>
+        /// <param name="unpark">The unpark.</param>
+        /// <returns></returns>
+
+        [HttpDelete]
+        [Route("ownerVehicalUnpark/{IsEmpty}")]
+        public IActionResult OwnerVehicalUnpark([FromRoute] ParkingModel unpark)
+        {
+            try
+            {
+                var unparks = this.parking.UnparkingVehical(unpark);
+
+                if (unparks.IsEmpty==true)
+                {
+                    return this.Ok(new { success = true, Message = "Data Delted Succesfully", Data = unparks });
+                }
+                else
+                {
+                    return this.BadRequest(new { sucess = false, Message = "No Record Found" });
                 }
             }
             catch (Exception e)

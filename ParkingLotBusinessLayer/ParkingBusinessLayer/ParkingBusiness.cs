@@ -24,21 +24,8 @@ namespace ParkingLotBusinessLayer
 
         public ParkingModel UnparkingVehical(ParkingModel unPark)
         {
-            var result = parkingRepo.ParkingVehical(unPark);
+            var result = parkingRepo.UnparkingVehical(unPark);
             return result;
         }
-
-        public ParkingModel SearchVehical(ParkingModel search)
-        {
-            var searchResult = parkingRepo.SearchVehical(search);
-            return searchResult;
-        }
-
-        public ParkingModel DeleteUnparkVehical(ParkingModel unpark)
-        {
-            var deleteResult = parkingRepo.DeleteUnparkVehical(unpark);
-            return deleteResult;
-        }
-
     }
 }

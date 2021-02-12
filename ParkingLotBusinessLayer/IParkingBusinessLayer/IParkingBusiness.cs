@@ -10,9 +10,5 @@ namespace ParkingLotBusinessLayer.IParkingBusinessLayer
         ParkingModel ParkingVehical(ParkingModel park);
 
         ParkingModel UnparkingVehical(ParkingModel unpark);
-
-        ParkingModel SearchVehical(ParkingModel search);
-
-        ParkingModel DeleteUnparkVehical(ParkingModel delete);
     }
 }

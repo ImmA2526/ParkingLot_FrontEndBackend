@@ -16,7 +16,6 @@ namespace ParkingLotRepositoryLayer.Repository
 {
     public class ParkingRepository : IParkingRepository
     {
-       
         private readonly ParkingContext parkingContext;
         public ParkingRepository(ParkingContext parkingContext)
         {
@@ -53,56 +52,25 @@ namespace ParkingLotRepositoryLayer.Repository
         /// <param name="unpark">The unpark.</param>
         /// <returns></returns>
         /// <exception cref="Exception">Error While Adding" + e.Message</exception>
+
         public ParkingModel UnparkingVehical(ParkingModel unpark)
         {
             try
             {
-                parkingContext.ParkingTable.Add(unpark);
-                var result = parkingContext.SaveChanges();
-                if (result > 0)
+                ParkingModel unPark = parkingContext.ParkingTable.Find(unpark);
+                if (unPark.IsEmpty == true)
                 {
-                    return unpark;
+                    return unPark;
                 }
-                return null;
+
+                parkingContext.ParkingTable.Remove(unPark);
+                parkingContext.SaveChangesAsync();
+                return unpark;
             }
             catch (Exception e)
             {
-                throw new Exception("Error While Adding" + e.Message);
+                throw new Exception("Error While Deleting" + e.Message);
             }
-        }
-        
-        /// <summary>
-        /// Searches the vehical.
-        /// </summary>
-        /// <param name="vehicalNo">The vehical no.</param>
-        /// <param name="slotNo">The slot no.</param>
-        /// <returns></returns>
-        public ParkingModel SearchVehical(ParkingModel search)
-        {
-            var searchResult = parkingContext.ParkingTable.Where(e => e.VehicalNo == search.VehicalNo && e.SlotNo == search.SlotNo);
-            this.parkingContext.ParkingTable.Find(searchResult);
-            return (ParkingModel)searchResult;
-        }
-
-        /// <summary>
-        /// Deletes the unpark vehical.
-        /// </summary>
-        /// <param name="delete">The delete.</param>
-        /// <returns></returns>
-        public ParkingModel DeleteUnparkVehical(ParkingModel delete)
-        {
-            ParkingModel remove = parkingContext.ParkingTable.Find(delete.IsEmpty);
-            if (remove == null)
-            {
-                if (remove.IsEmpty==false)
-                {
-                    return remove;
-                }
-            }
-
-            parkingContext.ParkingTable.Remove(remove);
-            parkingContext.SaveChangesAsync();
-            return remove;
         }
 
     }

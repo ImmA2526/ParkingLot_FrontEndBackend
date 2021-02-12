@@ -11,9 +11,5 @@ namespace ParkingLotRepositoryLayer.IRepository
 
         ParkingModel UnparkingVehical(ParkingModel unpark);
 
-        ParkingModel SearchVehical(ParkingModel search);
-
-        ParkingModel DeleteUnparkVehical(ParkingModel delete);
-
     }
 }
