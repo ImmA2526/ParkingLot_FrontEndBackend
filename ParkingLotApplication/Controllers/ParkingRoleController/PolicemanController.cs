@@ -48,5 +48,38 @@ namespace ParkingLotApplication.Controllers
                 return this.NotFound(new { status = false, Message = e.Message });
             }
         }
+
+        /// <summary>
+        /// Unpark Vehical if the entry is true.
+        /// </summary>
+        /// <param name="unpark">The unpark.</param>
+        /// <returns></returns>
+
+        [HttpPut]
+        [Route("driverVehicalUnpark")]
+        public IActionResult PolicemanVehicalUnpark(int id)
+        {
+            try
+            {
+                var unparks = this.policeParking.UnparkingVehical(id);
+
+                if (unparks.IsEmpty == true)
+                {
+                    return this.Ok(new { success = true, Message = "Park", Data = unparks });
+                }
+                if (unparks.IsEmpty == false)
+                {
+                    return this.Ok(new { success = true, Message = "UnPark", Data = unparks });
+                }
+                else
+                {
+                    return this.BadRequest(new { sucess = false, Message = "Error While Updating" });
+                }
+            }
+            catch (Exception e)
+            {
+                return this.NotFound(new { status = false, Message = e.Message });
+            }
+        }
     }
 }
