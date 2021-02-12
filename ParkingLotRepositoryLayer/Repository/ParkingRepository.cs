@@ -78,5 +78,33 @@ namespace ParkingLotRepositoryLayer.Repository
                 throw new Exception("Error While Deleting" + e.Message);
             }
         }
+
+        /// <summary>
+        /// Deletes the vehical if the slot is Empty.
+        /// </summary>
+        /// <returns></returns>
+        /// <exception cref="Exception">Error While Deleting Empty Slots" + e.Message</exception>
+        
+        public bool DeleteVehicals()
+        {
+            try
+            {
+                IEnumerable<ParkingModel> delete = parkingContext.ParkingTable.Where(x => x.IsEmpty == false).ToList();
+                if (delete != null)
+                {
+                    foreach (var unpark in delete)
+                    {
+                        parkingContext.ParkingTable.Remove(unpark);
+                        parkingContext.SaveChangesAsync();
+                    }
+                    return true;
+                }
+                return false;
+            }
+            catch (Exception e)
+            {
+                throw new Exception("Error While Deleting Empty Slots" + e.Message);
+            }
+        }
     }
 }

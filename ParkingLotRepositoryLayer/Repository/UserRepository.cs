@@ -148,7 +148,7 @@ namespace ParkingLotRepositoryLayer.Repository
                     SmtpClient smtp = new SmtpClient();
                     smtp.Host = "smtp.gmail.com";
                     smtp.EnableSsl = true;
-                    NetworkCredential NetworkCred = new NetworkCredential("imraninfo.1996@gmail.com", "9175833272");
+                    NetworkCredential NetworkCred = new NetworkCredential("imraninfo.1996@gmail.com", "PASSWORD");
                     smtp.UseDefaultCredentials = true;
                     smtp.Credentials = NetworkCred;
                     smtp.Port = 587;

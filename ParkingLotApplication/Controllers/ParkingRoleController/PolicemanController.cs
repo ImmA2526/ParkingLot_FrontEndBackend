@@ -81,5 +81,34 @@ namespace ParkingLotApplication.Controllers
                 return this.NotFound(new { status = false, Message = e.Message });
             }
         }
+
+        /// <summary>
+        /// Delete the vehical if its False.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <returns></returns>
+        
+        [HttpDelete]
+        [Route("deleteVehical")]
+        public IActionResult DeleteVehical()
+        {
+            try
+            {
+                bool delete = this.policeParking.DeleteVehicals();
+
+                if (delete)
+                {
+                    return this.Ok(new { success = true, Message = "Empty Vehicale Slots Deleted Success", Data = delete });
+                }
+                else
+                {
+                    return this.BadRequest(new { sucess = false, Message = "Error While Deleting" });
+                }
+            }
+            catch (Exception e)
+            {
+                return this.NotFound(new { status = false, Message = e.Message });
+            }
+        }
     }
 }

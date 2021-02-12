@@ -11,5 +11,7 @@ namespace ParkingLotRepositoryLayer.IRepository
 
         ParkingModel UnparkingVehical(int id);
 
+        bool DeleteVehicals();
+
     }
 }

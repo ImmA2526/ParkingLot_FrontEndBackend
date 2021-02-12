@@ -27,5 +27,11 @@ namespace ParkingLotBusinessLayer
             var result = parkingRepo.UnparkingVehical(id);
             return result;
         }
+
+        public bool DeleteVehicals()
+        {
+            var delete = parkingRepo.DeleteVehicals();
+            return delete;
+        }
     }
 }
