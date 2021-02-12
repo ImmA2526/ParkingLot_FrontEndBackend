@@ -22,9 +22,9 @@ namespace ParkingLotBusinessLayer
             return result;
         }
 
-        public ParkingModel UnparkingVehical(ParkingModel unPark)
+        public ParkingModel UnparkingVehical(int id)
         {
-            var result = parkingRepo.UnparkingVehical(unPark);
+            var result = parkingRepo.UnparkingVehical(id);
             return result;
         }
     }

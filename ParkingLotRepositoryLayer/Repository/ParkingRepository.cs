@@ -53,25 +53,30 @@ namespace ParkingLotRepositoryLayer.Repository
         /// <returns></returns>
         /// <exception cref="Exception">Error While Adding" + e.Message</exception>
 
-        public ParkingModel UnparkingVehical(ParkingModel unpark)
+        public ParkingModel UnparkingVehical(int id)
         {
             try
             {
-                ParkingModel unPark = parkingContext.ParkingTable.Find(unpark);
+                ParkingModel unPark = parkingContext.ParkingTable.Find(id);
                 if (unPark.IsEmpty == true)
                 {
+                    unPark.IsEmpty = false;
+                    parkingContext.Entry(unPark).State = EntityState.Modified;
+                    parkingContext.SaveChangesAsync();
                     return unPark;
                 }
-
-                parkingContext.ParkingTable.Remove(unPark);
-                parkingContext.SaveChangesAsync();
-                return unpark;
+                else
+                {
+                    unPark.IsEmpty = true;
+                    parkingContext.Entry(unPark).State = EntityState.Modified;
+                    parkingContext.SaveChangesAsync();
+                    return unPark;
+                }
             }
             catch (Exception e)
             {
                 throw new Exception("Error While Deleting" + e.Message);
             }
         }
-
     }
 }

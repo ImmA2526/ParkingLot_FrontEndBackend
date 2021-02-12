@@ -9,7 +9,7 @@ namespace ParkingLotRepositoryLayer.IRepository
     {
         ParkingModel ParkingVehical(ParkingModel park);
 
-        ParkingModel UnparkingVehical(ParkingModel unpark);
+        ParkingModel UnparkingVehical(int id);
 
     }
 }

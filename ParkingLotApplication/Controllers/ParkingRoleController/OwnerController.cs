@@ -55,21 +55,25 @@ namespace ParkingLotApplication.Controllers
         /// <param name="unpark">The unpark.</param>
         /// <returns></returns>
 
-        [HttpDelete]
-        [Route("ownerVehicalUnpark/{IsEmpty}")]
-        public IActionResult OwnerVehicalUnpark([FromRoute] ParkingModel unpark)
+        [HttpPut]
+        [Route("ownerVehicalUnpark")]
+        public IActionResult OwnerVehicalUnpark(int id)
         {
             try
             {
-                var unparks = this.parking.UnparkingVehical(unpark);
+                var unparks = this.parking.UnparkingVehical(id);
 
                 if (unparks.IsEmpty==true)
                 {
-                    return this.Ok(new { success = true, Message = "Data Delted Succesfully", Data = unparks });
+                    return this.Ok(new { success = true, Message = "Park", Data = unparks });
+                }
+                if (unparks.IsEmpty == false)
+                {
+                    return this.Ok(new { success = true, Message = "UnPark", Data = unparks });
                 }
                 else
                 {
-                    return this.BadRequest(new { sucess = false, Message = "No Record Found" });
+                    return this.BadRequest(new { sucess = false, Message = "Error While Updating" });
                 }
             }
             catch (Exception e)
