@@ -230,7 +230,7 @@ namespace ParkingLotApplication.Controllers
         ///// Adding Type of Parking.
         ///// </summary>
         ///// <param name="vehical">The vehical.</param>
-        ///// <returns></returns>
+        ///// <returns></returns>//
 
         [HttpPost]
         [Route("parkingType")]
