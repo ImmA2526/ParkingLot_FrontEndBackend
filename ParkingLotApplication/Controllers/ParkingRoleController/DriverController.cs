@@ -1,47 +1,52 @@
-﻿//using microsoft.aspnetcore.http;
-//using microsoft.aspnetcore.mvc;
-//using parkinglotbusinesslayer.ibusinesslayer;
-//using parkinglotmodellayer;
-//using system;
-//using system.collections.generic;
-//using system.linq;
-//using system.threading.tasks;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using ParkingLotBusinessLayer.IBusinessLayer;
+using ParkingLotBusinessLayer.IParkingBusinessLayer;
+using ParkingLotModelLayer;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
-//namespace parkinglotapplication.controllers
-//{
-//    [route("api/[controller]")]
-//    [apicontroller]
+namespace ParkingLotApplication.Controllers
+{
+    [Route("api/[controller]")]
+    [ApiController]
+    public class DriverController : ControllerBase
+    {
 
-//    public class drivercontroller : controllerbase
-//    {
+        private readonly IParkingBusiness driverParking;
+        public DriverController(IParkingBusiness driverParking)
+        {
+            this.driverParking = driverParking;
+        }
 
-//        public iuserbusiness business;
-//        public drivercontroller(iuserbusiness business)
-//        {
-//            this.business = business;
-//        }
+        /// <summary>
+        /// Vehical Parking For Owner.
+        /// </summary>
+        /// <param name="park">The park.</param>
+        /// <returns></returns>
 
-//        [httppost]
-//        [route("driverparking")]
-//        public iactionresult driverparking([frombody] drivertypemodel park)
-//        {
-//            try
-//            {
-//                var result = this.business.drivervehicalparking(park);
-//                if (result != null)
-//                {
-//                    return this.ok(new { success = true, message = "data added succesfully", data = result });
-//                }
-//                else
-//                {
-//                    return this.badrequest(new { sucess = false, message = "there is not empty slot" });
-//                }
-//            }
-//            catch (exception e)
-//            {
-//                return this.notfound(new { status = false, message = e.message });
-//            }
-//        }
-
-//    }
-//}
+        [HttpPost]
+        [Route("driverVehicalPark")]
+        public IActionResult DriverVehicalPark([FromBody] ParkingModel park)
+        {
+            try
+            {
+                var result = this.driverParking.ParkingVehical(park);
+                if (result != null)
+                {
+                    return this.Ok(new { success = true, Message = "Data Added Succesfully", Data = result });
+                }
+                else
+                {
+                    return this.BadRequest(new { sucess = false, Message = "There is not Empty Slot" });
+                }
+            }
+            catch (Exception e)
+            {
+                return this.NotFound(new { status = false, Message = e.Message });
+            }
+        }
+    }
+}
