@@ -65,11 +65,11 @@ namespace ParkingLotApplication.Controllers
 
                 if (unparks.IsEmpty == true)
                 {
-                    return this.Ok(new { success = true, Message = "Park", Data = unparks });
+                    return this.Ok(new { success = true, Message = "Unpark", Data = unparks });
                 }
                 if (unparks.IsEmpty == false)
                 {
-                    return this.Ok(new { success = true, Message = "UnPark", Data = unparks });
+                    return this.Ok(new { success = true, Message = "Park", Data = unparks });
                 }
                 else
                 {

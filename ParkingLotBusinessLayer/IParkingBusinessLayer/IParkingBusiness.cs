@@ -12,5 +12,6 @@ namespace ParkingLotBusinessLayer.IParkingBusinessLayer
         ParkingModel UnparkingVehical(int id);
 
         bool DeleteVehicals();
+        //
     }
 }
