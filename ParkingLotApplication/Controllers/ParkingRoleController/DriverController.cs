@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ParkingLotBusinessLayer.IBusinessLayer;
 using ParkingLotBusinessLayer.IParkingBusinessLayer;
@@ -12,6 +13,7 @@ namespace ParkingLotApplication.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(Roles="Driver,Policeman")]
     public class DriverController : ControllerBase
     {
 

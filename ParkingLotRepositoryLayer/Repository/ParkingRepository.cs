@@ -58,20 +58,21 @@ namespace ParkingLotRepositoryLayer.Repository
             try
             {
                 ParkingModel unPark = parkingContext.ParkingTable.Find(id);
-                if (unPark.IsEmpty == true)
-                {
-                    unPark.IsEmpty = false;
-                    parkingContext.Entry(unPark).State = EntityState.Modified;
-                    parkingContext.SaveChangesAsync();
-                    return unPark;
-                }
-                else
+                if (unPark.IsEmpty == false)
                 {
                     unPark.IsEmpty = true;
                     parkingContext.Entry(unPark).State = EntityState.Modified;
                     parkingContext.SaveChangesAsync();
                     return unPark;
                 }
+                return null;
+                //else
+                //{
+                //    unPark.IsEmpty = true;
+                //    parkingContext.Entry(unPark).State = EntityState.Modified;
+                //    parkingContext.SaveChangesAsync();
+                //    return unPark;
+                //}
             }
             catch (Exception e)
             {
@@ -84,7 +85,7 @@ namespace ParkingLotRepositoryLayer.Repository
         /// </summary>
         /// <returns></returns>
         /// <exception cref="Exception">Error While Deleting Empty Slots" + e.Message</exception>
-        
+
         public bool DeleteVehicals()
         {
             try
@@ -106,5 +107,62 @@ namespace ParkingLotRepositoryLayer.Repository
                 throw new Exception("Error While Deleting Empty Slots" + e.Message);
             }
         }
+
+        /// <summary>
+        /// Searches the vehical.
+        /// </summary>
+        /// <param name="search">The search.</param>
+        /// <returns></returns>
+
+        public ParkingModel SearchVehicalByVehicalNo(ParkingModel search)
+        {
+            try
+            {
+                IEnumerable<ParkingModel> searchResult = parkingContext.ParkingTable.Where(e => e.VehicalNo == search.VehicalNo).ToList();
+                if (searchResult != null)
+                {
+                    foreach (var searchvalue in searchResult)
+                    {
+                        this.parkingContext.ParkingTable.Find(searchResult);
+                        return (ParkingModel)searchResult;
+                    }
+                    return (ParkingModel)searchResult;
+                }
+                return (ParkingModel)searchResult;
+            }
+            catch (Exception e)
+            {
+                throw new Exception("Error While Searcing" + e.Message);
+            }
+        }
+
+        /// <summary>
+        /// Searches the vehical by s lot no.
+        /// </summary>
+        /// <param name="search">The search.</param>
+        /// <returns></returns>
+        /// <exception cref="Exception">Error While Searcing" + e.Message</exception>
+        public ParkingModel SearchVehicalBySLotNo(ParkingModel search)
+        {
+            try
+            {
+                IEnumerable<ParkingModel> searchResult = parkingContext.ParkingTable.Where(e => e.SlotNo == search.SlotNo).ToList();
+                if (searchResult != null)
+                {
+                    foreach (var searchvalue in searchResult)
+                    {
+                        this.parkingContext.ParkingTable.Find(searchResult);
+                        return (ParkingModel)searchResult;
+                    }
+                    return (ParkingModel)searchResult;
+                }
+                return (ParkingModel)searchResult;
+            }
+            catch (Exception e)
+            {
+                throw new Exception("Error While Searcing" + e.Message);
+            }
+        }
+
     }
 }

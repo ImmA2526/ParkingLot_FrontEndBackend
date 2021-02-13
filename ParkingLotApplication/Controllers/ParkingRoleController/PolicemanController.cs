@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ParkingLotBusinessLayer.IBusinessLayer;
 using ParkingLotBusinessLayer.IParkingBusinessLayer;
@@ -12,6 +13,7 @@ namespace ParkingLotApplication.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(Roles = "Policeman")]
     public class PolicemanController : ControllerBase
     {
 
@@ -110,5 +112,7 @@ namespace ParkingLotApplication.Controllers
                 return this.NotFound(new { status = false, Message = e.Message });
             }
         }
+
+
     }
 }

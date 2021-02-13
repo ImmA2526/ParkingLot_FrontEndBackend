@@ -13,5 +13,8 @@ namespace ParkingLotRepositoryLayer.IRepository
 
         bool DeleteVehicals();
 
+        ParkingModel SearchVehicalBySLotNo(ParkingModel search);
+        ParkingModel SearchVehicalByVehicalNo(ParkingModel search);
+
     }
 }

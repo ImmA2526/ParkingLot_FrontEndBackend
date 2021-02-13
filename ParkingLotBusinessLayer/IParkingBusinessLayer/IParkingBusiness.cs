@@ -12,6 +12,8 @@ namespace ParkingLotBusinessLayer.IParkingBusinessLayer
         ParkingModel UnparkingVehical(int id);
 
         bool DeleteVehicals();
-        //
+
+        ParkingModel SearchVehicalBySLotNo(ParkingModel search);
+        ParkingModel SearchVehicalByVehicalNo(ParkingModel search);
     }
 }

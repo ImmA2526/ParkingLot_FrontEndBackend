@@ -33,5 +33,17 @@ namespace ParkingLotBusinessLayer
             var delete = parkingRepo.DeleteVehicals();
             return delete;
         }
+
+        public ParkingModel SearchVehicalByVehicalNo(ParkingModel search)
+        {
+            var searchResult = parkingRepo.SearchVehicalByVehicalNo(search);
+            return searchResult;
+        }
+
+        public ParkingModel SearchVehicalBySLotNo(ParkingModel search)
+        {
+            var searchResult = parkingRepo.SearchVehicalBySLotNo(search);
+            return searchResult;
+        }
     }
 }
