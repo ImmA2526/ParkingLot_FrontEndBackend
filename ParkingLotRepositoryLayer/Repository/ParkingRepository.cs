@@ -109,11 +109,11 @@ namespace ParkingLotRepositoryLayer.Repository
         /// <param name="search">The search.</param>
         /// <returns></returns>
 
-        public IEnumerable<ParkingModel> SearchVehicalByVehicalNo(ParkingModel search)
+        public IEnumerable<ParkingModel> SearchVehicalByVehicalNo(string vehicalNo)
         {
             try
             {
-                IEnumerable<ParkingModel> searchResult = parkingContext.ParkingTable.Where(e => e.VehicalNo == search.VehicalNo).ToList();
+                IEnumerable<ParkingModel> searchResult = parkingContext.ParkingTable.Where(e => e.VehicalNo == vehicalNo).ToList();
                 if (searchResult != null)
                 {
                     return searchResult;
@@ -133,11 +133,11 @@ namespace ParkingLotRepositoryLayer.Repository
         /// <param name="search">The search.</param>
         /// <returns></returns>
         /// <exception cref="Exception">Error While Searcing" + e.Message</exception>
-        public IEnumerable<ParkingModel> SearchVehicalBySLotNo(ParkingModel search)
+        public IEnumerable<ParkingModel> SearchVehicalBySLotNo(int slotNo)
         {
             try
             {
-                IEnumerable<ParkingModel> searchResult = parkingContext.ParkingTable.Where(e => e.SlotNo == search.SlotNo).ToList();
+                IEnumerable<ParkingModel> searchResult = parkingContext.ParkingTable.Where(e => e.SlotNo == slotNo).ToList();
                 if (searchResult != null)
                 {
                     return searchResult;

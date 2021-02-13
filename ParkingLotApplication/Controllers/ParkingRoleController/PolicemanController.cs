@@ -113,5 +113,40 @@ namespace ParkingLotApplication.Controllers
             }
         }
 
+        /// <summary>
+        /// Searches the vehical by slotNo an Vehical No.
+        /// </summary>
+        /// <param name="search">The search.</param>
+        /// <returns></returns>
+
+        [HttpGet]
+        [Route("searchVehicalBySlotNo")]
+        public IActionResult SearchVehicalBySlot(ParkingModel search)
+        {
+            try
+            {
+                IEnumerable<ParkingModel> searchResult = this.policeParking.SearchVehicalBySLotNo(search);
+                return this.Ok(searchResult);
+            }
+            catch (Exception e)
+            {
+                return this.BadRequest(e.Message);
+            }
+        }
+
+        [HttpGet]
+        [Route("searchVehicalByVehicalNo")]
+        public IActionResult SearchVehicalByVehical(ParkingModel search)
+        {
+            try
+            {
+                IEnumerable<ParkingModel> searchResult = this.policeParking.SearchVehicalByVehicalNo(search);
+                return this.Ok(searchResult);
+            }
+            catch (Exception e)
+            {
+                return this.BadRequest(e.Message);
+            }
+        }
     }
 }

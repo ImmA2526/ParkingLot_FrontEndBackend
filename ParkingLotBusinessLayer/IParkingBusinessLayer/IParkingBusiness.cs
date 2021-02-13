@@ -13,8 +13,8 @@ namespace ParkingLotBusinessLayer.IParkingBusinessLayer
 
         bool DeleteVehicals();
 
-        IEnumerable<ParkingModel> SearchVehicalByVehicalNo(ParkingModel search);
+        IEnumerable<ParkingModel> SearchVehicalByVehicalNo(string vehicalNo);
 
-        IEnumerable<ParkingModel> SearchVehicalBySLotNo(ParkingModel search);
+        IEnumerable<ParkingModel> SearchVehicalBySLotNo(int slotNo);
     }
 }
