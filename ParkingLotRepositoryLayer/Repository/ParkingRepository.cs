@@ -53,12 +53,12 @@ namespace ParkingLotRepositoryLayer.Repository
         /// <returns></returns>
         /// <exception cref="Exception">Error While Adding" + e.Message</exception>
 
-        public ParkingResponse UnparkingVehical(int slotNo)
+        public ParkingResponse UnparkingVehical(int parkingId)
         {
             try
             {
                 //ParkingModel unPark = parkingContext.ParkingTable.Find(slotNo);
-                var parkingResult = this.parkingContext.ParkingTable.Where<ParkingModel>(model => model.SlotNo==slotNo && model.IsEmpty==false).FirstOrDefault();
+                var parkingResult = this.parkingContext.ParkingTable.Where<ParkingModel>(model => model.ParkingId==parkingId && model.IsEmpty==false).FirstOrDefault();
                 var result = CalculateCharge(parkingResult.ParkingId);
                 var exitTime = DateTime.Now;
                 parkingResult.ExitTime = exitTime;

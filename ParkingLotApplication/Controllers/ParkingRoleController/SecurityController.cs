@@ -83,5 +83,41 @@ namespace ParkingLotApplication.Controllers
                 return this.NotFound(new { Status = false, Message = e.Message });
             }
         }
+
+        /// <summary>
+        /// Searches the vehical by slotNo an Vehical No.
+        /// </summary>
+        /// <param name="search">The search.</param>
+        /// <returns></returns>
+
+        [HttpGet]
+        [Route("searchVehicalBySlotNo")]
+        public IActionResult SearchVehicalBySlotNo([FromQuery] int slotNo)
+        {
+            try
+            {
+                IEnumerable<ParkingModel> searchResult = this.securityParking.SearchVehicalBySLotNo(slotNo);
+                return this.Ok(searchResult);
+            }
+            catch (Exception e)
+            {
+                return this.BadRequest(e.Message);
+            }
+        }
+
+        [HttpGet]
+        [Route("searchVehicalByVehicalNo")]
+        public IActionResult SearchVehicalByVehicalNo([FromQuery] string vehicalNo)
+        {
+            try
+            {
+                IEnumerable<ParkingModel> searchResult = this.securityParking.SearchVehicalByVehicalNo(vehicalNo);
+                return this.Ok(searchResult);
+            }
+            catch (Exception e)
+            {
+                return this.BadRequest(e.Message);
+            }
+        }
     }
 }

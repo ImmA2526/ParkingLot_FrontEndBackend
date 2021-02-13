@@ -59,11 +59,11 @@ namespace ParkingLotApplication.Controllers
 
         [HttpPut]
         [Route("driverVehicalUnpark")]
-        public IActionResult PolicemanVehicalUnpark(int id)
+        public IActionResult PolicemanVehicalUnpark([FromQuery] int parkingId)
         {
             try
             {
-                var unparks = this.policeParking.UnparkingVehical(id);
+                var unparks = this.policeParking.UnparkingVehical(parkingId);
 
                 if (unparks.IsEmpty == true)
                 {
@@ -100,7 +100,7 @@ namespace ParkingLotApplication.Controllers
 
                 if (delete)
                 {
-                    return this.Ok(new { Status = true, Message = "Empty Vehicale Slots Deleted Status", Data = delete });
+                    return this.Ok(new { Status = true, Message = "Empty Vehicale Slots Deleted Sucess", Data = delete });
                 }
                 else
                 {
