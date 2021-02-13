@@ -68,23 +68,6 @@ namespace ParkingLotRepositoryLayer.Repository
                 this.parkingContext.ParkingTable.Update(parkingResult);
                 this.parkingContext.SaveChangesAsync();
                 return result;
-
-                ////if (unPark.IsEmpty == false)
-                ////{
-                //    unPark.IsEmpty = true;
-                //    parkingContext.Entry(unPark).State = EntityState.Modified;
-                //    parkingContext.SaveChangesAsync();
-
-                //    return unPark;
-                ////}
-                //return null;
-                //else
-                //{
-                //    unPark.IsEmpty = true;
-                //    parkingContext.Entry(unPark).State = EntityState.Modified;
-                //    parkingContext.SaveChangesAsync();
-                //    return unPark;
-                //}
             }
             catch (Exception e)
             {
@@ -116,7 +99,7 @@ namespace ParkingLotRepositoryLayer.Repository
             }
             catch (Exception e)
             {
-                throw new Exception("Error While Deleting Empty Slots" + e.Message);
+                throw new Exception("Error While Deleting" + e.Message);
             }
         }
 
@@ -133,11 +116,6 @@ namespace ParkingLotRepositoryLayer.Repository
                 IEnumerable<ParkingModel> searchResult = parkingContext.ParkingTable.Where(e => e.VehicalNo == search.VehicalNo).ToList();
                 if (searchResult != null)
                 {
-                    //foreach (var searchvalue in searchResult)
-                    //{
-                    //    this.parkingContext.ParkingTable.Find(searchResult);
-                    //    return (ParkingModel)searchResult;
-                    //}
                     return searchResult;
                 }
                 return null;
@@ -162,11 +140,6 @@ namespace ParkingLotRepositoryLayer.Repository
                 IEnumerable<ParkingModel> searchResult = parkingContext.ParkingTable.Where(e => e.SlotNo == search.SlotNo).ToList();
                 if (searchResult != null)
                 {
-                    //foreach (var searchvalue in searchResult)
-                    //{
-                    //    this.parkingContext.ParkingTable.Find(searchResult);
-                    //    return (ParkingModel)searchResult;
-                    //}
                     return searchResult;
                 }
                 return null;
@@ -177,6 +150,11 @@ namespace ParkingLotRepositoryLayer.Repository
             }
         }
 
+        /// <summary>
+        /// Calculating Charges For Unpark
+        /// </summary>
+        /// <param name="parkingId"></param>
+        /// <returns></returns>
         public ParkingResponse CalculateCharge(int parkingId)
         {
             var result = from parkingModel in parkingContext.ParkingTable
@@ -211,6 +189,5 @@ namespace ParkingLotRepositoryLayer.Repository
             }
             return null;
         }
-
     }
 }
