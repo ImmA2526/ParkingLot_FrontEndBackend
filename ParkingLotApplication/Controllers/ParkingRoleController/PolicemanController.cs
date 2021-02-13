@@ -121,11 +121,11 @@ namespace ParkingLotApplication.Controllers
 
         [HttpGet]
         [Route("searchVehicalBySlotNo")]
-        public IActionResult SearchVehicalBySlotNo([FromQuery] int slotNo)
+        public IActionResult SearchVehical([FromQuery] int slotNo)
         {
             try
             {
-                IEnumerable<ParkingModel> searchResult = this.policeParking.SearchVehicalBySLotNo(slotNo);
+                IEnumerable<ParkingModel> searchResult = this.policeParking.SearchVehical(slotNo);
                 return this.Ok(searchResult);
             }
             catch (Exception e)
@@ -140,7 +140,7 @@ namespace ParkingLotApplication.Controllers
         {
             try
             {
-                IEnumerable<ParkingModel> searchResult = this.policeParking.SearchVehicalByVehicalNo(vehicalNo);
+                IEnumerable<ParkingModel> searchResult = this.policeParking.SearchVehical(vehicalNo);
                 return this.Ok(searchResult);
             }
             catch (Exception e)
