@@ -53,19 +53,31 @@ namespace ParkingLotRepositoryLayer.Repository
         /// <returns></returns>
         /// <exception cref="Exception">Error While Adding" + e.Message</exception>
 
-        public ParkingModel UnparkingVehical(int id)
+        public ParkingResponse UnparkingVehical(int slotNo)
         {
             try
             {
-                ParkingModel unPark = parkingContext.ParkingTable.Find(id);
-                if (unPark.IsEmpty == false)
-                {
-                    unPark.IsEmpty = true;
-                    parkingContext.Entry(unPark).State = EntityState.Modified;
-                    parkingContext.SaveChangesAsync();
-                    return unPark;
-                }
-                return null;
+                //ParkingModel unPark = parkingContext.ParkingTable.Find(slotNo);
+                var parkingResult = this.parkingContext.ParkingTable.Where<ParkingModel>(model => model.SlotNo==slotNo && model.IsEmpty==false).FirstOrDefault();
+                var result = CalculateCharge(parkingResult.ParkingId);
+                var exitTime = DateTime.Now;
+                parkingResult.ExitTime = exitTime;
+                parkingResult.IsEmpty = true;
+                parkingResult.Charges = (int)(result.VehicalTypeCharges + result.DriverTypeCharges + result.ParkingTypeCharges);
+                result.TotalCharges = parkingResult.Charges;
+                this.parkingContext.ParkingTable.Update(parkingResult);
+                this.parkingContext.SaveChangesAsync();
+                return result;
+
+                ////if (unPark.IsEmpty == false)
+                ////{
+                //    unPark.IsEmpty = true;
+                //    parkingContext.Entry(unPark).State = EntityState.Modified;
+                //    parkingContext.SaveChangesAsync();
+
+                //    return unPark;
+                ////}
+                //return null;
                 //else
                 //{
                 //    unPark.IsEmpty = true;
@@ -114,21 +126,22 @@ namespace ParkingLotRepositoryLayer.Repository
         /// <param name="search">The search.</param>
         /// <returns></returns>
 
-        public ParkingModel SearchVehicalByVehicalNo(ParkingModel search)
+        public IEnumerable<ParkingModel> SearchVehicalByVehicalNo(ParkingModel search)
         {
             try
             {
                 IEnumerable<ParkingModel> searchResult = parkingContext.ParkingTable.Where(e => e.VehicalNo == search.VehicalNo).ToList();
                 if (searchResult != null)
                 {
-                    foreach (var searchvalue in searchResult)
-                    {
-                        this.parkingContext.ParkingTable.Find(searchResult);
-                        return (ParkingModel)searchResult;
-                    }
-                    return (ParkingModel)searchResult;
+                    //foreach (var searchvalue in searchResult)
+                    //{
+                    //    this.parkingContext.ParkingTable.Find(searchResult);
+                    //    return (ParkingModel)searchResult;
+                    //}
+                    return searchResult;
                 }
-                return (ParkingModel)searchResult;
+                return null;
+
             }
             catch (Exception e)
             {
@@ -142,26 +155,61 @@ namespace ParkingLotRepositoryLayer.Repository
         /// <param name="search">The search.</param>
         /// <returns></returns>
         /// <exception cref="Exception">Error While Searcing" + e.Message</exception>
-        public ParkingModel SearchVehicalBySLotNo(ParkingModel search)
+        public IEnumerable<ParkingModel> SearchVehicalBySLotNo(ParkingModel search)
         {
             try
             {
                 IEnumerable<ParkingModel> searchResult = parkingContext.ParkingTable.Where(e => e.SlotNo == search.SlotNo).ToList();
                 if (searchResult != null)
                 {
-                    foreach (var searchvalue in searchResult)
-                    {
-                        this.parkingContext.ParkingTable.Find(searchResult);
-                        return (ParkingModel)searchResult;
-                    }
-                    return (ParkingModel)searchResult;
+                    //foreach (var searchvalue in searchResult)
+                    //{
+                    //    this.parkingContext.ParkingTable.Find(searchResult);
+                    //    return (ParkingModel)searchResult;
+                    //}
+                    return searchResult;
                 }
-                return (ParkingModel)searchResult;
+                return null;
             }
             catch (Exception e)
             {
                 throw new Exception("Error While Searcing" + e.Message);
             }
+        }
+
+        public ParkingResponse CalculateCharge(int parkingId)
+        {
+            var result = from parkingModel in parkingContext.ParkingTable
+                         join parkingTypeModel in parkingContext.ParkingTypeTable
+                         on parkingModel.ParkTypeID equals parkingTypeModel.ParkTypeID
+                         join driverTypeModel in parkingContext.DriverTypeTable
+                         on parkingModel.ParkTypeID equals driverTypeModel.DriverTypeID
+                         join vehicalTypeModel in parkingContext.VehicalTypeTable
+                         on parkingModel.VehicleTypeID equals vehicalTypeModel.VehicleTypeID
+                         select new ParkingResponse()
+                         {
+                             ParkingId = parkingModel.ParkingId,
+                             VehicalNo = parkingModel.VehicalNo,
+                             SlotNo = parkingModel.SlotNo,
+                             IsEmpty = parkingModel.IsEmpty,
+                             EntryTime = parkingModel.EntryTime,
+                             ExitTime = parkingModel.ExitTime,
+                             ParkingTypeCharges = parkingTypeModel.Charges,
+                             VehicalTypeCharges = vehicalTypeModel.Charges,
+                             DriverTypeCharges = driverTypeModel.Charges,
+                             ParkType = parkingTypeModel.ParkType,
+                             DriverType = driverTypeModel.DriverType,
+                             VehicleType = vehicalTypeModel.VehicalType,
+                             TotalCharges = 0,
+                         };
+            foreach (var data in result)
+            {
+                if (data.ParkingId == parkingId)
+                {
+                    return data;
+                }
+            }
+            return null;
         }
 
     }

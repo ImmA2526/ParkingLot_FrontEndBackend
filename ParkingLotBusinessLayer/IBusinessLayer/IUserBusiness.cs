@@ -20,6 +20,5 @@ namespace ParkingLotBusinessLayer.IBusinessLayer
         DriverTypeModel DriverTypes(DriverTypeModel driver);
         
         ParkingTypeModel ParkingTypes(ParkingTypeModel parking);
-
     }
 }

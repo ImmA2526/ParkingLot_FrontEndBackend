@@ -36,18 +36,18 @@ namespace ParkingLotApplication.Controllers
             try
             {
                 var result = this.policeParking.ParkingVehical(park);
-                if (result != null)
+                if (result != null && park.DriverTypeID==1)
                 {
-                    return this.Ok(new { success = true, Message = "Data Added Succesfully", Data = result });
+                    return this.Ok(new { Status = true, Message = "Parking Succesfully", Data = result });
                 }
                 else
                 {
-                    return this.BadRequest(new { sucess = false, Message = "There is not Empty Slot" });
+                    return this.BadRequest(new { Status = false, Message = "Error While Parking" });
                 }
             }
             catch (Exception e)
             {
-                return this.NotFound(new { status = false, Message = e.Message });
+                return this.NotFound(new { Status = false, Message = e.Message });
             }
         }
 
@@ -67,20 +67,20 @@ namespace ParkingLotApplication.Controllers
 
                 if (unparks.IsEmpty == true)
                 {
-                    return this.Ok(new { success = true, Message = "Unpark", Data = unparks });
+                    return this.Ok(new { Status = true, Message = "Unpark", Data = unparks });
                 }
                 if (unparks.IsEmpty == false)
                 {
-                    return this.Ok(new { success = true, Message = "Park", Data = unparks });
+                    return this.Ok(new { Status = true, Message = "Park", Data = unparks });
                 }
                 else
                 {
-                    return this.BadRequest(new { sucess = false, Message = "Error While Updating" });
+                    return this.BadRequest(new { Status = false, Message = "Error While Updating" });
                 }
             }
             catch (Exception e)
             {
-                return this.NotFound(new { status = false, Message = e.Message });
+                return this.NotFound(new { Status = false, Message = e.Message });
             }
         }
 
@@ -100,19 +100,17 @@ namespace ParkingLotApplication.Controllers
 
                 if (delete)
                 {
-                    return this.Ok(new { success = true, Message = "Empty Vehicale Slots Deleted Success", Data = delete });
+                    return this.Ok(new { Status = true, Message = "Empty Vehicale Slots Deleted Status", Data = delete });
                 }
                 else
                 {
-                    return this.BadRequest(new { sucess = false, Message = "Error While Deleting" });
+                    return this.BadRequest(new { Status = false, Message = "Error While Deleting" });
                 }
             }
             catch (Exception e)
             {
-                return this.NotFound(new { status = false, Message = e.Message });
+                return this.NotFound(new { Status = false, Message = e.Message });
             }
         }
-
-
     }
 }

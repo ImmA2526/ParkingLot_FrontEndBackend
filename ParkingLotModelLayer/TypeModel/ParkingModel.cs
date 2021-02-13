@@ -14,7 +14,7 @@ namespace ParkingLotModelLayer
         public int ParkingId { get; set; }
 
         [Required]
-        public int VehicalNo { get; set; }
+        public string VehicalNo { get; set; }
 
         [Required]
         public int SlotNo { get; set; }
@@ -27,7 +27,7 @@ namespace ParkingLotModelLayer
         public int EntryTime { get; set; }
 
         
-        public int ExitTime { get; set; }
+        public DateTime ExitTime { get; set; }
 
         [Required]
         public int Charges { get; set; }

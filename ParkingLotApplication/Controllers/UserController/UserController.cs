@@ -67,11 +67,11 @@ namespace ParkingLotApplication.Controllers
                 var result = this.business.UserRegistration(user);
                 if (result != null)
                 {
-                    return this.Ok(new { success = true, Message = "Data Added successfully", Data = result });
+                    return this.Ok(new { Status = true, Message = "Data Added successfully", Data = result });
                 }
                 else
                 {
-                    return this.BadRequest(new { success = false, Message = "Data is Not Added Succesfully " });
+                    return this.BadRequest(new { Status = false, Message = "Data is Not Added Succesfully " });
                 }
             }
             catch (Exception e)
@@ -96,11 +96,11 @@ namespace ParkingLotApplication.Controllers
                 if (result != null)
                 {
                     var token = GenrateJWTToken(result.Role, result.Email);
-                    return this.Ok(new { success = true, Message = "Login Successfully", Data = token });
+                    return this.Ok(new { Status = true, Message = "Login Successfully", Data = token });
                 }
                 else
                 {
-                    return this.BadRequest(new { success = false, Message = "Login Failed" });
+                    return this.BadRequest(new { Status = false, Message = "Login Failed" });
                 }
             }
             catch (Exception e)
@@ -125,11 +125,11 @@ namespace ParkingLotApplication.Controllers
 
                 if (result != null)
                 {
-                    return this.Ok(new { success = true, Message = "Password Send Successfully", Data = result });
+                    return this.Ok(new { Status = true, Message = "Password Send Successfully", Data = result });
                 }
                 else
                 {
-                    return this.BadRequest(new { success = false, Message = "Sending Password Failed" });
+                    return this.BadRequest(new { Status = false, Message = "Sending Password Failed" });
                 }
             }
 
@@ -154,11 +154,11 @@ namespace ParkingLotApplication.Controllers
                 var result = this.business.ResetUserPassword(reset);
                 if (result != null)
                 {
-                    return this.Ok(new { success = true, Message = "Password Reset Succesfully", Data = result });
+                    return this.Ok(new { Status = true, Message = "Password Reset Succesfully", Data = result });
                 }
                 else
                 {
-                    return this.BadRequest(new { success = false, Message = "Error While Reseting Password" });
+                    return this.BadRequest(new { Status = false, Message = "Error While Reseting Password" });
                 }
             }
             catch (Exception e)
@@ -183,17 +183,17 @@ namespace ParkingLotApplication.Controllers
                 var result = this.business.VehicalTypes(vehical);
                 if (result != null)
                 {
-                    return this.Ok(new { success = true, message = "vehical type added sucesfully", data = result });
+                    return this.Ok(new { Status = true, message = "vehical type added sucesfully", data = result });
                 }
                 else
                 {
-                    return this.BadRequest(new { success = false, message = "error while adding" });
+                    return this.BadRequest(new { Status = false, message = "error while adding" });
                 }
 
             }
             catch (Exception e)
             {
-                return this.NotFound(new { status = false, message = e.Message });
+                return this.NotFound(new { Status = false, message = e.Message });
             }
         }
 
@@ -212,17 +212,17 @@ namespace ParkingLotApplication.Controllers
                 var result = this.business.DriverTypes(driver);
                 if (result != null)
                 {
-                    return this.Ok(new { success = true, message = "Driver Type added sucesfully", data = result });
+                    return this.Ok(new { Status = true, message = "Driver Type added sucesfully", data = result });
                 }
                 else
                 {
-                    return this.BadRequest(new { success = false, message = "Error While Adding Driver" });
+                    return this.BadRequest(new { Status = false, message = "Error While Adding Driver" });
                 }
 
             }
             catch (Exception e)
             {
-                return this.NotFound(new { status = false, message = e.Message });
+                return this.NotFound(new { Status = false, message = e.Message });
             }
         }
 
@@ -241,17 +241,17 @@ namespace ParkingLotApplication.Controllers
                 var result = this.business.ParkingTypes(parking);
                 if (result != null)
                 {
-                    return this.Ok(new { success = true, message = "Parking Data Added sucesfully", data = result });
+                    return this.Ok(new { Status = true, message = "Parking Data Added sucesfully", data = result });
                 }
                 else
                 {
-                    return this.BadRequest(new { success = false, message = "Error while Adding Parking Data" });
+                    return this.BadRequest(new { Status = false, message = "Error while Adding Parking Data" });
                 }
 
             }
             catch (Exception e)
             {
-                return this.NotFound(new { status = false, message = e.Message });
+                return this.NotFound(new { Status = false, message = e.Message });
             }
         }
     }

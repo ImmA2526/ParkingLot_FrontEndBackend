@@ -4,6 +4,7 @@ using System;
 
 using ParkingLotRepositoryLayer.IRepository;
 using ParkingLotBusinessLayer.IParkingBusinessLayer;
+using System.Collections.Generic;
 
 namespace ParkingLotBusinessLayer
 {
@@ -22,7 +23,7 @@ namespace ParkingLotBusinessLayer
             return result;
         }
 
-        public ParkingModel UnparkingVehical(int id)
+        public ParkingResponse UnparkingVehical(int id)
         {
             var result = parkingRepo.UnparkingVehical(id);
             return result;
@@ -34,16 +35,16 @@ namespace ParkingLotBusinessLayer
             return delete;
         }
 
-        public ParkingModel SearchVehicalByVehicalNo(ParkingModel search)
+        public IEnumerable<ParkingModel> SearchVehicalByVehicalNo(ParkingModel search)
         {
             var searchResult = parkingRepo.SearchVehicalByVehicalNo(search);
-            return searchResult;
+            return (IEnumerable<ParkingModel>)searchResult;
         }
 
-        public ParkingModel SearchVehicalBySLotNo(ParkingModel search)
+        public IEnumerable<ParkingModel> SearchVehicalBySLotNo(ParkingModel search)
         {
             var searchResult = parkingRepo.SearchVehicalBySLotNo(search);
-            return searchResult;
+            return (IEnumerable<ParkingModel>)searchResult;
         }
     }
 }

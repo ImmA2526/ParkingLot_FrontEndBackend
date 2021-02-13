@@ -9,11 +9,12 @@ namespace ParkingLotBusinessLayer.IParkingBusinessLayer
     {
         ParkingModel ParkingVehical(ParkingModel park);
 
-        ParkingModel UnparkingVehical(int id);
+        ParkingResponse UnparkingVehical(int slotNo);
 
         bool DeleteVehicals();
 
-        ParkingModel SearchVehicalBySLotNo(ParkingModel search);
-        ParkingModel SearchVehicalByVehicalNo(ParkingModel search);
+        IEnumerable<ParkingModel> SearchVehicalByVehicalNo(ParkingModel search);
+
+        IEnumerable<ParkingModel> SearchVehicalBySLotNo(ParkingModel search);
     }
 }
