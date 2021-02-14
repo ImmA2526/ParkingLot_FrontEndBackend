@@ -33,6 +33,7 @@ namespace ParkingLotRepositoryLayer.Repository
             try
             {
                 park.EntryTime = DateTime.Now;
+                park.ExitTime = new DateTime(0000 - 0000 - 000);
                 parkingContext.ParkingTable.Add(park);
                 var result = parkingContext.SaveChanges();
                 if (result > 0)
@@ -61,6 +62,7 @@ namespace ParkingLotRepositoryLayer.Repository
                 var parkingResult = this.parkingContext.ParkingTable.Where<ParkingModel>(model => model.ParkingId == parkingId).SingleOrDefault();
                 if (parkingResult != null)
                 {
+                    //Unpark Vehical if the Vehical is Alredy Parked
                     if (parkingResult.IsEmpty)
                     {
                         parkingResult.IsEmpty = false;
@@ -73,19 +75,19 @@ namespace ParkingLotRepositoryLayer.Repository
                         this.parkingContext.SaveChangesAsync();
                         return result;
                     }
-                    //Park Vehical 
+               
+                    //Park Vehical if the Vehical is Not Park
                     else
                     {
                         var result = CalculateCharge(parkingResult.ParkingId);
                         parkingResult.IsEmpty = true;
                         parkingResult.Charges = 0;
                         parkingResult.EntryTime = DateTime.Now;
-                        //parkingResult.ExitTime=;
+                        parkingResult.ExitTime = new DateTime(0000-0000-000);
                         this.parkingContext.ParkingTable.Update(parkingResult);
                         this.parkingContext.SaveChangesAsync();
                         return result;
-                    }
-                    
+                    }   
                 }
                 return null;
             }

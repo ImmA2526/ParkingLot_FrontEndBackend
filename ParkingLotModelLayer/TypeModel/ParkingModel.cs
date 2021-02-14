@@ -25,7 +25,7 @@ namespace ParkingLotModelLayer
 
         public DateTime EntryTime { get; set; }
         
-        [DefaultValue(0000-00-00)]
+        [DefaultValue("0000-00-00 00:00:00")]
         public DateTime ExitTime { get; set; }
 
         [Required]

@@ -65,13 +65,13 @@ namespace ParkingLotApplication.Controllers
             {
                 var unparks = this.policeParking.UnparkingVehical(parkingId);
 
-                if (unparks.IsEmpty == true)
-                {
-                    return this.Ok(new { Status = true, Message = "Unpark", Data = unparks });
-                }
                 if (unparks.IsEmpty == false)
                 {
                     return this.Ok(new { Status = true, Message = "Park", Data = unparks });
+                }
+                if (unparks.IsEmpty == true)
+                {
+                    return this.Ok(new { Status = true, Message = "UnPark", Data = unparks });
                 }
                 else
                 {
