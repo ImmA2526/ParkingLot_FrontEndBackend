@@ -16,7 +16,7 @@ namespace ParkingLotModelLayer
 
         public bool IsEmpty { get; set; }
 
-        public int EntryTime { get; set; }
+        public DateTime EntryTime { get; set; }
 
         public DateTime ExitTime { get; set; }
 
@@ -26,7 +26,7 @@ namespace ParkingLotModelLayer
         
         public double DriverTypeCharges { get; set; }
 
-        public string ParkType { get; set; }
+        public string ParkingType { get; set; }
 
         public string VehicleType { get; set; }
 

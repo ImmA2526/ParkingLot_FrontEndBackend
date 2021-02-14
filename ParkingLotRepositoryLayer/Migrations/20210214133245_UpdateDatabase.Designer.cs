@@ -10,8 +10,8 @@ using ParkingLotRepositoryLayer;
 namespace ParkingLotRepositoryLayer.Migrations
 {
     [DbContext(typeof(ParkingContext))]
-    [Migration("20210213065105_Mdel Name Update")]
-    partial class MdelNameUpdate
+    [Migration("20210214133245_UpdateDatabase")]
+    partial class UpdateDatabase
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -46,7 +46,7 @@ namespace ParkingLotRepositoryLayer.Migrations
 
                     b.Property<int>("DriverTypeID");
 
-                    b.Property<int>("EntryTime");
+                    b.Property<DateTime>("EntryTime");
 
                     b.Property<DateTime>("ExitTime");
 
@@ -66,41 +66,6 @@ namespace ParkingLotRepositoryLayer.Migrations
                     b.ToTable("ParkingTable");
                 });
 
-            modelBuilder.Entity("ParkingLotModelLayer.ParkingResponse", b =>
-                {
-                    b.Property<int>("ParkingId")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("DriverType");
-
-                    b.Property<double>("DriverTypeCharges");
-
-                    b.Property<int>("EntryTime");
-
-                    b.Property<DateTime>("ExitTime");
-
-                    b.Property<bool>("IsEmpty");
-
-                    b.Property<string>("ParkType");
-
-                    b.Property<double>("ParkingTypeCharges");
-
-                    b.Property<int>("SlotNo");
-
-                    b.Property<double>("TotalCharges");
-
-                    b.Property<string>("VehicalNo");
-
-                    b.Property<double>("VehicalTypeCharges");
-
-                    b.Property<string>("VehicleType");
-
-                    b.HasKey("ParkingId");
-
-                    b.ToTable("ParkingResponseTable");
-                });
-
             modelBuilder.Entity("ParkingLotModelLayer.ParkingTypeModel", b =>
                 {
                     b.Property<int>("ParkTypeID")
@@ -108,8 +73,6 @@ namespace ParkingLotRepositoryLayer.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int>("Charges");
-
-                    b.Property<string>("ParkType");
 
                     b.Property<string>("ParkingType")
                         .IsRequired();

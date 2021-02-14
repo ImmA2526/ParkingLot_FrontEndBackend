@@ -23,9 +23,7 @@ namespace ParkingLotModelLayer
         [DefaultValue(false)]
         public bool IsEmpty { get; set; }
 
-        [Required]
-        public int EntryTime { get; set; }
-
+        public DateTime EntryTime { get; set; }
         
         public DateTime ExitTime { get; set; }
 

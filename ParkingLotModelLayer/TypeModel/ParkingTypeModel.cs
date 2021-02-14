@@ -17,7 +17,6 @@ namespace ParkingLotModelLayer
 
         [Required]
         public int Charges { get; set; }
-        public string ParkType { get; set; }
     }
 
 }

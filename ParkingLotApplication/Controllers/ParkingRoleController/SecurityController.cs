@@ -13,7 +13,7 @@ namespace ParkingLotApplication.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize(Roles = "Policeman,Security")]
+    //[Authorize(Roles = "Policeman,Security")]
     public class SecurityController : ControllerBase
     {
 
@@ -59,11 +59,11 @@ namespace ParkingLotApplication.Controllers
 
         [HttpPut]
         [Route("securityVehicalUnpark")]
-        public IActionResult SecurityVehicalUnpark(int id)
+        public IActionResult SecurityVehicalUnpark(int parkingId)
         {
             try
             {
-                var unparks = this.securityParking.UnparkingVehical(id);
+                var unparks = this.securityParking.UnparkingVehical(parkingId);
 
                 if (unparks.IsEmpty == true)
                 {

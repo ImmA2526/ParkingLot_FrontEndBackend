@@ -9,7 +9,7 @@ namespace ParkingLotRepositoryLayer.IRepository
     {
         ParkingModel ParkingVehical(ParkingModel park);
 
-        ParkingResponse UnparkingVehical(int slotNo);
+        ParkingResponse UnparkingVehical(int parkingId);
 
         bool DeleteVehicals();
 

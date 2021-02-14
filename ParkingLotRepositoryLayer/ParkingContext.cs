@@ -19,7 +19,5 @@ namespace ParkingLotRepositoryLayer
         public DbSet<VehicalTypeModel> VehicalTypeTable { get; set; }
         
         public DbSet<ParkingTypeModel> ParkingTypeTable { get; set; }
-
-        public DbSet<ParkingResponse> ParkingResponseTable { get; set; }
     }
 }

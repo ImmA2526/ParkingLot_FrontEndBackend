@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace ParkingLotRepositoryLayer.Migrations
 {
-    public partial class MdelNameUpdate : Migration
+    public partial class UpdateDatabase : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -23,30 +23,6 @@ namespace ParkingLotRepositoryLayer.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "ParkingResponseTable",
-                columns: table => new
-                {
-                    ParkingId = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    VehicalNo = table.Column<string>(nullable: true),
-                    SlotNo = table.Column<int>(nullable: false),
-                    IsEmpty = table.Column<bool>(nullable: false),
-                    EntryTime = table.Column<int>(nullable: false),
-                    ExitTime = table.Column<DateTime>(nullable: false),
-                    ParkingTypeCharges = table.Column<double>(nullable: false),
-                    VehicalTypeCharges = table.Column<double>(nullable: false),
-                    DriverTypeCharges = table.Column<double>(nullable: false),
-                    ParkType = table.Column<string>(nullable: true),
-                    VehicleType = table.Column<string>(nullable: true),
-                    DriverType = table.Column<string>(nullable: true),
-                    TotalCharges = table.Column<double>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ParkingResponseTable", x => x.ParkingId);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "ParkingTable",
                 columns: table => new
                 {
@@ -55,7 +31,7 @@ namespace ParkingLotRepositoryLayer.Migrations
                     VehicalNo = table.Column<string>(nullable: false),
                     SlotNo = table.Column<int>(nullable: false),
                     IsEmpty = table.Column<bool>(nullable: false),
-                    EntryTime = table.Column<int>(nullable: false),
+                    EntryTime = table.Column<DateTime>(nullable: false),
                     ExitTime = table.Column<DateTime>(nullable: false),
                     Charges = table.Column<int>(nullable: false),
                     ParkTypeID = table.Column<int>(nullable: false),
@@ -74,8 +50,7 @@ namespace ParkingLotRepositoryLayer.Migrations
                     ParkTypeID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     ParkingType = table.Column<string>(nullable: false),
-                    Charges = table.Column<int>(nullable: false),
-                    ParkType = table.Column<string>(nullable: true)
+                    Charges = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -118,9 +93,6 @@ namespace ParkingLotRepositoryLayer.Migrations
         {
             migrationBuilder.DropTable(
                 name: "DriverTypeTable");
-
-            migrationBuilder.DropTable(
-                name: "ParkingResponseTable");
 
             migrationBuilder.DropTable(
                 name: "ParkingTable");

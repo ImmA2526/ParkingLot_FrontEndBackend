@@ -57,16 +57,34 @@ namespace ParkingLotRepositoryLayer.Repository
         {
             try
             {
-                var parkingResult = this.parkingContext.ParkingTable.Where<ParkingModel>(model => model.ParkingId==parkingId && model.IsEmpty==false).FirstOrDefault();
-                var result = CalculateCharge(parkingResult.ParkingId);
-                var exitTime = DateTime.Now;
-                parkingResult.ExitTime = exitTime;
-                parkingResult.IsEmpty = true;
-                parkingResult.Charges = (int)(result.VehicalTypeCharges + result.DriverTypeCharges + result.ParkingTypeCharges);
-                result.TotalCharges = parkingResult.Charges;
-                this.parkingContext.ParkingTable.Update(parkingResult);
-                this.parkingContext.SaveChangesAsync();
-                return result;
+                var parkingResult = this.parkingContext.ParkingTable.Where<ParkingModel>(model => model.ParkingId == parkingId).SingleOrDefault();
+                if (parkingResult != null)
+                {
+                    if (parkingResult.IsEmpty)
+                    {
+                        parkingResult.IsEmpty = false;
+                        var result = CalculateCharge(parkingResult.ParkingId);
+                        var exitTime = DateTime.Now;
+                        parkingResult.ExitTime = exitTime;
+                        parkingResult.Charges = (int)(result.VehicalTypeCharges + result.DriverTypeCharges + result.ParkingTypeCharges);
+                        result.TotalCharges = parkingResult.Charges;
+                        this.parkingContext.ParkingTable.Update(parkingResult);
+                        this.parkingContext.SaveChangesAsync();
+                        return result;
+                    }
+                    //Park Vehical 
+                    else
+                    {
+                        var result = CalculateCharge(parkingResult.ParkingId);
+                        parkingResult.IsEmpty = true;
+                        parkingResult.Charges = 0;
+                        this.parkingContext.ParkingTable.Update(parkingResult);
+                        this.parkingContext.SaveChangesAsync();
+                        return result;
+                    }
+                    
+                }
+                return null;
             }
             catch (Exception e)
             {
@@ -159,10 +177,13 @@ namespace ParkingLotRepositoryLayer.Repository
             var result = from parkingModel in parkingContext.ParkingTable
                          join parkingTypeModel in parkingContext.ParkingTypeTable
                          on parkingModel.ParkTypeID equals parkingTypeModel.ParkTypeID
+
                          join driverTypeModel in parkingContext.DriverTypeTable
-                         on parkingModel.ParkTypeID equals driverTypeModel.DriverTypeID
+                         on parkingModel.DriverTypeID equals driverTypeModel.DriverTypeID
+
                          join vehicalTypeModel in parkingContext.VehicalTypeTable
                          on parkingModel.VehicleTypeID equals vehicalTypeModel.VehicleTypeID
+
                          select new ParkingResponse()
                          {
                              ParkingId = parkingModel.ParkingId,
@@ -174,7 +195,7 @@ namespace ParkingLotRepositoryLayer.Repository
                              ParkingTypeCharges = parkingTypeModel.Charges,
                              VehicalTypeCharges = vehicalTypeModel.Charges,
                              DriverTypeCharges = driverTypeModel.Charges,
-                             ParkType = parkingTypeModel.ParkType,
+                             ParkingType = parkingTypeModel.ParkingType,
                              DriverType = driverTypeModel.DriverType,
                              VehicleType = vehicalTypeModel.VehicalType,
                              TotalCharges = 0,
