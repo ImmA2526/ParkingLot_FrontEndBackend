@@ -32,6 +32,7 @@ namespace ParkingLotRepositoryLayer.Repository
         {
             try
             {
+                park.EntryTime = DateTime.Now;
                 parkingContext.ParkingTable.Add(park);
                 var result = parkingContext.SaveChanges();
                 if (result > 0)
@@ -78,6 +79,8 @@ namespace ParkingLotRepositoryLayer.Repository
                         var result = CalculateCharge(parkingResult.ParkingId);
                         parkingResult.IsEmpty = true;
                         parkingResult.Charges = 0;
+                        parkingResult.EntryTime = DateTime.Now;
+                        //parkingResult.ExitTime=;
                         this.parkingContext.ParkingTable.Update(parkingResult);
                         this.parkingContext.SaveChangesAsync();
                         return result;
