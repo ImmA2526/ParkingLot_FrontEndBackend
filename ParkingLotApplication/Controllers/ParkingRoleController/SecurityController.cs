@@ -91,19 +91,19 @@ namespace ParkingLotApplication.Controllers
         /// <returns></returns>
 
         [HttpGet]
-        [Route("searchVehicalBySlotNo")]
-        public IActionResult SearchVehicalBySlotNo([FromQuery] int slotNo,string vehicalNo)
+        [Route("searchVehical")]
+        public IActionResult SearchVehical([FromQuery] int slotNo,string vehicalNo)
         {
             try
             {
-                if (slotNo>0)
+                if (slotNo > 0)
                 {
-                    IEnumerable<ParkingModel> searchResult = this.securityParking.SearchVehicalBySLotNo(slotNo);
+                    IEnumerable<ParkingModel> searchResult = this.securityParking.SearchVehical(slotNo);
                     return this.Ok(searchResult);
                 }
                 else if (vehicalNo != null)
                 {
-                    IEnumerable<ParkingModel> searchResult = this.securityParking.SearchVehicalByVehicalNo(vehicalNo);
+                    IEnumerable<ParkingModel> searchResult = this.securityParking.SearchVehical(vehicalNo);
                     return this.Ok(searchResult);
                 }
                 return null;
@@ -114,20 +114,5 @@ namespace ParkingLotApplication.Controllers
                 return this.BadRequest(e.Message);
             }
         }
-
-        //[HttpGet]
-        //[Route("searchVehicalByVehicalNo")]
-        //public IActionResult SearchVehicalByVehicalNo([FromQuery] string vehicalNo)
-        //{
-        //    try
-        //    {
-        //        IEnumerable<ParkingModel> searchResult = this.securityParking.SearchVehicalByVehicalNo(vehicalNo);
-        //        return this.Ok(searchResult);
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        return this.BadRequest(e.Message);
-        //    }
-        //}
     }
 }

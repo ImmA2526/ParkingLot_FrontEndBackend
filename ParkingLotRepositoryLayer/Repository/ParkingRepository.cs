@@ -57,7 +57,6 @@ namespace ParkingLotRepositoryLayer.Repository
         {
             try
             {
-                //ParkingModel unPark = parkingContext.ParkingTable.Find(slotNo);
                 var parkingResult = this.parkingContext.ParkingTable.Where<ParkingModel>(model => model.ParkingId==parkingId && model.IsEmpty==false).FirstOrDefault();
                 var result = CalculateCharge(parkingResult.ParkingId);
                 var exitTime = DateTime.Now;
@@ -109,7 +108,7 @@ namespace ParkingLotRepositoryLayer.Repository
         /// <param name="search">The search.</param>
         /// <returns></returns>
 
-        public IEnumerable<ParkingModel> SearchVehicalByVehicalNo(string vehicalNo)
+        public IEnumerable<ParkingModel> SearchVehical(string vehicalNo)
         {
             try
             {
@@ -133,7 +132,7 @@ namespace ParkingLotRepositoryLayer.Repository
         /// <param name="search">The search.</param>
         /// <returns></returns>
         /// <exception cref="Exception">Error While Searcing" + e.Message</exception>
-        public IEnumerable<ParkingModel> SearchVehicalBySLotNo(int slotNo)
+        public IEnumerable<ParkingModel> SearchVehical(int slotNo)
         {
             try
             {

@@ -120,29 +120,24 @@ namespace ParkingLotApplication.Controllers
         /// <returns></returns>
 
         [HttpGet]
-        [Route("searchVehicalBySlotNo")]
-        public IActionResult SearchVehical([FromQuery] int slotNo)
+        [Route("searchVehical")]
+        public IActionResult SearchVehical([FromQuery] int slotNo, string vehicalNo)
         {
             try
             {
-                IEnumerable<ParkingModel> searchResult = this.policeParking.SearchVehical(slotNo);
-                return this.Ok(searchResult);
+                if (slotNo > 0)
+                {
+                    IEnumerable<ParkingModel> searchResult = this.policeParking.SearchVehical(slotNo);
+                    return this.Ok(searchResult);
+                }
+                else if (vehicalNo != null)
+                {
+                    IEnumerable<ParkingModel> searchResult = this.policeParking.SearchVehical(vehicalNo);
+                    return this.Ok(searchResult);
+                }
+                return null;
             }
-            catch (Exception e)
-            {
-                return this.BadRequest(e.Message);
-            }
-        }
 
-        [HttpGet]
-        [Route("searchVehicalByVehicalNo")]
-        public IActionResult SearchVehicalByVehicalNo([FromQuery] string vehicalNo)
-        {
-            try
-            {
-                IEnumerable<ParkingModel> searchResult = this.policeParking.SearchVehical(vehicalNo);
-                return this.Ok(searchResult);
-            }
             catch (Exception e)
             {
                 return this.BadRequest(e.Message);

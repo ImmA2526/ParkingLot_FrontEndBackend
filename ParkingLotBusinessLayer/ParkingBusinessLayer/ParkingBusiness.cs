@@ -35,16 +35,16 @@ namespace ParkingLotBusinessLayer
             return delete;
         }
 
-        public IEnumerable<ParkingModel> SearchVehicalByVehicalNo(string vehicalNo)
+        public IEnumerable<ParkingModel> SearchVehical(string vehicalNo)
         {
-            var searchResult = parkingRepo.SearchVehicalByVehicalNo(vehicalNo);
-            return (IEnumerable<ParkingModel>)searchResult;
+            var searchResult = parkingRepo.SearchVehical(vehicalNo);
+            return searchResult;
         }
 
-        public IEnumerable<ParkingModel> SearchVehicalBySLotNo(int slotNo)
+        public IEnumerable<ParkingModel> SearchVehical(int slotNo)
         {
-            var searchResult = parkingRepo.SearchVehicalBySLotNo(slotNo);
-            return (IEnumerable<ParkingModel>)searchResult;
+            var searchResult = parkingRepo.SearchVehical(slotNo);
+            return searchResult;
         }
     }
 }
