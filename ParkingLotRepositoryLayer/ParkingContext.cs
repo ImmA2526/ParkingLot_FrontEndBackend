@@ -7,7 +7,7 @@ namespace ParkingLotRepositoryLayer
     {
         public ParkingContext(DbContextOptions<ParkingContext> options) : base(options)
         {
-
+//
         }
 
         public DbSet<UserModel> UserTable { get; set; }
