@@ -17,7 +17,7 @@ namespace ParkingLotRepositoryLayer.IRepository
 
         IEnumerable<ParkingModel> SearchVehical(int slotNo);
 
-        IEnumerable<ParkingModel> GetParkVehicalData(bool IsEmpty);
+        IEnumerable<ParkingModel> GetParkVehicalData();
 
         //IEnumerable<ParkingModel> GetParkVehicalData(int parkingID);
     }

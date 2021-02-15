@@ -122,16 +122,19 @@ namespace ParkingLotApplication.Controllers
         /// <returns></returns>
         [HttpGet]
         [Route("getparkVehical")]
-        public IActionResult GetAllParkVehical(bool IsEmpty)
+        public IActionResult GetAllParkVehical()
         {
             try
             {
-                if (IsEmpty==true)
+                IEnumerable<ParkingModel> getResult = this.securityParking.GetParkVehicalData();
+                if (getResult != null)
                 {
-                    IEnumerable<ParkingModel> getResult = this.securityParking.GetParkVehicalData(IsEmpty);
                     return this.Ok(getResult);
                 }
-                return null;
+                else
+                {
+                    return this.NotFound("Record Not Found");
+                }
             }
             catch (Exception e)
             {

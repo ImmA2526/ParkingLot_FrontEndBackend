@@ -47,9 +47,9 @@ namespace ParkingLotBusinessLayer
             return searchResult;
         }
 
-        public IEnumerable<ParkingModel> GetParkVehicalData(bool IsEmpty)
+        public IEnumerable<ParkingModel> GetParkVehicalData()
         {
-            var getResult = parkingRepo.GetParkVehicalData(IsEmpty);
+            var getResult = parkingRepo.GetParkVehicalData();
             return getResult;
         }
     }

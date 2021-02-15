@@ -224,11 +224,11 @@ namespace ParkingLotRepositoryLayer.Repository
         /// <param name="parkingID"></param>
         /// <returns></returns>
 
-        public IEnumerable<ParkingModel> GetParkVehicalData(bool IsEmpty)
+        public IEnumerable<ParkingModel> GetParkVehicalData()
         {
             try
             {
-                IEnumerable<ParkingModel> getResult = parkingContext.ParkingTable.Where(e => e.IsEmpty == IsEmpty).ToList();
+                IEnumerable<ParkingModel> getResult = parkingContext.ParkingTable.Where(e => e.IsEmpty==true).ToList();
                 if (getResult != null)
                 {
                     return getResult;

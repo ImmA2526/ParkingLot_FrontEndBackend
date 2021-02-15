@@ -19,6 +19,6 @@ namespace ParkingLotBusinessLayer.IParkingBusinessLayer
 
         //IEnumerable<ParkingModel> GetParkVehicalData(int parkingID);
 
-        IEnumerable<ParkingModel> GetParkVehicalData(bool IsEmpty);
+        IEnumerable<ParkingModel> GetParkVehicalData();
     }
 }
