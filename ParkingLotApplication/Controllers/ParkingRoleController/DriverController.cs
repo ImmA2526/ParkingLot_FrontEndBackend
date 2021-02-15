@@ -13,7 +13,7 @@ namespace ParkingLotApplication.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize(Roles="Driver,Policeman")]
+    [Authorize(Roles = "Driver,Policeman")]
     public class DriverController : ControllerBase
     {
 

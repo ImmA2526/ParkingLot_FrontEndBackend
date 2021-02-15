@@ -10,8 +10,8 @@ using ParkingLotRepositoryLayer;
 namespace ParkingLotRepositoryLayer.Migrations
 {
     [DbContext(typeof(ParkingContext))]
-    [Migration("20210214152134_Update")]
-    partial class Update
+    [Migration("20210215130119_Table")]
+    partial class Table
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
