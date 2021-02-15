@@ -219,21 +219,21 @@ namespace ParkingLotRepositoryLayer.Repository
         /// </summary>
         /// <param name="parkingID"></param>
         /// <returns></returns>
-        public IEnumerable<ParkingModel> GetParkVehicalData(int parkingID)
+
+        public IEnumerable<ParkingModel> GetParkVehicalData(bool IsEmpty)
         {
             try
             {
-                ParkingModel get = new ParkingModel();
-                IEnumerable<ParkingModel> getdata = parkingContext.ParkingTable.Where(e => e.ParkingId == parkingID).ToList();
-                if (get.IsEmpty == true)
+                IEnumerable<ParkingModel> getResult = parkingContext.ParkingTable.Where(e => e.IsEmpty == IsEmpty).ToList();
+                if (getResult != null)
                 {
-                    return getdata;
+                    return getResult;
                 }
                 return null;
             }
             catch (Exception e)
             {
-                throw new Exception("Error While Getting Park Vehical Data"+e.Message);
+                throw new Exception("Error While Searcing" + e.Message);
             }
         }
     }

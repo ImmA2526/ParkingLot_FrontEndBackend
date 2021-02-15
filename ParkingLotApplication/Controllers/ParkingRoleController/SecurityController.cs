@@ -118,28 +118,21 @@ namespace ParkingLotApplication.Controllers
         /// <summary>
         /// Gets all park vehical.
         /// </summary>
-        /// <param name="parkingID">The parking identifier.</param>
+        /// <param name="IsEmpty">if set to <c>true</c> [is empty].</param>
         /// <returns></returns>
-
         [HttpGet]
         [Route("getparkVehical")]
-        public IActionResult GetAllParkVehical(int parkingID)
+        public IActionResult GetAllParkVehical(bool IsEmpty)
         {
             try
             {
-                if (parkingID > 0)
+                if (IsEmpty==true)
                 {
-                    IEnumerable<ParkingModel> getResult = this.securityParking.GetParkVehicalData(parkingID);
-                    return this.Ok(getResult);
+                    IEnumerable<ParkingModel> searchResult = this.securityParking.GetParkVehicalData(IsEmpty);
+                    return this.Ok(searchResult);
                 }
-                //else if (vehicalNo != null)
-                //{
-                //    IEnumerable<ParkingModel> searchResult = this.securityParking.SearchVehical(vehicalNo);
-                //    return this.Ok(searchResult);
-                //}
                 return null;
             }
-
             catch (Exception e)
             {
                 return this.BadRequest(e.Message);
