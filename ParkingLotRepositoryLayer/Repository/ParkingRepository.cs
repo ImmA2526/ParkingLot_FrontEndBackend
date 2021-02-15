@@ -98,6 +98,48 @@ namespace ParkingLotRepositoryLayer.Repository
         }
 
         /// <summary>
+        /// Calculating Charges For Unpark
+        /// </summary>
+        /// <param name="parkingId"></param>
+        /// <returns></returns>
+        public ParkingResponse CalculateCharge(int parkingId)
+        {
+            var result = from parkingModel in parkingContext.ParkingTable
+                         join parkingTypeModel in parkingContext.ParkingTypeTable
+                         on parkingModel.ParkTypeID equals parkingTypeModel.ParkTypeID
+
+                         join driverTypeModel in parkingContext.DriverTypeTable
+                         on parkingModel.DriverTypeID equals driverTypeModel.DriverTypeID
+
+                         join vehicalTypeModel in parkingContext.VehicalTypeTable
+                         on parkingModel.VehicleTypeID equals vehicalTypeModel.VehicleTypeID
+
+                         select new ParkingResponse()
+                         {
+                             ParkingId = parkingModel.ParkingId,
+                             VehicalNo = parkingModel.VehicalNo,
+                             SlotNo = parkingModel.SlotNo,
+                             IsEmpty = parkingModel.IsEmpty,
+                             EntryTime = parkingModel.EntryTime,
+                             ExitTime = parkingModel.ExitTime,
+                             ParkingTypeCharges = parkingTypeModel.Charges,
+                             VehicalTypeCharges = vehicalTypeModel.Charges,
+                             DriverTypeCharges = driverTypeModel.Charges,
+                             ParkingType = parkingTypeModel.ParkingType,
+                             DriverType = driverTypeModel.DriverType,
+                             VehicleType = vehicalTypeModel.VehicalType,
+                             TotalCharges = 0,
+                         };
+            foreach (var data in result)
+            {
+                if (data.ParkingId == parkingId)
+                {
+                    return data;
+                }
+            }
+            return null;
+        }
+        /// <summary>
         /// Deletes the vehical if the slot is Empty.
         /// </summary>
         /// <returns></returns>
@@ -170,49 +212,6 @@ namespace ParkingLotRepositoryLayer.Repository
             {
                 throw new Exception("Error While Searcing" + e.Message);
             }
-        }
-
-        /// <summary>
-        /// Calculating Charges For Unpark
-        /// </summary>
-        /// <param name="parkingId"></param>
-        /// <returns></returns>
-        public ParkingResponse CalculateCharge(int parkingId)
-        {
-            var result = from parkingModel in parkingContext.ParkingTable
-                         join parkingTypeModel in parkingContext.ParkingTypeTable
-                         on parkingModel.ParkTypeID equals parkingTypeModel.ParkTypeID
-
-                         join driverTypeModel in parkingContext.DriverTypeTable
-                         on parkingModel.DriverTypeID equals driverTypeModel.DriverTypeID
-
-                         join vehicalTypeModel in parkingContext.VehicalTypeTable
-                         on parkingModel.VehicleTypeID equals vehicalTypeModel.VehicleTypeID
-
-                         select new ParkingResponse()
-                         {
-                             ParkingId = parkingModel.ParkingId,
-                             VehicalNo = parkingModel.VehicalNo,
-                             SlotNo = parkingModel.SlotNo,
-                             IsEmpty = parkingModel.IsEmpty,
-                             EntryTime = parkingModel.EntryTime,
-                             ExitTime = parkingModel.ExitTime,
-                             ParkingTypeCharges = parkingTypeModel.Charges,
-                             VehicalTypeCharges = vehicalTypeModel.Charges,
-                             DriverTypeCharges = driverTypeModel.Charges,
-                             ParkingType = parkingTypeModel.ParkingType,
-                             DriverType = driverTypeModel.DriverType,
-                             VehicleType = vehicalTypeModel.VehicalType,
-                             TotalCharges = 0,
-                         };
-            foreach (var data in result)
-            {
-                if (data.ParkingId == parkingId)
-                {
-                    return data;
-                }
-            }
-            return null;
-        }
+        }        
     }
 }
