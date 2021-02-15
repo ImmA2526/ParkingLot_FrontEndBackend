@@ -5,6 +5,10 @@ namespace PMSMQ
         
     public class Sender
     {
+        /// <summary>
+        /// Send Mail.
+        /// </summary>
+
         public void MailSender()
         {
             var forgotPassword = "Reset Password link for Parking Model:- https://localhost:44305/swagger/index.html ";
