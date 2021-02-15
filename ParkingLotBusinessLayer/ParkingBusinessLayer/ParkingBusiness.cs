@@ -11,12 +11,12 @@ namespace ParkingLotBusinessLayer
     public class ParkingBusiness : IParkingBusiness
     {
         IParkingRepository parkingRepo;
-        public ParkingBusiness (IParkingRepository parkingRepo)
+        public ParkingBusiness(IParkingRepository parkingRepo)
         {
             this.parkingRepo = parkingRepo;
         }
 
-       
+
         public ParkingModel ParkingVehical(ParkingModel park)
         {
             var result = parkingRepo.ParkingVehical(park);
@@ -52,7 +52,5 @@ namespace ParkingLotBusinessLayer
             var getResult = parkingRepo.GetParkVehicalData(IsEmpty);
             return getResult;
         }
-
-
-}
+    }
 }

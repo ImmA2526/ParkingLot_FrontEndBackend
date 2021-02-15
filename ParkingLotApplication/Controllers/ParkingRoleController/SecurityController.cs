@@ -128,8 +128,8 @@ namespace ParkingLotApplication.Controllers
             {
                 if (IsEmpty==true)
                 {
-                    IEnumerable<ParkingModel> searchResult = this.securityParking.GetParkVehicalData(IsEmpty);
-                    return this.Ok(searchResult);
+                    IEnumerable<ParkingModel> getResult = this.securityParking.GetParkVehicalData(IsEmpty);
+                    return this.Ok(getResult);
                 }
                 return null;
             }
