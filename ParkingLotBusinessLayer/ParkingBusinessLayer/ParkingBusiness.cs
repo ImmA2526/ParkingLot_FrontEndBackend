@@ -46,5 +46,13 @@ namespace ParkingLotBusinessLayer
             var searchResult = parkingRepo.SearchVehical(slotNo);
             return searchResult;
         }
-    }
+
+        public IEnumerable<ParkingModel> GetParkVehicalData(int parkingID)
+        {
+            var getResult = parkingRepo.GetParkVehicalData(parkingID);
+            return getResult;
+        }
+
+
+}
 }

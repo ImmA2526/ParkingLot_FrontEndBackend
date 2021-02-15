@@ -13,7 +13,7 @@ namespace ParkingLotApplication.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize(Roles = "Policeman,Security")]
+    //[Authorize(Roles = "Policeman,Security")]
     public class SecurityController : ControllerBase
     {
 
@@ -92,11 +92,11 @@ namespace ParkingLotApplication.Controllers
 
         [HttpGet]
         [Route("searchVehical")]
-        public IActionResult SearchVehical([FromQuery] int slotNo,string vehicalNo)
+        public IActionResult SearchVehical(int slotNo,string vehicalNo)
         {
             try
             {
-                if (slotNo > 0)
+                if (slotNo >0)
                 {
                     IEnumerable<ParkingModel> searchResult = this.securityParking.SearchVehical(slotNo);
                     return this.Ok(searchResult);
@@ -106,6 +106,37 @@ namespace ParkingLotApplication.Controllers
                     IEnumerable<ParkingModel> searchResult = this.securityParking.SearchVehical(vehicalNo);
                     return this.Ok(searchResult);
                 }
+                return null;
+            }
+
+            catch (Exception e)
+            {
+                return this.BadRequest(e.Message);
+            }
+        }
+
+        /// <summary>
+        /// Gets all park vehical.
+        /// </summary>
+        /// <param name="parkingID">The parking identifier.</param>
+        /// <returns></returns>
+
+        [HttpGet]
+        [Route("getparkVehical")]
+        public IActionResult GetAllParkVehical(int parkingID)
+        {
+            try
+            {
+                if (parkingID > 0)
+                {
+                    IEnumerable<ParkingModel> getResult = this.securityParking.GetParkVehicalData(parkingID);
+                    return this.Ok(getResult);
+                }
+                //else if (vehicalNo != null)
+                //{
+                //    IEnumerable<ParkingModel> searchResult = this.securityParking.SearchVehical(vehicalNo);
+                //    return this.Ok(searchResult);
+                //}
                 return null;
             }
 

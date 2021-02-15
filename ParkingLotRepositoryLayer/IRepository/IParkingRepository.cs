@@ -16,5 +16,7 @@ namespace ParkingLotRepositoryLayer.IRepository
         IEnumerable<ParkingModel> SearchVehical(string vehicalNo);
 
         IEnumerable<ParkingModel> SearchVehical(int slotNo);
+
+        IEnumerable<ParkingModel> GetParkVehicalData(int parkingID);
     }
 }
