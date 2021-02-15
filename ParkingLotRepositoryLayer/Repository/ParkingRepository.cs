@@ -44,7 +44,7 @@ namespace ParkingLotRepositoryLayer.Repository
             }
             catch (Exception e)
             {
-                throw new Exception("Error While Adding" + e.Message);
+                throw new Exception("Error While Parking" + e.Message);
             }
         }
 
@@ -93,7 +93,7 @@ namespace ParkingLotRepositoryLayer.Repository
             }
             catch (Exception e)
             {
-                throw new Exception("Error While Deleting" + e.Message);
+                throw new Exception("Error While Unparking" + e.Message);
             }
         }
 
@@ -163,7 +163,7 @@ namespace ParkingLotRepositoryLayer.Repository
             }
             catch (Exception e)
             {
-                throw new Exception("Error While Deleting" + e.Message);
+                throw new Exception("Error While Deleting Data" + e.Message);
             }
         }
 
@@ -212,6 +212,8 @@ namespace ParkingLotRepositoryLayer.Repository
             {
                 throw new Exception("Error While Searcing" + e.Message);
             }
-        }        
+        }
+        
+        public ParkingModel
     }
 }
