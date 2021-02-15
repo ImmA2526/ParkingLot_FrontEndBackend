@@ -13,7 +13,7 @@ namespace ParkingLotApplication.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize(Roles = "Policeman")]
+    //[Authorize(Roles = "Policeman")]
     public class PolicemanController : ControllerBase
     {
 
@@ -121,7 +121,7 @@ namespace ParkingLotApplication.Controllers
 
         [HttpGet]
         [Route("searchVehical")]
-        public IActionResult SearchVehical([FromQuery] int slotNo, string vehicalNo)
+        public IActionResult SearchVehical(int slotNo, string vehicalNo)
         {
             try
             {

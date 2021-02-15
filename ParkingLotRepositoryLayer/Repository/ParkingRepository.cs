@@ -32,15 +32,18 @@ namespace ParkingLotRepositoryLayer.Repository
         {
             try
             {
-                park.EntryTime = DateTime.Now;
-                park.ExitTime = new DateTime(0000 - 0000 - 000);
-                parkingContext.ParkingTable.Add(park);
-                var result = parkingContext.SaveChanges();
-                if (result > 0)
+                if (park.DriverTypeID >0 && park.DriverTypeID < 5 )
                 {
+                    park.EntryTime = DateTime.Now;
+                    park.ExitTime = new DateTime(0000 - 0000 - 000);
+                    parkingContext.ParkingTable.Add(park);
+                    var result = parkingContext.SaveChanges();
                     return park;
                 }
-                return null;
+                else
+                {
+                    return null;
+                }
             }
             catch (Exception e)
             {
