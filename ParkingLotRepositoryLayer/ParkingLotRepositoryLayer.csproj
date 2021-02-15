@@ -16,6 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\MSMQ\PMSMQ.csproj" />
     <ProjectReference Include="..\ParkingLotModelLayer\ParkingLotModelLayer.csproj" />
   </ItemGroup>
 

@@ -3,13 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30907.101
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParkingLotApplication", "ParkingLotApplication\ParkingLotApplication.csproj", "{24D59EBC-C8E7-44D3-BDFB-764095693429}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ParkingLotApplication", "ParkingLotApplication\ParkingLotApplication.csproj", "{24D59EBC-C8E7-44D3-BDFB-764095693429}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParkingLotModelLayer", "ParkingLotModelLayer\ParkingLotModelLayer.csproj", "{99E86679-CCCB-4C60-9194-8D0DC13115AA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ParkingLotModelLayer", "ParkingLotModelLayer\ParkingLotModelLayer.csproj", "{99E86679-CCCB-4C60-9194-8D0DC13115AA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParkingLotBusinessLayer", "ParkingLotBusinessLayer\ParkingLotBusinessLayer.csproj", "{C5FCCE97-461C-4CB8-B2C9-EDEA3C56D326}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ParkingLotBusinessLayer", "ParkingLotBusinessLayer\ParkingLotBusinessLayer.csproj", "{C5FCCE97-461C-4CB8-B2C9-EDEA3C56D326}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParkingLotRepositoryLayer", "ParkingLotRepositoryLayer\ParkingLotRepositoryLayer.csproj", "{86FACA2E-A4EA-4D98-8B2E-D5CE9142BDB9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ParkingLotRepositoryLayer", "ParkingLotRepositoryLayer\ParkingLotRepositoryLayer.csproj", "{86FACA2E-A4EA-4D98-8B2E-D5CE9142BDB9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PMSMQ", "MSMQ\PMSMQ.csproj", "{9310262D-31A0-4025-8526-F3FB4A15374D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{86FACA2E-A4EA-4D98-8B2E-D5CE9142BDB9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{86FACA2E-A4EA-4D98-8B2E-D5CE9142BDB9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{86FACA2E-A4EA-4D98-8B2E-D5CE9142BDB9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9310262D-31A0-4025-8526-F3FB4A15374D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9310262D-31A0-4025-8526-F3FB4A15374D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9310262D-31A0-4025-8526-F3FB4A15374D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9310262D-31A0-4025-8526-F3FB4A15374D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

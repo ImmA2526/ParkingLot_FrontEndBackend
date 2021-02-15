@@ -3,6 +3,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using ParkingLotModelLayer;
 using ParkingLotRepositoryLayer.IRepository;
+using PMSMQ;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
@@ -132,8 +133,15 @@ namespace ParkingLotRepositoryLayer.Repository
                 var result = parkingContext.UserTable.FirstOrDefault(e => e.Email == forgot.Email);
                 if (result != null)
                 {
-                    string decode = Decryptdata(result.Password);
-                    body = decode;
+
+                    //string decode = Decryptdata(result.Password);
+                     
+                    Sender send = new Sender();
+                    send.MailSender();
+
+                    Recever recev = new Recever();
+                    var forgotLink = recev.MailReciver();
+                    body = forgotLink;
                 }
                 else
                 {
@@ -148,7 +156,7 @@ namespace ParkingLotRepositoryLayer.Repository
                     SmtpClient smtp = new SmtpClient();
                     smtp.Host = "smtp.gmail.com";
                     smtp.EnableSsl = true;
-                    NetworkCredential NetworkCred = new NetworkCredential("imraninfo.1996@gmail.com", "PASSWORD");
+                    NetworkCredential NetworkCred = new NetworkCredential("imraninfo.1996@gmail.com", "9175833272");
                     smtp.UseDefaultCredentials = true;
                     smtp.Credentials = NetworkCred;
                     smtp.Port = 587;
