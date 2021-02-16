@@ -82,6 +82,21 @@ namespace ParkingLotApplication
                     //ClockSkew = TimeSpan.Zero
                 };
             });
+
+            //For Redis Cache
+            services.AddDistributedRedisCache(options =>
+            {
+                options.Configuration = "localhost:6379";
+                options.InstanceName = "ParkingLot";
+            });
+            
+            ///MAnaging Session Time 
+            services.AddSession(options =>
+            {
+                options.IdleTimeout = TimeSpan.FromMinutes(30);//We set Time here 
+                options.Cookie.HttpOnly = true;
+                options.Cookie.IsEssential = true;
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -102,6 +117,7 @@ namespace ParkingLotApplication
             });
             app.UseAuthentication();
             app.UseHttpsRedirection();
+            app.UseSession();
             app.UseMvc();
         }
     }

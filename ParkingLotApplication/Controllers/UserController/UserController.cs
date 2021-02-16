@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using ParkingLotBusinessLayer.IBusinessLayer;
@@ -22,10 +23,12 @@ namespace ParkingLotApplication.Controllers
     {
         private readonly IUserBusiness business;
         private readonly IConfiguration configuration;
-        public UserController(IUserBusiness business, IConfiguration configuration)
+        private IDistributedCache cache;
+        public UserController(IUserBusiness business, IConfiguration configuration, IDistributedCache cache)
         {
             this.business = business;
             this.configuration = configuration;
+            this.cache = cache;
         }
 
         /// <summary>
@@ -88,10 +91,21 @@ namespace ParkingLotApplication.Controllers
 
         [HttpPost]
         [Route("loginUser")]
-        public IActionResult LoginUser([FromBody] LoginModel login)
+        public async Task<IActionResult> LoginUser([FromBody] LoginModel login)
         {
             try
             {
+                //Redis Code For Login
+
+                var cacheKey = "loginData";
+                //string serializedloginList;
+                var loginData = new List<LoginModel>();
+                var redis = await cache.GetAsync(cacheKey);
+                if (string.IsNullOrEmpty(cache.GetString("loginData")))
+                {
+                    
+                }
+
                 var result = this.business.UserLogin(login);
                 if (result != null)
                 {
