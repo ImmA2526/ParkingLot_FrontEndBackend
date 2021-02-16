@@ -58,7 +58,7 @@ namespace ParkingLotApplication.Controllers
         /// <returns></returns>
 
         [HttpPut]
-        [Route("driverVehicalUnpark")]
+        [Route("policeVehicalUnpark")]
         public IActionResult PolicemanVehicalUnpark([FromQuery] int parkingId)
         {
             try

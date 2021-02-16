@@ -11,7 +11,7 @@ namespace PMSMQ
 
         public void MailSender()
         {
-            var forgotPassword = "Reset Password link for Parking Model:- https://localhost:44305/swagger/index.html ";
+            var forgotPassword = "Reset Password link for Parking Model:- This is the Link of Your Forgot Password ";
             MessageQueue msgQueue = new MessageQueue();
             if (MessageQueue.Exists(@".\Private$\MyQueue"))
             {

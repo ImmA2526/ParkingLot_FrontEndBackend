@@ -237,7 +237,7 @@ namespace ParkingLotRepositoryLayer.Repository
             }
             catch (Exception e)
             {
-                throw new Exception("Error While Searcing" + e.Message);
+                throw new Exception("Error While Retriving Data " + e.Message);
             }
         }
     }
