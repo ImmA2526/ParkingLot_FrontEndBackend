@@ -120,6 +120,7 @@ namespace ParkingLotApplication.Controllers
         /// </summary>
         /// <param name="IsEmpty">if set to <c>true</c> [is empty].</param>
         /// <returns></returns>
+        
         [HttpGet]
         [Route("getparkVehical")]
         public IActionResult GetAllParkVehical()

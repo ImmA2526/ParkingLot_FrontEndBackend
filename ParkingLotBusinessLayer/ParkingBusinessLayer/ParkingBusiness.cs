@@ -16,7 +16,6 @@ namespace ParkingLotBusinessLayer
             this.parkingRepo = parkingRepo;
         }
 
-
         public ParkingModel ParkingVehical(ParkingModel park)
         {
             var result = parkingRepo.ParkingVehical(park);
