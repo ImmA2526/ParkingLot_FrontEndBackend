@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Distributed;
+using Newtonsoft.Json;
 using ParkingLotBusinessLayer.IBusinessLayer;
 using ParkingLotBusinessLayer.IParkingBusinessLayer;
 using ParkingLotModelLayer;
@@ -18,9 +20,16 @@ namespace ParkingLotApplication.Controllers
     {
 
         private readonly IParkingBusiness policeParking;
-        public PolicemanController(IParkingBusiness policeParking)
+        private IDistributedCache cache;
+        private string cacheKey;
+        private DistributedCacheEntryOptions options;
+
+        public PolicemanController(IParkingBusiness policeParking, IDistributedCache cache)
         {
             this.policeParking = policeParking;
+            this.cache = cache;
+            this.cacheKey = "parkingLot";
+            this.options = new DistributedCacheEntryOptions().SetSlidingExpiration(TimeSpan.FromHours(3.0));
         }
 
         /// <summary>
@@ -157,18 +166,26 @@ namespace ParkingLotApplication.Controllers
             try
             {
                 IEnumerable<ParkingModel> getResult = this.policeParking.GetParkVehicalData();
+
                 if (getResult != null)
                 {
-                    return this.Ok(new { Status = true, Message = "Park Vehical Data Retrive Succesfully", Data = getResult });
+                    this.cache.SetString(this.cacheKey, JsonConvert.SerializeObject(getResult));
+                }
+
+                ///Redis Cashe Implemented
+                if (this.cache.GetString(this.cacheKey) != null)
+                {
+                    var data = JsonConvert.DeserializeObject<List<ParkingModel>>(this.cache.GetString(this.cacheKey));
+                    return this.Ok(new { Status = true, Message = "Park Vehical Data Retrive Succesfully", Data = data });
                 }
                 else
                 {
-                    return this.NotFound(new { Status = false, Message = "Record Not Found" });
+                    return this.NotFound(new { Status = true, Message = "Data Not Found", Data = getResult });
                 }
             }
             catch (Exception e)
             {
-                return this.BadRequest(new { Status = false, Message =e.Message});
+                return this.BadRequest(new { Status = false, Message = e.Message });
             }
         }
     }
