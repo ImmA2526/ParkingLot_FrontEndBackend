@@ -38,11 +38,11 @@ namespace ParkingLotApplication.Controllers
                 var result = this.driverParking.ParkingVehical(park);
                 if (result != null && park.DriverTypeID==4)
                 {
-                    return this.Ok(new { Status = true, Message = "Data Added Succesfully", Data = result });
+                    return this.Ok(new { Status = true, Message = "Parking Succesfully", Data = result });
                 }
                 else
                 {
-                    return this.BadRequest(new { Status = false, Message = "There is not Empty Slot" });
+                    return this.BadRequest(new { Status = false, Message = "Error While Parking" });
                 }
             }
             catch (Exception e)

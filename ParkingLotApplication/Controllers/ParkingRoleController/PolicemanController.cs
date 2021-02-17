@@ -84,7 +84,7 @@ namespace ParkingLotApplication.Controllers
                 }
                 else
                 {
-                    return this.BadRequest(new { Status = false, Message = "Error While Updating" });
+                    return this.BadRequest(new { Status = false, Message = "Error While Unparking" });
                 }
             }
             catch (Exception e)
