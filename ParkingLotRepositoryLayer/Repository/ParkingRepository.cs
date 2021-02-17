@@ -176,23 +176,23 @@ namespace ParkingLotRepositoryLayer.Repository
         /// <param name="search">The search.</param>
         /// <returns></returns>
 
-        public IEnumerable<ParkingModel> SearchVehical(string vehicalNo)
-        {
-            try
-            {
-                IEnumerable<ParkingModel> searchResult = parkingContext.ParkingTable.Where(e => e.VehicalNo == vehicalNo).ToList();
-                if (searchResult != null)
-                {
-                    return searchResult;
-                }
-                return null;
+        //public IEnumerable<ParkingModel> SearchVehical(string vehicalNo)
+        //{
+        //    try
+        //    {
+        //        IEnumerable<ParkingModel> searchResult = parkingContext.ParkingTable.Where(e => e.VehicalNo == vehicalNo).ToList();
+        //        if (searchResult != null)
+        //        {
+        //            return searchResult;
+        //        }
+        //        return null;
 
-            }
-            catch (Exception e)
-            {
-                throw new Exception("Error While Searcing" + e.Message);
-            }
-        }
+        //    }
+        //    catch (Exception e)
+        //    {
+        //        throw new Exception("Error While Searcing" + e.Message);
+        //    }
+        //}
 
         /// <summary>
         /// Searches the vehical by s lot no.
@@ -200,11 +200,11 @@ namespace ParkingLotRepositoryLayer.Repository
         /// <param name="search">The search.</param>
         /// <returns></returns>
         /// <exception cref="Exception">Error While Searcing" + e.Message</exception>
-        public IEnumerable<ParkingModel> SearchVehical(int slotNo)
+        public IEnumerable<ParkingModel> SearchVehical(int slotNo, string vehicalNo)
         {
             try
             {
-                IEnumerable<ParkingModel> searchResult = parkingContext.ParkingTable.Where(e => e.SlotNo == slotNo).ToList();
+                IEnumerable<ParkingModel> searchResult = parkingContext.ParkingTable.Where(e => e.SlotNo == slotNo || e.VehicalNo==vehicalNo).ToList();
                 if (searchResult != null)
                 {
                     return searchResult;

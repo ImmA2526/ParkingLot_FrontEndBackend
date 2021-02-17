@@ -134,15 +134,16 @@ namespace ParkingLotApplication.Controllers
         {
             try
             {
-                if (slotNo > 0)
+                IEnumerable<ParkingModel> searchResult = this.policeParking.SearchVehical(slotNo,vehicalNo);
+                //if (slotNo > 0)
+                //{
+                //    IEnumerable<ParkingModel> searchResult = this.policeParking.SearchVehical(slotNo);
+                //    return this.Ok(new { Status = true, Message = "Vehical Data Found By Slot No", Data = searchResult });
+                //}
+                if (searchResult!=null)
                 {
-                    IEnumerable<ParkingModel> searchResult = this.policeParking.SearchVehical(slotNo);
-                    return this.Ok(new { Status = true, Message = "Vehical Data Found By Slot No", Data = searchResult });
-                }
-                else if (vehicalNo != null)
-                {
-                    IEnumerable<ParkingModel> searchResult = this.policeParking.SearchVehical(vehicalNo);
-                    return this.Ok(new { Status = true, Message = "Vehical Data Found By Vehical No", Data = searchResult });
+                    IEnumerable<ParkingModel> searchResults = this.policeParking.SearchVehical(slotNo,vehicalNo);
+                    return this.Ok(new { Status = true, Message = "Vehical Data Found ", Data = searchResults });
                 }
                 return null;
             }
