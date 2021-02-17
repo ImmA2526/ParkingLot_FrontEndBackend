@@ -13,12 +13,9 @@ namespace ParkingLotRepositoryLayer.IRepository
 
         bool DeleteVehicals();
 
-        //IEnumerable<ParkingModel> SearchVehical(string vehicalNo);
-
         IEnumerable<ParkingModel> SearchVehical(int slotNo,string vehicalNo);
 
         IEnumerable<ParkingModel> GetParkVehicalData();
 
-        //IEnumerable<ParkingModel> GetParkVehicalData(int parkingID);
     }
 }

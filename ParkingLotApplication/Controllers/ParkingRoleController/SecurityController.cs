@@ -92,7 +92,7 @@ namespace ParkingLotApplication.Controllers
         }
 
         /// <summary>
-        /// Searches the vehical by slotNo an Vehical No.
+        /// Searches the vehical by slotNo OR Vehical No.
         /// </summary>
         /// <param name="search">The search.</param>
         /// <returns></returns>
@@ -110,29 +110,16 @@ namespace ParkingLotApplication.Controllers
                     this.cache.SetString(this.cacheKey, JsonConvert.SerializeObject(searchResult));
                 }
 
-                //if (searchResult!=null)
-                //{
-                //     return this.Ok(new { Status = true, Message = "Vehival Data Found By Slot No", Data = searchResult });
-                //}
-
                 ///Redis Cashe Implemented
                 if (this.cache.GetString(this.cacheKey) != null)
                 {
                     var data = JsonConvert.DeserializeObject<List<ParkingModel>>(this.cache.GetString(this.cacheKey));
                     return this.Ok(new { Status = true, Message = "Park Vehical Data Retrive Succesfully", Data = data });
                 }
-
                 else
                 {
                     return this.NotFound(new { Status = true, Message = "Data Not Found", Data = searchResult });
                 }
-
-                //else if (vehicalNo != null)
-                //{
-                //    IEnumerable<ParkingModel> searchResult = this.securityParking.SearchVehical(vehicalNo);
-                //    return this.Ok(new { Status = true, Message = "Vehical Data Found By Vehical No", Data = searchResult });
-                //}
-                //return null;
             }
 
             catch (Exception e)
@@ -176,5 +163,6 @@ namespace ParkingLotApplication.Controllers
                 return this.BadRequest(new { Status = false, Message = e.Message });
             }
         }
+
     }
 }

@@ -15,7 +15,7 @@ namespace ParkingLotApplication.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    //[Authorize(Roles = "Policeman")]
+    [Authorize(Roles = "Policeman")]
     public class PolicemanController : ControllerBase
     {
 
@@ -134,20 +134,24 @@ namespace ParkingLotApplication.Controllers
         {
             try
             {
-                IEnumerable<ParkingModel> searchResult = this.policeParking.SearchVehical(slotNo,vehicalNo);
-                //if (slotNo > 0)
-                //{
-                //    IEnumerable<ParkingModel> searchResult = this.policeParking.SearchVehical(slotNo);
-                //    return this.Ok(new { Status = true, Message = "Vehical Data Found By Slot No", Data = searchResult });
-                //}
-                if (searchResult!=null)
-                {
-                    IEnumerable<ParkingModel> searchResults = this.policeParking.SearchVehical(slotNo,vehicalNo);
-                    return this.Ok(new { Status = true, Message = "Vehical Data Found ", Data = searchResults });
-                }
-                return null;
-            }
+                IEnumerable<ParkingModel> searchResult = this.policeParking.SearchVehical(slotNo, vehicalNo);
 
+                if (searchResult != null)
+                {
+                    this.cache.SetString(this.cacheKey, JsonConvert.SerializeObject(searchResult));
+                }
+
+                ///Redis Cashe Implemented
+                if (this.cache.GetString(this.cacheKey) != null)
+                {
+                    var data = JsonConvert.DeserializeObject<List<ParkingModel>>(this.cache.GetString(this.cacheKey));
+                    return this.Ok(new { Status = true, Message = "Park Vehical Data Retrive Succesfully", Data = data });
+                }
+                else
+                {
+                    return this.NotFound(new { Status = true, Message = "Data Not Found", Data = searchResult });
+                }
+            }
             catch (Exception e)
             {
                 return this.NotFound(new { Status = false, Message = e.Message });

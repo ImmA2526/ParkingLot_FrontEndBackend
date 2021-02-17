@@ -184,7 +184,7 @@ namespace ParkingLotApplication.Controllers
             }
         }
 
-        //Types Of Data Being Added //
+        //----- Types Of Data Being Added ----- //
         ///// <summary>
         ///// Adding Type of Vehical.
         ///// </summary>
