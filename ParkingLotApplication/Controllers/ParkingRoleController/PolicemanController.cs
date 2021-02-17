@@ -42,7 +42,7 @@ namespace ParkingLotApplication.Controllers
                 }
                 else
                 {
-                    return this.BadRequest(new { Status = false, Message = "Error While Parking" });
+                    return this.BadRequest(new { Status = false, Message = "Error While Parking"});
                 }
             }
             catch (Exception e)
@@ -128,19 +128,19 @@ namespace ParkingLotApplication.Controllers
                 if (slotNo > 0)
                 {
                     IEnumerable<ParkingModel> searchResult = this.policeParking.SearchVehical(slotNo);
-                    return this.Ok(searchResult);
+                    return this.Ok(new { Status = true, Message = "Vehical Data Found By Slot No", Data = searchResult });
                 }
                 else if (vehicalNo != null)
                 {
                     IEnumerable<ParkingModel> searchResult = this.policeParking.SearchVehical(vehicalNo);
-                    return this.Ok(searchResult);
+                    return this.Ok(new { Status = true, Message = "Vehical Data Found By Vehical No", Data = searchResult });
                 }
                 return null;
             }
 
             catch (Exception e)
             {
-                return this.BadRequest(e.Message);
+                return this.NotFound(new { Status = false, Message = e.Message });
             }
         }
 
@@ -159,16 +159,16 @@ namespace ParkingLotApplication.Controllers
                 IEnumerable<ParkingModel> getResult = this.policeParking.GetParkVehicalData();
                 if (getResult != null)
                 {
-                    return this.Ok(getResult);
+                    return this.Ok(new { Status = true, Message = "Park Vehical Data Retrive Succesfully", Data = getResult });
                 }
                 else
                 {
-                    return this.NotFound("Record Not Found");
+                    return this.NotFound(new { Status = false, Message = "Record Not Found" });
                 }
             }
             catch (Exception e)
             {
-                return this.BadRequest(e.Message);
+                return this.BadRequest(new { Status = false, Message =e.Message});
             }
         }
     }

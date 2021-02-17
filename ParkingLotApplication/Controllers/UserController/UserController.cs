@@ -24,11 +24,16 @@ namespace ParkingLotApplication.Controllers
         private readonly IUserBusiness business;
         private readonly IConfiguration configuration;
         private IDistributedCache cache;
+        private string cacheKey;
+        private DistributedCacheEntryOptions options;
         public UserController(IUserBusiness business, IConfiguration configuration, IDistributedCache cache)
         {
             this.business = business;
             this.configuration = configuration;
             this.cache = cache;
+            this.options = new DistributedCacheEntryOptions().SetSlidingExpiration(TimeSpan.FromHours(3.0));
+            this.cacheKey = "parkingLotUser";
+
         }
 
         /// <summary>
@@ -70,7 +75,7 @@ namespace ParkingLotApplication.Controllers
                 var result = this.business.UserRegistration(user);
                 if (result != null)
                 {
-                    return this.Ok(new { Status = true, Message = "Data Added successfully", Data = result });
+                    return this.Ok(new { Status = true, Message = "Data Added Successfully", Data = result });
                 }
                 else
                 {
@@ -96,9 +101,7 @@ namespace ParkingLotApplication.Controllers
             try
             {
                 //Redis Code For Login
-
                 var cacheKey = "loginData";
-                //string serializedloginList;
                 var loginData = new List<LoginModel>();
                 var redis = await cache.GetAsync(cacheKey);
                 if (string.IsNullOrEmpty(cache.GetString("loginData")))
@@ -197,11 +200,11 @@ namespace ParkingLotApplication.Controllers
                 var result = this.business.VehicalTypes(vehical);
                 if (result != null)
                 {
-                    return this.Ok(new { Status = true, message = "vehical type added sucesfully", data = result });
+                    return this.Ok(new { Status = true, message = "Vehical Type Added Sucesfully", data = result });
                 }
                 else
                 {
-                    return this.BadRequest(new { Status = false, message = "error while adding" });
+                    return this.BadRequest(new { Status = false, message = "Error While Adding" });
                 }
 
             }
@@ -226,7 +229,7 @@ namespace ParkingLotApplication.Controllers
                 var result = this.business.DriverTypes(driver);
                 if (result != null)
                 {
-                    return this.Ok(new { Status = true, message = "Driver Type added sucesfully", data = result });
+                    return this.Ok(new { Status = true, message = "Driver Type Added Sucesfully", data = result });
                 }
                 else
                 {
@@ -261,7 +264,6 @@ namespace ParkingLotApplication.Controllers
                 {
                     return this.BadRequest(new { Status = false, message = "Error while Adding Parking Data" });
                 }
-
             }
             catch (Exception e)
             {

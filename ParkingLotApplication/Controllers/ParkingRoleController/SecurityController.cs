@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Distributed;
+using Newtonsoft.Json;
 using ParkingLotBusinessLayer.IBusinessLayer;
 using ParkingLotBusinessLayer.IParkingBusinessLayer;
 using ParkingLotModelLayer;
@@ -13,14 +15,19 @@ namespace ParkingLotApplication.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    //[Authorize(Roles = "Policeman,Security")]
+    [Authorize(Roles = "Policeman,Security")]
     public class SecurityController : ControllerBase
     {
-
+        private IDistributedCache cache;
+        private string cacheKey;
+        private DistributedCacheEntryOptions options;
         private readonly IParkingBusiness securityParking;
-        public SecurityController(IParkingBusiness securityParking)
+        public SecurityController(IParkingBusiness securityParking, IDistributedCache cache)
         {
             this.securityParking = securityParking;
+            this.cache = cache;
+            this.cacheKey = "parkingLot";
+            this.options = new DistributedCacheEntryOptions().SetSlidingExpiration(TimeSpan.FromHours(3.0));
         }
 
         /// <summary>
@@ -28,7 +35,7 @@ namespace ParkingLotApplication.Controllers
         /// </summary>
         /// <param name="park">The park.</param>
         /// <returns></returns>
-        
+
         [HttpPost]
         [Route("securityVehicalPark")]
         public IActionResult SecurityVehicalPark([FromBody] ParkingModel park)
@@ -99,19 +106,19 @@ namespace ParkingLotApplication.Controllers
                 if (slotNo >0)
                 {
                     IEnumerable<ParkingModel> searchResult = this.securityParking.SearchVehical(slotNo);
-                    return this.Ok(searchResult);
+                    return this.Ok(new { Status = true, Message = "Vehival Data Found By Slot No", Data = searchResult });
                 }
                 else if (vehicalNo != null)
                 {
                     IEnumerable<ParkingModel> searchResult = this.securityParking.SearchVehical(vehicalNo);
-                    return this.Ok(searchResult);
+                    return this.Ok(new { Status = true, Message = "Vehical Data Found By Vehical No", Data = searchResult });
                 }
                 return null;
             }
 
             catch (Exception e)
             {
-                return this.BadRequest(e.Message);
+                return this.NotFound(new { Status = false, Message = e.Message });
             }
         }
 
@@ -128,18 +135,26 @@ namespace ParkingLotApplication.Controllers
             try
             {
                 IEnumerable<ParkingModel> getResult = this.securityParking.GetParkVehicalData();
+
                 if (getResult != null)
                 {
-                    return this.Ok(getResult);
+                    this.cache.SetString(this.cacheKey, JsonConvert.SerializeObject(getResult));
+                }
+
+                ///Redis Cashe Implemented
+                if (this.cache.GetString(this.cacheKey) != null)
+                {
+                    var data = JsonConvert.DeserializeObject<List<ParkingModel>>(this.cache.GetString(this.cacheKey));
+                    return this.Ok(new { Status = true, Message = "Park Vehical Data Retrive Succesfully", Data = data });
                 }
                 else
                 {
-                    return this.NotFound("Record Not Found");
+                    return this.NotFound(new { Status = true, Message = "Data Not Found", Data = getResult });
                 }
             }
             catch (Exception e)
             {
-                return this.BadRequest(e.Message);
+                return this.BadRequest(new { Status = false, Message = e.Message });
             }
         }
     }
