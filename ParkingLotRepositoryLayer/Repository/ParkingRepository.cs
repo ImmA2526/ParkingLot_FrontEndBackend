@@ -126,8 +126,6 @@ namespace ParkingLotRepositoryLayer.Repository
                         this.parkingContext.ParkingTable.Update(parkingResult);
                         this.parkingContext.SaveChangesAsync();
 
-                        //string subject = "Your Parking Detail is";
-                        //var userId = parkingResult.userId;
                         if (results != null)
                         {
                             ///Sending Mail Regarding with Parking Data...
@@ -212,6 +210,7 @@ namespace ParkingLotRepositoryLayer.Repository
             }
             return null;
         }
+
         /// <summary>
         /// Deletes the vehical if the slot is Empty.
         /// </summary>
