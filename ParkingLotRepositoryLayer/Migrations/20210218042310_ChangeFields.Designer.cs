@@ -10,8 +10,8 @@ using ParkingLotRepositoryLayer;
 namespace ParkingLotRepositoryLayer.Migrations
 {
     [DbContext(typeof(ParkingContext))]
-    [Migration("20210215130119_Table")]
-    partial class Table
+    [Migration("20210218042310_ChangeFields")]
+    partial class ChangeFields
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -68,7 +68,7 @@ namespace ParkingLotRepositoryLayer.Migrations
 
             modelBuilder.Entity("ParkingLotModelLayer.ParkingTypeModel", b =>
                 {
-                    b.Property<int>("ParkTypeID")
+                    b.Property<int>("ParkingTypeID")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -77,14 +77,14 @@ namespace ParkingLotRepositoryLayer.Migrations
                     b.Property<string>("ParkingType")
                         .IsRequired();
 
-                    b.HasKey("ParkTypeID");
+                    b.HasKey("ParkingTypeID");
 
                     b.ToTable("ParkingTypeTable");
                 });
 
             modelBuilder.Entity("ParkingLotModelLayer.UserModel", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("userId")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -102,7 +102,7 @@ namespace ParkingLotRepositoryLayer.Migrations
                     b.Property<string>("Role")
                         .IsRequired();
 
-                    b.HasKey("Id");
+                    b.HasKey("userId");
 
                     b.ToTable("UserTable");
                 });

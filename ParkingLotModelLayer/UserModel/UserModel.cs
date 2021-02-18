@@ -8,7 +8,7 @@ namespace ParkingLotModelLayer
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
+        public int userId { get; set; }
 
         [Required]
         public string FirstName { get; set; }

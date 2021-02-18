@@ -66,7 +66,7 @@ namespace ParkingLotRepositoryLayer.Migrations
 
             modelBuilder.Entity("ParkingLotModelLayer.ParkingTypeModel", b =>
                 {
-                    b.Property<int>("ParkTypeID")
+                    b.Property<int>("ParkingTypeID")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -75,14 +75,14 @@ namespace ParkingLotRepositoryLayer.Migrations
                     b.Property<string>("ParkingType")
                         .IsRequired();
 
-                    b.HasKey("ParkTypeID");
+                    b.HasKey("ParkingTypeID");
 
                     b.ToTable("ParkingTypeTable");
                 });
 
             modelBuilder.Entity("ParkingLotModelLayer.UserModel", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("userId")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -100,7 +100,7 @@ namespace ParkingLotRepositoryLayer.Migrations
                     b.Property<string>("Role")
                         .IsRequired();
 
-                    b.HasKey("Id");
+                    b.HasKey("userId");
 
                     b.ToTable("UserTable");
                 });

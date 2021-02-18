@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace ParkingLotRepositoryLayer.Migrations
 {
-    public partial class Table : Migration
+    public partial class ChangeFields : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -47,21 +47,21 @@ namespace ParkingLotRepositoryLayer.Migrations
                 name: "ParkingTypeTable",
                 columns: table => new
                 {
-                    ParkTypeID = table.Column<int>(nullable: false)
+                    ParkingTypeID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     ParkingType = table.Column<string>(nullable: false),
                     Charges = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ParkingTypeTable", x => x.ParkTypeID);
+                    table.PrimaryKey("PK_ParkingTypeTable", x => x.ParkingTypeID);
                 });
 
             migrationBuilder.CreateTable(
                 name: "UserTable",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
+                    userId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     FirstName = table.Column<string>(nullable: false),
                     LastName = table.Column<string>(nullable: false),
@@ -71,7 +71,7 @@ namespace ParkingLotRepositoryLayer.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_UserTable", x => x.Id);
+                    table.PrimaryKey("PK_UserTable", x => x.userId);
                 });
 
             migrationBuilder.CreateTable(

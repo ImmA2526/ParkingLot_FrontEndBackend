@@ -109,7 +109,7 @@ namespace ParkingLotRepositoryLayer.Repository
         {
             var result = from parkingModel in parkingContext.ParkingTable
                          join parkingTypeModel in parkingContext.ParkingTypeTable
-                         on parkingModel.ParkTypeID equals parkingTypeModel.ParkTypeID
+                         on parkingModel.ParkTypeID equals parkingTypeModel.ParkingTypeID
 
                          join driverTypeModel in parkingContext.DriverTypeTable
                          on parkingModel.DriverTypeID equals driverTypeModel.DriverTypeID
