@@ -49,7 +49,7 @@ namespace ParkingLotApplication.Controllers
                 }
                 else
                 {
-                    return this.BadRequest(new { Status = false, Message = "There is not Empty Slot" });
+                    return this.BadRequest(new { Status = false, Message = "Please Check Driver Type ID" });
                 }
             }
             catch (Exception e)

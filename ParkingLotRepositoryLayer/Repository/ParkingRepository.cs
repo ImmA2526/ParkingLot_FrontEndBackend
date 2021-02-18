@@ -53,7 +53,7 @@ namespace ParkingLotRepositoryLayer.Repository
         }
 
         /// <summary>
-        /// Unparkings the vehical.
+        /// Park Unpark Vehical According to IsEmpty Status
         /// </summary>
         /// <param name="unpark">The unpark.</param>
         /// <returns></returns>
@@ -68,6 +68,7 @@ namespace ParkingLotRepositoryLayer.Repository
                 var userId = parkingResult.userId;
                 var results = parkingContext.UserTable.FirstOrDefault(e => e.userId == userId);
                 var email = results.Email;
+
 
                 if (parkingResult != null)
                 {
@@ -86,7 +87,7 @@ namespace ParkingLotRepositoryLayer.Repository
                         ///Sending Mail Regarding with Parking Data...
                         var parkVehical = "<h1>Parking Detail </h1><div><b>Hi " + results.FirstName + " </b>,<br></div>" +
                        "<table border=1px;><tr><td>Vehical No</td><td>" + parkingResult.VehicalNo + "</td></tr>"
-                        +"<tr><td>Entry Time</td><td>" + parkingResult.EntryTime + "</td></tr>"
+                        + "<tr><td>Entry Time</td><td>" + parkingResult.EntryTime + "</td></tr>"
                         + "<tr><td>Exit Time</td><td>" + parkingResult.ExitTime + "</td></tr>"
                        + "<tr><td>Charges</td><td><b>" + parkingResult.Charges + "</b></td></tr></table>";
 
@@ -133,7 +134,7 @@ namespace ParkingLotRepositoryLayer.Repository
                             var parkVehical = "<h1>Parking Detail </h1><div><b>Hi " + results.FirstName + " </b>,<br></div>" +
                            "<table border=1px;><tr><td>Vehical No</td><td>" + parkingResult.VehicalNo + "</td></tr>"
                            + "<tr><td>Entry Time</td><td><b>" + parkingResult.EntryTime + "</b></td></tr></table>";
-
+                        
                             Sender send = new Sender();
                             send.MailSender(parkVehical);
 
@@ -210,7 +211,6 @@ namespace ParkingLotRepositoryLayer.Repository
             }
             return null;
         }
-
         /// <summary>
         /// Deletes the vehical if the slot is Empty.
         /// </summary>
