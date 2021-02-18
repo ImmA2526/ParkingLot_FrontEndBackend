@@ -15,7 +15,7 @@ namespace ParkingLotApplication.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    //[Authorize(Roles = "Policeman,Security")]
+    [Authorize(Roles = "Policeman,Security")]
     public class SecurityController : ControllerBase
     {
         private IDistributedCache cache;
@@ -32,7 +32,7 @@ namespace ParkingLotApplication.Controllers
 
         /// <summary>
         /// Security Vehical Parking.
-        /// </summary>
+        /// </summary>///
         /// <param name="park">The park.</param>
         /// <returns></returns>
 

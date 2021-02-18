@@ -87,16 +87,16 @@ namespace ParkingLotApplication
             services.AddDistributedRedisCache(options =>
             {
                 options.Configuration = "localhost:6379";
-                options.InstanceName = "ParkingLot";
+                //options.InstanceName = "ParkingLot";
             });
             
             ///MAnaging Session Time 
-            services.AddSession(options =>
-            {
-                options.IdleTimeout = TimeSpan.FromMinutes(30);//We set Time here 
-                options.Cookie.HttpOnly = true;
-                options.Cookie.IsEssential = true;
-            });
+            //services.AddSession(options =>
+            //{
+            //    options.IdleTimeout = TimeSpan.FromMinutes(30);//We set Time here 
+            //    options.Cookie.HttpOnly = true;
+            //    options.Cookie.IsEssential = true;
+            //});
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -117,7 +117,7 @@ namespace ParkingLotApplication
             });
             app.UseAuthentication();
             app.UseHttpsRedirection();
-            app.UseSession();
+            //app.UseSession();
             app.UseMvc();
         }
     }
