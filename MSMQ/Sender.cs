@@ -9,10 +9,9 @@ namespace PMSMQ
         /// Send Mail.
         /// </summary>
 
-        public void MailSender()
+        public void MailSender(string sendData)
         {
-            var forgotPassword = "Reset Password link for Parking Model:- This is the Link of Your Forgot Password ";
-            MessageQueue msgQueue = new MessageQueue();
+              MessageQueue msgQueue = new MessageQueue();
             if (MessageQueue.Exists(@".\Private$\MyQueue"))
             {
                 msgQueue = new MessageQueue(@".\Private$\MyQueue");
@@ -24,7 +23,7 @@ namespace PMSMQ
             Message message = new Message
             {
                 Formatter = new BinaryMessageFormatter(),
-                Body = forgotPassword
+                Body = sendData
             };
             msgQueue.Label = "E-Mails";
             msgQueue.Send(message);

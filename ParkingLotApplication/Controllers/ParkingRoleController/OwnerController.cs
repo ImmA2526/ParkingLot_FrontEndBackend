@@ -13,7 +13,7 @@ namespace ParkingLotApplication.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize(Roles = "Owner,Policeman")]
+    //[Authorize(Roles = "Owner,Policeman")]
     public class OwnerController : ControllerBase
     {
 
@@ -36,7 +36,7 @@ namespace ParkingLotApplication.Controllers
             try
             {
                 var result = this.parking.ParkingVehical(park);
-                if (result != null && park.DriverTypeID==3)
+                if (result != null && park.DriverTypeID==2)
                 {
                     return this.Ok(new { Status = true, Message = "Parking Successfully", Data = result });
                 }

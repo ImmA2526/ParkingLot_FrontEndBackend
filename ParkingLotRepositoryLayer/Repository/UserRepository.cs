@@ -128,6 +128,7 @@ namespace ParkingLotRepositoryLayer.Repository
         {
             try
             {
+                var forgotPassword = "Reset Password link for Parking Model:- This is the Link of Your Forgot Password ";
                 string subject = "Your Password is";
                 string body;
                 var result = parkingContext.UserTable.FirstOrDefault(e => e.Email == forgot.Email);
@@ -137,7 +138,7 @@ namespace ParkingLotRepositoryLayer.Repository
                     //string decode = Decryptdata(result.Password);
                      
                     Sender send = new Sender();
-                    send.MailSender();
+                    send.MailSender(forgotPassword);
 
                     Recever recev = new Recever();
                     var forgotLink = recev.MailReciver();

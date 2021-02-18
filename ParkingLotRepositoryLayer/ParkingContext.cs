@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ParkingLotModelLayer;
-using System;
+
+
 namespace ParkingLotRepositoryLayer
 {
     public class ParkingContext : DbContext
@@ -19,5 +20,6 @@ namespace ParkingLotRepositoryLayer
         public DbSet<VehicalTypeModel> VehicalTypeTable { get; set; }
         
         public DbSet<ParkingTypeModel> ParkingTypeTable { get; set; }
+
     }
 }

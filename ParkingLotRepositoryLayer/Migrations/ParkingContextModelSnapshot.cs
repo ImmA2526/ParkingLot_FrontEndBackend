@@ -50,7 +50,7 @@ namespace ParkingLotRepositoryLayer.Migrations
 
                     b.Property<bool>("IsEmpty");
 
-                    b.Property<int>("ParkTypeID");
+                    b.Property<int>("ParkingTypeID");
 
                     b.Property<int>("SlotNo");
 
@@ -58,6 +58,8 @@ namespace ParkingLotRepositoryLayer.Migrations
                         .IsRequired();
 
                     b.Property<int>("VehicleTypeID");
+
+                    b.Property<int>("userId");
 
                     b.HasKey("ParkingId");
 

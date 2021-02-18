@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace ParkingLotRepositoryLayer.Migrations
 {
-    public partial class ChangeFields : Migration
+    public partial class UpdateModels : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -34,9 +34,10 @@ namespace ParkingLotRepositoryLayer.Migrations
                     EntryTime = table.Column<DateTime>(nullable: false),
                     ExitTime = table.Column<DateTime>(nullable: false),
                     Charges = table.Column<int>(nullable: false),
-                    ParkTypeID = table.Column<int>(nullable: false),
+                    ParkingTypeID = table.Column<int>(nullable: false),
                     VehicleTypeID = table.Column<int>(nullable: false),
-                    DriverTypeID = table.Column<int>(nullable: false)
+                    DriverTypeID = table.Column<int>(nullable: false),
+                    userId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {

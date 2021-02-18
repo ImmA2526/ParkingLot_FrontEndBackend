@@ -3,6 +3,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using ParkingLotModelLayer;
 using ParkingLotRepositoryLayer.IRepository;
+using PMSMQ;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
@@ -32,7 +33,7 @@ namespace ParkingLotRepositoryLayer.Repository
         {
             try
             {
-                if (park.DriverTypeID >0 && park.DriverTypeID < 5 )
+                if (park.DriverTypeID > 0 && park.DriverTypeID < 5)
                 {
                     park.EntryTime = DateTime.Now;
                     park.ExitTime = new DateTime(0000 - 0000 - 000);
@@ -78,19 +79,54 @@ namespace ParkingLotRepositoryLayer.Repository
                         this.parkingContext.SaveChangesAsync();
                         return result;
                     }
-               
+
                     //Park Vehical if the Vehical is Not Park
                     else
                     {
+                        string subject = "Your Parking Detail is";
                         var result = CalculateCharge(parkingResult.ParkingId);
                         parkingResult.IsEmpty = true;
                         parkingResult.Charges = 0;
                         parkingResult.EntryTime = DateTime.Now;
-                        parkingResult.ExitTime = new DateTime(0000-0000-000);
+                        parkingResult.ExitTime = new DateTime(0000 - 0000 - 000);
                         this.parkingContext.ParkingTable.Update(parkingResult);
                         this.parkingContext.SaveChangesAsync();
-                        return result;
-                    }   
+
+                        var userId = parkingResult.userId;
+                        var results = parkingContext.UserTable.FirstOrDefault(e => e.userId == userId);
+                        var email = results.Email;
+                        if (results != null)
+                        {
+                            ///Sending Mail Regarding with Parking Data...
+
+                            var parkVehical = "<h1>Parking Detail </h1><div><b>Hi " + results.FirstName + " </b>,<br></div>" +
+                           "<table border=1px;><tr><td>Vehical No</td><td>" + parkingResult.VehicalNo + "</td></tr>"
+                           + "<tr><td>Password</td><td><b>" + parkingResult.EntryTime + "</b></td></tr></table>";
+
+                            Sender send = new Sender();
+                            send.MailSender(parkVehical);
+
+                            Recever recev = new Recever();
+                            var Parking = recev.MailReciver();
+                            var body = Parking;
+                            using (MailMessage mailMessage = new MailMessage("imraninfo.1996@gmail.com", email))
+                            {
+                                mailMessage.Subject = subject;
+                                mailMessage.Body = body;
+                                mailMessage.IsBodyHtml = true;
+                                SmtpClient smtp = new SmtpClient();
+                                smtp.Host = "smtp.gmail.com";
+                                smtp.EnableSsl = true;
+                                NetworkCredential NetworkCred = new NetworkCredential("imraninfo.1996@gmail.com", "9175833272");
+                                smtp.UseDefaultCredentials = true;
+                                smtp.Credentials = NetworkCred;
+                                smtp.Port = 587;
+                                smtp.Send(mailMessage);
+                            }
+
+                            return result;
+                        }
+                    }
                 }
                 return null;
             }
@@ -109,7 +145,7 @@ namespace ParkingLotRepositoryLayer.Repository
         {
             var result = from parkingModel in parkingContext.ParkingTable
                          join parkingTypeModel in parkingContext.ParkingTypeTable
-                         on parkingModel.ParkTypeID equals parkingTypeModel.ParkingTypeID
+                         on parkingModel.ParkingTypeID equals parkingTypeModel.ParkingTypeID
 
                          join driverTypeModel in parkingContext.DriverTypeTable
                          on parkingModel.DriverTypeID equals driverTypeModel.DriverTypeID
@@ -176,12 +212,12 @@ namespace ParkingLotRepositoryLayer.Repository
         /// <param name="search">The search.</param>
         /// <returns></returns>
         /// <exception cref="Exception">Error While Searcing" + e.Message</exception>
-        
+
         public IEnumerable<ParkingModel> SearchVehical(int slotNo, string vehicalNo)
         {
             try
             {
-                IEnumerable<ParkingModel> searchResult = parkingContext.ParkingTable.Where(e => e.SlotNo == slotNo || e.VehicalNo==vehicalNo).ToList();
+                IEnumerable<ParkingModel> searchResult = parkingContext.ParkingTable.Where(e => e.SlotNo == slotNo || e.VehicalNo == vehicalNo).ToList();
                 if (searchResult != null)
                 {
                     return searchResult;
@@ -205,7 +241,7 @@ namespace ParkingLotRepositoryLayer.Repository
         {
             try
             {
-                IEnumerable<ParkingModel> getResult = parkingContext.ParkingTable.Where(e => e.IsEmpty==true).ToList();
+                IEnumerable<ParkingModel> getResult = parkingContext.ParkingTable.Where(e => e.IsEmpty == true).ToList();
                 if (getResult != null)
                 {
                     return getResult;

@@ -10,8 +10,8 @@ using ParkingLotRepositoryLayer;
 namespace ParkingLotRepositoryLayer.Migrations
 {
     [DbContext(typeof(ParkingContext))]
-    [Migration("20210218042310_ChangeFields")]
-    partial class ChangeFields
+    [Migration("20210218071506_UpdateModels")]
+    partial class UpdateModels
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -52,7 +52,7 @@ namespace ParkingLotRepositoryLayer.Migrations
 
                     b.Property<bool>("IsEmpty");
 
-                    b.Property<int>("ParkTypeID");
+                    b.Property<int>("ParkingTypeID");
 
                     b.Property<int>("SlotNo");
 
@@ -60,6 +60,8 @@ namespace ParkingLotRepositoryLayer.Migrations
                         .IsRequired();
 
                     b.Property<int>("VehicleTypeID");
+
+                    b.Property<int>("userId");
 
                     b.HasKey("ParkingId");
 

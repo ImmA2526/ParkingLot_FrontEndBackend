@@ -15,7 +15,7 @@ namespace ParkingLotApplication.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize(Roles = "Policeman,Security")]
+    //[Authorize(Roles = "Policeman,Security")]
     public class SecurityController : ControllerBase
     {
         private IDistributedCache cache;
@@ -43,7 +43,7 @@ namespace ParkingLotApplication.Controllers
             try
             {
                 var result = this.securityParking.ParkingVehical(park);
-                if (result != null && park.DriverTypeID==2)
+                if (result != null && park.DriverTypeID==4)
                 {
                     return this.Ok(new { Status = true, Message = "Data Added Succesfully", Data = result });
                 }

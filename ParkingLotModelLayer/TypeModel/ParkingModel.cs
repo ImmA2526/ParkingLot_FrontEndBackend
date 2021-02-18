@@ -33,7 +33,7 @@ namespace ParkingLotModelLayer
 
         [Required]
         [ForeignKey("ParkingTypeModel")]
-        public int ParkTypeID { get; set; }
+        public int ParkingTypeID { get; set; }
         
         [Required]
         [ForeignKey("VehicalTypeModel")]
@@ -43,5 +43,7 @@ namespace ParkingLotModelLayer
         [ForeignKey("DriverTypeModel")]
         public int DriverTypeID { get; set; }
         
+        [ForeignKey("UserModel")]
+        public int userId { get; set; }        
     }
 }
