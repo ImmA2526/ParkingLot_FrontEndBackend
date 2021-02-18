@@ -63,7 +63,12 @@ namespace ParkingLotRepositoryLayer.Repository
         {
             try
             {
+                string subject = "Your Parking Detail is";
                 var parkingResult = this.parkingContext.ParkingTable.Where<ParkingModel>(model => model.ParkingId == parkingId).SingleOrDefault();
+                var userId = parkingResult.userId;
+                var results = parkingContext.UserTable.FirstOrDefault(e => e.userId == userId);
+                var email = results.Email;
+
                 if (parkingResult != null)
                 {
                     //Unpark Vehical if the Vehical is Alredy Parked
@@ -77,13 +82,42 @@ namespace ParkingLotRepositoryLayer.Repository
                         result.TotalCharges = parkingResult.Charges;
                         this.parkingContext.ParkingTable.Update(parkingResult);
                         this.parkingContext.SaveChangesAsync();
+
+                        ///Sending Mail Regarding with Parking Data...
+                        var parkVehical = "<h1>Parking Detail </h1><div><b>Hi " + results.FirstName + " </b>,<br></div>" +
+                       "<table border=1px;><tr><td>Vehical No</td><td>" + parkingResult.VehicalNo + "</td></tr>"
+                        +"<tr><td>Entry Time</td><td>" + parkingResult.EntryTime + "</td></tr>"
+                        + "<tr><td>Exit Time</td><td>" + parkingResult.ExitTime + "</td></tr>"
+                       + "<tr><td>Charges</td><td><b>" + parkingResult.Charges + "</b></td></tr></table>";
+
+                        Sender send = new Sender();
+                        send.MailSender(parkVehical);
+
+                        Recever recev = new Recever();
+                        var Parking = recev.MailReciver();
+                        var body = Parking;
+
+                        using (MailMessage mailMessage = new MailMessage("imraninfo.1996@gmail.com", email))
+                        {
+                            mailMessage.Subject = subject;
+                            mailMessage.Body = body;
+                            mailMessage.IsBodyHtml = true;
+                            SmtpClient smtp = new SmtpClient();
+                            smtp.Host = "smtp.gmail.com";
+                            smtp.EnableSsl = true;
+                            NetworkCredential NetworkCred = new NetworkCredential("imraninfo.1996@gmail.com", "9175833272");
+                            smtp.UseDefaultCredentials = true;
+                            smtp.Credentials = NetworkCred;
+                            smtp.Port = 587;
+                            smtp.Send(mailMessage);
+                        }
+
                         return result;
                     }
 
                     //Park Vehical if the Vehical is Not Park
                     else
                     {
-                        string subject = "Your Parking Detail is";
                         var result = CalculateCharge(parkingResult.ParkingId);
                         parkingResult.IsEmpty = true;
                         parkingResult.Charges = 0;
@@ -92,16 +126,15 @@ namespace ParkingLotRepositoryLayer.Repository
                         this.parkingContext.ParkingTable.Update(parkingResult);
                         this.parkingContext.SaveChangesAsync();
 
-                        var userId = parkingResult.userId;
-                        var results = parkingContext.UserTable.FirstOrDefault(e => e.userId == userId);
-                        var email = results.Email;
+                        //string subject = "Your Parking Detail is";
+                        //var userId = parkingResult.userId;
                         if (results != null)
                         {
                             ///Sending Mail Regarding with Parking Data...
 
                             var parkVehical = "<h1>Parking Detail </h1><div><b>Hi " + results.FirstName + " </b>,<br></div>" +
                            "<table border=1px;><tr><td>Vehical No</td><td>" + parkingResult.VehicalNo + "</td></tr>"
-                           + "<tr><td>Password</td><td><b>" + parkingResult.EntryTime + "</b></td></tr></table>";
+                           + "<tr><td>Entry Time</td><td><b>" + parkingResult.EntryTime + "</b></td></tr></table>";
 
                             Sender send = new Sender();
                             send.MailSender(parkVehical);
@@ -109,6 +142,7 @@ namespace ParkingLotRepositoryLayer.Repository
                             Recever recev = new Recever();
                             var Parking = recev.MailReciver();
                             var body = Parking;
+
                             using (MailMessage mailMessage = new MailMessage("imraninfo.1996@gmail.com", email))
                             {
                                 mailMessage.Subject = subject;
