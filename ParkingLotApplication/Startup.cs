@@ -45,6 +45,7 @@ namespace ParkingLotApplication
             services.AddTransient<IParkingRepository, ParkingRepository>();
             services.AddTransient<IParkingBusiness, ParkingBusiness>();
 
+            //Swagger Implementetion
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new Info { Title = "ParkingLotApi's", Version = "v1", Description = "Parking Lot System" });
@@ -63,6 +64,8 @@ namespace ParkingLotApplication
                 { "Bearer", new string[] {} }
               });
             });
+
+            //JWT Token 
             var key = Encoding.UTF8.GetBytes(Configuration["Key"]);
             services.AddAuthentication(x =>
             {

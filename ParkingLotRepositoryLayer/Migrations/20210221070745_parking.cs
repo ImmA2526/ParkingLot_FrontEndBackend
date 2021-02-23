@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace ParkingLotRepositoryLayer.Migrations
 {
-    public partial class UpdateModels : Migration
+    public partial class parking : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

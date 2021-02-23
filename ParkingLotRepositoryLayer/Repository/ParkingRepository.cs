@@ -69,7 +69,6 @@ namespace ParkingLotRepositoryLayer.Repository
                 var results = parkingContext.UserTable.FirstOrDefault(e => e.userId == userId);
                 var email = results.Email;
 
-
                 if (parkingResult != null)
                 {
                     //Unpark Vehical if the Vehical is Alredy Parked
@@ -93,7 +92,6 @@ namespace ParkingLotRepositoryLayer.Repository
 
                         Sender send = new Sender();
                         send.MailSender(parkVehical);
-
                         Recever recev = new Recever();
                         var Parking = recev.MailReciver();
                         var body = Parking;
@@ -262,7 +260,6 @@ namespace ParkingLotRepositoryLayer.Repository
                 throw new Exception("Error While Searcing" + e.Message);
             }
         }
-
 
         /// <summary>
         /// Get all ParkVehical Data 

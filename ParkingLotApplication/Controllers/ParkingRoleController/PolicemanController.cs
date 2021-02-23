@@ -185,7 +185,7 @@ namespace ParkingLotApplication.Controllers
                 }
                 else
                 {
-                    return this.NotFound(new { Status = true, Message = "Data Not Found", Data = getResult });
+                    return this.NotFound(new { Status = false, Message = "Data Not Found", Data = getResult });
                 }
             }
             catch (Exception e)
