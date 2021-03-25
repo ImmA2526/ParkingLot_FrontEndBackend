@@ -67,7 +67,6 @@ namespace ParkingLotApplication.Controllers
         /// <returns></returns>
 
         [HttpPost]
-        [Route("registerUser")]
         public IActionResult RegisterUser([FromBody] UserModel user)
         {
             try
@@ -95,7 +94,7 @@ namespace ParkingLotApplication.Controllers
         /// <returns></returns>
 
         [HttpPost]
-        [Route("loginUser")]
+        [Route("Login")]
         public async Task<IActionResult> LoginUser([FromBody] LoginModel login)
         {
             try
@@ -133,12 +132,12 @@ namespace ParkingLotApplication.Controllers
         /// <returns></returns>
         [AllowAnonymous]
         [HttpGet]
-        [Route("forgotPassword")]
-        public IActionResult ForgotPassword([FromQuery] ForgotModel forgot)
+        [Route("{Email}")]
+        public IActionResult ForgotPassword(string Email)
         {
             try
             {
-                var result = this.business.ForgotUserPassword(forgot);
+                var result = this.business.ForgotUserPassword(Email);
 
                 if (result != null)
                 {
@@ -163,7 +162,7 @@ namespace ParkingLotApplication.Controllers
         /// <returns></returns>
 
         [HttpPut]
-        [Route("resetPassword")]
+        [Route("ResetPassword")]
         public IActionResult ResetPassword(LoginModel reset)
         {
             try
@@ -221,7 +220,7 @@ namespace ParkingLotApplication.Controllers
         ///// <returns></returns>
 
         [HttpPost]
-        [Route("driverType")]
+        [Route("DriverType")]
         public IActionResult DriverType([FromBody] DriverTypeModel driver)
         {
             try
@@ -250,7 +249,7 @@ namespace ParkingLotApplication.Controllers
         ///// <returns></returns>//
 
         [HttpPost]
-        [Route("parkingType")]
+        [Route("ParkingType")]
         public IActionResult ParkingType([FromBody] ParkingTypeModel parking)
         {
             try

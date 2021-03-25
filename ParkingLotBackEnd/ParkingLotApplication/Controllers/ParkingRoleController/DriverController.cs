@@ -30,7 +30,6 @@ namespace ParkingLotApplication.Controllers
         /// <returns></returns>
 
         [HttpPost]
-        [Route("driverVehicalPark")]
         public IActionResult DriverVehicalPark([FromBody] ParkingModel park)
         {
             try
@@ -58,7 +57,6 @@ namespace ParkingLotApplication.Controllers
         /// <returns></returns>
 
         [HttpPut]
-        [Route("driverVehicalUnpark")]
         public IActionResult DriverVehicalUnpark(int id)
         {
             try

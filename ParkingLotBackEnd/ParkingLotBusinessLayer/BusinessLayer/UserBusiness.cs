@@ -26,9 +26,9 @@ namespace ParkingLotBusinessLayer
             return result;
         }
 
-        public string ForgotUserPassword(ForgotModel forgot)
+        public string ForgotUserPassword(string Email)
         {
-            var result = userRepo.ForgotUserPassword(forgot);
+            var result = userRepo.ForgotUserPassword(Email);
             return result;
         }
 

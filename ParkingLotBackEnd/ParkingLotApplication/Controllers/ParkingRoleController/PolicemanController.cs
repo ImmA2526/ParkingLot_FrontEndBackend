@@ -15,41 +15,42 @@ namespace ParkingLotApplication.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    //[Authorize(Roles = "Policeman,Security")]
-    public class SecurityController : ControllerBase
+    //[Authorize(Roles = "Policeman")]
+    public class PolicemanController : ControllerBase
     {
+
+        private readonly IParkingBusiness policeParking;
         private IDistributedCache cache;
         private string cacheKey;
         private DistributedCacheEntryOptions options;
-        private readonly IParkingBusiness securityParking;
-        public SecurityController(IParkingBusiness securityParking, IDistributedCache cache)
+
+        public PolicemanController(IParkingBusiness policeParking, IDistributedCache cache)
         {
-            this.securityParking = securityParking;
+            this.policeParking = policeParking;
             this.cache = cache;
             this.cacheKey = "parkingLot";
             this.options = new DistributedCacheEntryOptions().SetSlidingExpiration(TimeSpan.FromHours(3.0));
         }
 
         /// <summary>
-        /// Security Vehical Parking.
-        /// </summary>///
+        /// Policeman Vehical Parking.
+        /// </summary>
         /// <param name="park">The park.</param>
         /// <returns></returns>
 
         [HttpPost]
-        [Route("securityVehicalPark")]
-        public IActionResult SecurityVehicalPark([FromBody] ParkingModel park)
+        public IActionResult PolicemanVehicalPark([FromBody] ParkingModel park)
         {
             try
             {
-                var result = this.securityParking.ParkingVehical(park);
-                if (result != null && park.DriverTypeID==4)
+                var result = this.policeParking.ParkingVehical(park);
+                if (result != null && park.DriverTypeID==3)
                 {
-                    return this.Ok(new { Status = true, Message = "Data Added Succesfully", Data = result });
+                    return this.Ok(new { Status = true, Message = "Parking Succesfully", Data = result });
                 }
                 else
                 {
-                    return this.BadRequest(new { Status = false, Message = "Please Check Driver Type ID" });
+                    return this.BadRequest(new { Status = false, Message = "Error While Parking"});
                 }
             }
             catch (Exception e)
@@ -65,12 +66,11 @@ namespace ParkingLotApplication.Controllers
         /// <returns></returns>
 
         [HttpPut]
-        [Route("securityVehicalUnpark")]
-        public IActionResult SecurityVehicalUnpark(int parkingId)
+        public IActionResult PolicemanVehicalUnpark([FromQuery] int parkingId)
         {
             try
             {
-                var unparks = this.securityParking.UnparkingVehical(parkingId);
+                var unparks = this.policeParking.UnparkingVehical(parkingId);
 
                 if (unparks.IsEmpty == false)
                 {
@@ -82,7 +82,7 @@ namespace ParkingLotApplication.Controllers
                 }
                 else
                 {
-                    return this.BadRequest(new { Status = false, Message = "Error While Updating" });
+                    return this.BadRequest(new { Status = false, Message = "Error While Unparking" });
                 }
             }
             catch (Exception e)
@@ -92,18 +92,46 @@ namespace ParkingLotApplication.Controllers
         }
 
         /// <summary>
-        /// Searches the vehical by slotNo OR Vehical No.
+        /// Delete the vehical if its False.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <returns></returns>
+        
+        [HttpDelete]
+        public IActionResult DeleteVehical()
+        {
+            try
+            {
+                bool delete = this.policeParking.DeleteVehicals();
+
+                if (delete)
+                {
+                    return this.Ok(new { Status = true, Message = "Empty Vehicale Slots Deleted Sucess", Data = delete });
+                }
+                else
+                {
+                    return this.BadRequest(new { Status = false, Message = "Error While Deleting" });
+                }
+            }
+            catch (Exception e)
+            {
+                return this.NotFound(new { Status = false, Message = e.Message });
+            }
+        }
+
+        /// <summary>
+        /// Searches the vehical by slotNo an Vehical No.
         /// </summary>
         /// <param name="search">The search.</param>
         /// <returns></returns>
 
         [HttpGet]
         [Route("searchVehical")]
-        public IActionResult SearchVehical(int slotNo,string vehicalNo)
+        public IActionResult SearchVehical(int slotNo, string vehicalNo)
         {
             try
             {
-                IEnumerable<ParkingModel> searchResult = this.securityParking.SearchVehical(slotNo,vehicalNo);
+                IEnumerable<ParkingModel> searchResult = this.policeParking.SearchVehical(slotNo, vehicalNo);
 
                 if (searchResult != null)
                 {
@@ -121,7 +149,6 @@ namespace ParkingLotApplication.Controllers
                     return this.NotFound(new { Status = true, Message = "Data Not Found", Data = searchResult });
                 }
             }
-
             catch (Exception e)
             {
                 return this.NotFound(new { Status = false, Message = e.Message });
@@ -133,14 +160,13 @@ namespace ParkingLotApplication.Controllers
         /// </summary>
         /// <param name="IsEmpty">if set to <c>true</c> [is empty].</param>
         /// <returns></returns>
-        
+
         [HttpGet]
-        [Route("getparkVehical")]
         public IActionResult GetAllParkVehical()
         {
             try
             {
-                IEnumerable<ParkingModel> getResult = this.securityParking.GetParkVehicalData();
+                IEnumerable<ParkingModel> getResult = this.policeParking.GetParkVehicalData();
 
                 if (getResult != null)
                 {
@@ -155,7 +181,7 @@ namespace ParkingLotApplication.Controllers
                 }
                 else
                 {
-                    return this.NotFound(new { Status = true, Message = "Data Not Found", Data = getResult });
+                    return this.NotFound(new { Status = false, Message = "Data Not Found", Data = getResult });
                 }
             }
             catch (Exception e)
@@ -163,6 +189,5 @@ namespace ParkingLotApplication.Controllers
                 return this.BadRequest(new { Status = false, Message = e.Message });
             }
         }
-
     }
 }
