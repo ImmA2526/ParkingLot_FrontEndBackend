@@ -76,10 +76,7 @@ namespace ParkingLotApplication.Controllers
                 {
                     return this.Ok(new { Status = true, Message = "Data Added Successfully", Data = result });
                 }
-                else
-                {
-                    return this.BadRequest(new { Status = false, Message = "Data is Not Added Succesfully " });
-                }
+                return this.BadRequest(new { Status = false, Message = "Data is Not Added Succesfully " });
             }
             catch (Exception e)
             {
@@ -105,7 +102,7 @@ namespace ParkingLotApplication.Controllers
                 var redis = await cache.GetAsync(cacheKey);
                 if (string.IsNullOrEmpty(cache.GetString("loginData")))
                 {
-                    
+
                 }
 
                 var result = this.business.UserLogin(login);
@@ -114,10 +111,7 @@ namespace ParkingLotApplication.Controllers
                     var token = GenrateJWTToken(result.Role, result.Email);
                     return this.Ok(new { Status = true, Message = "Login Successfully", Data = token });
                 }
-                else
-                {
-                    return this.BadRequest(new { Status = false, Message = "Login Failed" });
-                }
+                return this.BadRequest(new { Status = false, Message = "Login Failed" });
             }
             catch (Exception e)
             {
@@ -143,10 +137,7 @@ namespace ParkingLotApplication.Controllers
                 {
                     return this.Ok(new { Status = true, Message = "Password Send Successfully", Data = result });
                 }
-                else
-                {
-                    return this.BadRequest(new { Status = false, Message = "Sending Password Failed" });
-                }
+                return this.BadRequest(new { Status = false, Message = "Sending Password Failed" });
             }
 
             catch (Exception e)
@@ -172,10 +163,7 @@ namespace ParkingLotApplication.Controllers
                 {
                     return this.Ok(new { Status = true, Message = "Password Reset Succesfully", Data = result });
                 }
-                else
-                {
-                    return this.BadRequest(new { Status = false, Message = "Error While Reseting Password" });
-                }
+                return this.BadRequest(new { Status = false, Message = "Error While Reseting Password" });
             }
             catch (Exception e)
             {
@@ -201,11 +189,7 @@ namespace ParkingLotApplication.Controllers
                 {
                     return this.Ok(new { Status = true, message = "Vehical Type Added Sucesfully", data = result });
                 }
-                else
-                {
-                    return this.BadRequest(new { Status = false, message = "Error While Adding" });
-                }
-
+                return this.BadRequest(new { Status = false, message = "Error While Adding" });
             }
             catch (Exception e)
             {
@@ -230,11 +214,7 @@ namespace ParkingLotApplication.Controllers
                 {
                     return this.Ok(new { Status = true, message = "Driver Type Added Sucesfully", data = result });
                 }
-                else
-                {
-                    return this.BadRequest(new { Status = false, message = "Error While Adding Driver" });
-                }
-
+                return this.BadRequest(new { Status = false, message = "Error While Adding Driver" });
             }
             catch (Exception e)
             {
@@ -259,10 +239,7 @@ namespace ParkingLotApplication.Controllers
                 {
                     return this.Ok(new { Status = true, message = "Parking Data Added sucesfully", data = result });
                 }
-                else
-                {
-                    return this.BadRequest(new { Status = false, message = "Error while Adding Parking Data" });
-                }
+                return this.BadRequest(new { Status = false, message = "Error while Adding Parking Data" });
             }
             catch (Exception e)
             {

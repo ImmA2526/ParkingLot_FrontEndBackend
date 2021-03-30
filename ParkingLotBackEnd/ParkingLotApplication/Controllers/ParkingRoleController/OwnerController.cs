@@ -39,10 +39,7 @@ namespace ParkingLotApplication.Controllers
                 {
                     return this.Ok(new { Status = true, Message = "Parking Successfully", Data = result });
                 }
-                else
-                {
                     return this.BadRequest(new { Status = false, Message = "Error While Parking" });
-                }
             }
             catch (Exception e)
             {

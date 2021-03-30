@@ -46,10 +46,7 @@ namespace ParkingLotApplication.Controllers
                 {
                     return this.Ok(new { Status = true, Message = "Data Added Succesfully", Data = result });
                 }
-                else
-                {
                     return this.BadRequest(new { Status = false, Message = "Please Check Driver Type ID" });
-                }
             }
             catch (Exception e)
             {
@@ -115,12 +112,8 @@ namespace ParkingLotApplication.Controllers
                     var data = JsonConvert.DeserializeObject<List<ParkingModel>>(this.cache.GetString(this.cacheKey));
                     return this.Ok(new { Status = true, Message = "Park Vehical Data Retrive Succesfully", Data = data });
                 }
-                else
-                {
                     return this.NotFound(new { Status = true, Message = "Data Not Found", Data = searchResult });
-                }
             }
-
             catch (Exception e)
             {
                 return this.NotFound(new { Status = false, Message = e.Message });
@@ -151,10 +144,7 @@ namespace ParkingLotApplication.Controllers
                     var data = JsonConvert.DeserializeObject<List<ParkingModel>>(this.cache.GetString(this.cacheKey));
                     return this.Ok(new { Status = true, Message = "Park Vehical Data Retrive Succesfully", Data = data });
                 }
-                else
-                {
-                    return this.NotFound(new { Status = true, Message = "Data Not Found", Data = getResult });
-                }
+                return this.NotFound(new { Status = true, Message = "Data Not Found", Data = getResult });
             }
             catch (Exception e)
             {

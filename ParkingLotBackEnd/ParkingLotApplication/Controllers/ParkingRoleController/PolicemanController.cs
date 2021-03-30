@@ -48,10 +48,7 @@ namespace ParkingLotApplication.Controllers
                 {
                     return this.Ok(new { Status = true, Message = "Parking Succesfully", Data = result });
                 }
-                else
-                {
                     return this.BadRequest(new { Status = false, Message = "Error While Parking"});
-                }
             }
             catch (Exception e)
             {
@@ -108,10 +105,7 @@ namespace ParkingLotApplication.Controllers
                 {
                     return this.Ok(new { Status = true, Message = "Empty Vehicale Slots Deleted Sucess", Data = delete });
                 }
-                else
-                {
                     return this.BadRequest(new { Status = false, Message = "Error While Deleting" });
-                }
             }
             catch (Exception e)
             {
@@ -144,10 +138,7 @@ namespace ParkingLotApplication.Controllers
                     var data = JsonConvert.DeserializeObject<List<ParkingModel>>(this.cache.GetString(this.cacheKey));
                     return this.Ok(new { Status = true, Message = "Park Vehical Data Retrive Succesfully", Data = data });
                 }
-                else
-                {
-                    return this.NotFound(new { Status = true, Message = "Data Not Found", Data = searchResult });
-                }
+                return this.NotFound(new { Status = true, Message = "Data Not Found", Data = searchResult });
             }
             catch (Exception e)
             {
@@ -179,10 +170,7 @@ namespace ParkingLotApplication.Controllers
                     var data = JsonConvert.DeserializeObject<List<ParkingModel>>(this.cache.GetString(this.cacheKey));
                     return this.Ok(new { Status = true, Message = "Park Vehical Data Retrive Succesfully", Data = data });
                 }
-                else
-                {
                     return this.NotFound(new { Status = false, Message = "Data Not Found", Data = getResult });
-                }
             }
             catch (Exception e)
             {
